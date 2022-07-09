@@ -48,16 +48,16 @@ export default function StatsTable(){
                             <TableCell component={'th'} scope={'row'}>
                                 {row.move}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell >
                                 {row.games}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell >
                                 {row.frequency}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell >
                                 {row.elo}
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell>
                                 {row.year}
                             </TableCell>
                             <TableCell align="center">

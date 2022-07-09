@@ -6,8 +6,8 @@ import StatsTable from "./StatsTable";
 
 export default function MyMove(){
     return(
-        <Grid container spacing={2} justifyContent={"center"} marginTop={3}>
-            <Grid item xs={3} >
+        <Grid container spacing={4} justifyContent={"center"} marginTop={3} padding={3} marginBottom={10}>
+            <Grid item xs={12} sm={12} md={12} lg={6} xl={4} >
                 <Typography variant="h3" marginX={2}>
                     Your move: 1.e4
                 </Typography>
@@ -24,14 +24,10 @@ export default function MyMove(){
                    Read more on WikiBooks
 
                 </Link>
-            </Grid>
-            <Grid item xs={4} >
-                <ReactSVG src={"http://localhost:5000/position/svg?fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR%20w%20KQkq%20-%200%201&move=e4"}>
-
-                </ReactSVG>
-            </Grid>
-            <Grid item xs={5}>
                 <StatsTable/>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={6} xl={4} >
+                <ReactSVG src={"http://localhost:5000/position/svg?fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR%20w%20KQkq%20-%200%201&move=e4"}/>
             </Grid>
         </Grid>
     )
