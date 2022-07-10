@@ -3,18 +3,8 @@ import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-function createData(move, games, frequency, elo, year) {
-    return { move, games, frequency, elo, year };
-}
-
-const rows = [
-    createData('e4', 159, 6.0, 24, 4.0),
-    createData('d4', 237, 9.0, 37, 4.3),
-    createData('Nf3', 262, 16.0, 24, 6.0),
-    createData('c4', 305, 3.7, 67, 4.3),
-];
-
-export default function StatsTable(){
+export default function StatsTable({stats}){
+    console.log(stats)
     return(
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650}} aria-label={"position-stats"} size={"small"}>
@@ -36,35 +26,41 @@ export default function StatsTable(){
                             Average Year
                         </TableCell>
                         <TableCell>
+                            White winning rate (%)
+                        </TableCell>
+                        <TableCell>
                             White Wins / Draws / Black Wins
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {stats.map((row) => (
                         <TableRow
                             key={row.move}
                         >
                             <TableCell component={'th'} scope={'row'}>
                                 {row.move}
                             </TableCell>
-                            <TableCell >
-                                {row.games}
+                            <TableCell align={"center"}>
+                                {(row.played).toLocaleString("en-US")}
                             </TableCell>
-                            <TableCell >
-                                {row.frequency}
+                            <TableCell align={"center"}>
+                                {(row.frequency * 100).toFixed(2)}
                             </TableCell>
-                            <TableCell >
-                                {row.elo}
+                            <TableCell align={"center"}>
+                                {row.average_elo}
                             </TableCell>
-                            <TableCell>
+                            <TableCell align={"center"}>
                                 {row.year}
+                            </TableCell>
+                            <TableCell align={"center"}>
+                                {(row.winning_rate * 100).toFixed(2)}
                             </TableCell>
                             <TableCell align="center">
                                 <Stack direction={"row"}>
-                                    <Box sx={{flex:20, backgroundColor:"#bababa2b", borderRadius:'3px 0  0 3px'}}><Typography >20%</Typography></Box>
-                                    <Box sx={{flex:30, backgroundColor:"#777574"}}><Typography sx={{color:"white"}}>30%</Typography></Box>
-                                    <Box sx={{flex:50, backgroundColor:"#403d39", borderRadius:'0 3px 3px 0'}}><Typography sx={{color:"white"}}>50%</Typography></Box>
+                                    <Box sx={{flex:Math.round(row.white_wins / row.played * 100), backgroundColor:"#bababa2b", borderRadius:'3px 0  0 3px'}}><Typography >{Math.round(row.white_wins / row.played * 100)}%</Typography></Box>
+                                    <Box sx={{flex:Math.round(row.draws / row.played * 100), backgroundColor:"#777574"}}><Typography sx={{color:"white"}}>{Math.round(row.draws / row.played * 100)}%</Typography></Box>
+                                    <Box sx={{flex:Math.round(row.black_wins / row.played * 100), backgroundColor:"#403d39", borderRadius:'0 3px 3px 0'}}><Typography sx={{color:"white"}}>{Math.round(row.black_wins / row.played * 100)}%</Typography></Box>
                                 </Stack>
                             </TableCell>
 

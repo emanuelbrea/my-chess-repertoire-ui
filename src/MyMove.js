@@ -9,7 +9,7 @@ import AddMove from "./AddMove";
 import {useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function MyMove() {
+export default function MyMove(props) {
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState();
@@ -28,10 +28,10 @@ export default function MyMove() {
     return (
         <>
 
-            <Grid container spacing={4} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4} >
+            <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4} >
                 <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
                     <Typography variant="h3" marginX={2}>
-                        Your move: 1.e4
+                        Your move: {props.depth}.{props.move.move}
                     </Typography>
                     <Typography marginX={2}>
                         White's assertive opening move opens lines for the queen and king's bishop and fights for
@@ -46,12 +46,12 @@ export default function MyMove() {
                         <br/>
                         <br/>
                     </Typography>
-                    <Link href="https://en.wikibooks.org/wiki/Chess_Opening_Theory/1._e4" marginX={2} target='_blank'>
+                    <Link href={props.move.link} marginX={2} target='_blank'>
                         Read more on WikiBooks
 
                     </Link>
                     <Box sx={{marginTop: 5}}>
-                        <StatsTable/>
+                        <StatsTable stats={props.stats}/>
                     </Box>
 
                 </Grid>
@@ -66,10 +66,10 @@ export default function MyMove() {
                             </CardMedia>
                             <CardContent>
                                 <Typography variant="h6" marginX={2}>
-                                    1.e4
+                                    {props.depth}.{props.move.move}
                                 </Typography>
                                 <Typography variant="h6" marginX={2}>
-                                    Open game
+                                    {props.move.name !== undefined ? props.move.name : '' }
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -88,6 +88,11 @@ export default function MyMove() {
                 open={open}
                 onClose={handleClose}
                 value={value}
+                moves={props.stats}
+                move={props.move}
+                rival={false}
+                fen={props.position.fen}
+                depth={props.depth}
             />
         </>
     )
