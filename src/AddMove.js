@@ -6,9 +6,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Dialog from '@mui/material/Dialog';
 import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
+import getSvgUrl from './util.js'
 
 export default function AddMove(props) {
-    const {onClose, value: valueProp, open, moves, move, rival, fen, depth, ...other} = props;
+    const {onClose, value: valueProp, open, moves, move, fen, depth, ...other} = props;
     const [value, setValue] = useState(valueProp);
 
     useEffect(() => {
@@ -34,10 +35,6 @@ export default function AddMove(props) {
         onClose();
     };
 
-    const getSvgUrl = (fen, move) =>{
-        return 'http://localhost:5000/position/svg?fen=' + fen + '&move=' + move
-    }
-
     return (
         <Dialog
             open={open}
@@ -46,11 +43,13 @@ export default function AddMove(props) {
             onClose={handleClose}
         >
             <DialogTitle>
-                {rival ? 'Add move' : 'Pick move to replace ' + depth + '.' + move.move }
+                {'Pick move to replace ' + depth + '.' + move.move}
             </DialogTitle>
             <DialogContent>
                 <Grid container spacing={5} justifyContent={"center"} paddingRight={2} paddingLeft={2}>
-                    {moves.map((move, index) => (
+                    {moves.filter(function (my_move) {
+                        return (my_move.move !== move.move)
+                    }).map((move, index) => (
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={3}>
                             <Card elevation={10}>
                                 <CardActionArea>

@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 export default function StatsTable({stats}){
-    console.log(stats)
     return(
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650}} aria-label={"position-stats"} size={"small"}>

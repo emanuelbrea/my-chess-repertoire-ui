@@ -9,7 +9,7 @@ import AddMove from "./AddMove";
 import {useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function MyMove(props) {
+export default function MyMove({move, depth, position, stats}) {
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState();
@@ -31,7 +31,7 @@ export default function MyMove(props) {
             <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4} >
                 <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
                     <Typography variant="h3" marginX={2}>
-                        Your move: {props.depth}.{props.move.move}
+                        Your move: {depth}.{move.move}
                     </Typography>
                     <Typography marginX={2}>
                         White's assertive opening move opens lines for the queen and king's bishop and fights for
@@ -46,12 +46,12 @@ export default function MyMove(props) {
                         <br/>
                         <br/>
                     </Typography>
-                    <Link href={props.move.link} marginX={2} target='_blank'>
+                    <Link href={move.link} marginX={2} target='_blank'>
                         Read more on WikiBooks
 
                     </Link>
                     <Box sx={{marginTop: 5}}>
-                        <StatsTable stats={props.stats}/>
+                        <StatsTable stats={stats}/>
                     </Box>
 
                 </Grid>
@@ -66,10 +66,10 @@ export default function MyMove(props) {
                             </CardMedia>
                             <CardContent>
                                 <Typography variant="h6" marginX={2}>
-                                    {props.depth}.{props.move.move}
+                                    {depth}.{move.move}
                                 </Typography>
                                 <Typography variant="h6" marginX={2}>
-                                    {props.move.name !== undefined ? props.move.name : '' }
+                                    {move.name !== undefined ? move.name : '' }
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -88,11 +88,11 @@ export default function MyMove(props) {
                 open={open}
                 onClose={handleClose}
                 value={value}
-                moves={props.stats}
-                move={props.move}
+                moves={stats}
+                move={move}
                 rival={false}
-                fen={props.position.fen}
-                depth={props.depth}
+                fen={position.fen}
+                depth={depth}
             />
         </>
     )

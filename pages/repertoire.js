@@ -9,8 +9,8 @@ export default function Repertoire({data}) {
         <React.Fragment>
             <MyMove move={data['my_move']} stats={data['my_moves']} position={data['position']} depth={data['depth']}/>
             <Divider />
-            {/*<RivalMoves moves={data['rival_moves']}/>*/}
-            {/*<Divider />*/}
+            <RivalMoves moves={data['rival_moves']} position={data['my_move']} depth={data['depth']}/>
+            <Divider />
         </React.Fragment>
 
     );
