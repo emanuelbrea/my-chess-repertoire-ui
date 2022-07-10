@@ -4,10 +4,11 @@ import {ReactSVG} from 'react-svg'
 import Link from "./Link";
 import StatsTable from "./StatsTable";
 import Box from "@mui/material/Box";
-import {Card, CardActionArea, CardContent, CardMedia, Fab} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia, CircularProgress, Fab} from "@mui/material";
 import AddMove from "./AddMove";
 import {useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
+import {getSvgUrl} from "./util";
 
 export default function MyMove({move, depth, position, stats}) {
 
@@ -46,7 +47,7 @@ export default function MyMove({move, depth, position, stats}) {
                         <br/>
                         <br/>
                     </Typography>
-                    <Link href={move.link} marginX={2} target='_blank'>
+                    <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'} marginX={2} target='_blank'>
                         Read more on WikiBooks
 
                     </Link>
@@ -62,7 +63,8 @@ export default function MyMove({move, depth, position, stats}) {
                         >
                             <CardMedia>
                                 <ReactSVG
-                                    src={"http://localhost:5000/position/svg?fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR%20w%20KQkq%20-%200%201&move=e4"}/>
+                                    loading={() => <CircularProgress />}
+                                    src={getSvgUrl(position.fen, move.move)}/>
                             </CardMedia>
                             <CardContent>
                                 <Typography variant="h6" marginX={2}>

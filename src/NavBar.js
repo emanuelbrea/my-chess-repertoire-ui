@@ -26,8 +26,8 @@ export default function NavBar() {
                     </Typography>
                 </Stack>
                 <ButtonGroup variant="outlined" aria-label="text button group">
-                    <Button color={"inherit"}>White</Button>
-                    <Button color={"inherit"}>Black</Button>
+                    <Button href={'/repertoire/white'} color={"inherit"}>White</Button>
+                    <Button href={'/repertoire/black'} color={"inherit"}>Black</Button>
                 </ButtonGroup>
 
                 <Stack direction={"row"} spacing={3}>

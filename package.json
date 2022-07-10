@@ -20,7 +20,9 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-svg": "latest"
+    "react-scroll-to-top": "^1.0.9",
+    "react-svg": "latest",
+    "swr": "latest"
   },
   "devDependencies": {
     "eslint": "latest",
