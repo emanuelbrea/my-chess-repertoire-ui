@@ -62,7 +62,7 @@ export default function StatsTable(){
                             </TableCell>
                             <TableCell align="center">
                                 <Stack direction={"row"}>
-                                    <Box sx={{flex:20, backgroundColor:"#bababa2b", borderRadius:'3px 0  0 3px'}}><Typography sx={{color:"black"}}>20%</Typography></Box>
+                                    <Box sx={{flex:20, backgroundColor:"#bababa2b", borderRadius:'3px 0  0 3px'}}><Typography >20%</Typography></Box>
                                     <Box sx={{flex:30, backgroundColor:"#777574"}}><Typography sx={{color:"white"}}>30%</Typography></Box>
                                     <Box sx={{flex:50, backgroundColor:"#403d39", borderRadius:'0 3px 3px 0'}}><Typography sx={{color:"white"}}>50%</Typography></Box>
                                 </Stack>
