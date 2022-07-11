@@ -11,7 +11,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
 
     useEffect(() => {
         getRepertoireMoves()
-    }, [])
+    }, [fen])
 
     const getRepertoireMoves = async () => {
         const requestOptions = {

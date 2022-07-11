@@ -8,27 +8,23 @@ export default function Repertoire() {
     const router = useRouter()
     const {color} = router.query
     const initialFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
-    const [fens, setFens] = useState({1: initialFen})
+    const [fens, setFens] = useState([initialFen])
     const [currentDepth, setCurrentDepth] = useState(1)
 
 
     function addVariant(move, depth) {
+        let fenCopy = [...fens]
+        fenCopy.length = depth
         if (move && depth) {
-            if (depth + 1 in fens) {
-                removeMoves(depth + 1)
-            }
-            setFens((fens) => ({...fens, [depth + 1]: move.fen}))
+            fenCopy.splice(depth , 0, move.fen)
+            setFens(fenCopy)
             setCurrentDepth(depth + 1);
         }
-
     }
 
     function removeMoves(depth) {
-        for (let i in fens) {
-            if (i > depth) {
-                delete fens[i];
-            }
-        }
+        fens.length = depth
+        setFens(fens)
         setCurrentDepth(depth)
     }
 
@@ -36,7 +32,7 @@ export default function Repertoire() {
 
     return (
         <React.Fragment>
-            {Object.values(fens).map((fen, index) => (
+            {fens.map((fen, index) => (
                 <Line fen={fen} color={color} addVariant={addVariant} key={index} currentDepth={currentDepth}
                       removeMoves={removeMoves}/>
 
