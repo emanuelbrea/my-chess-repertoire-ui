@@ -10,7 +10,7 @@ import {useEffect, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import {getSvgUrl} from "./util";
 
-export default function MyMove({move, depth, position, stats}) {
+export default function MyMove({move, depth, position, stats, currentDepth}) {
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState();
@@ -29,8 +29,7 @@ export default function MyMove({move, depth, position, stats}) {
     };
 
     useEffect(() => {
-        if (fieldRef.current && depth !== 1) {
-            console.log(fieldRef.current)
+        if (fieldRef.current && depth === currentDepth) {
             fieldRef.current.scrollIntoView({
                 behavior: "smooth",
                 block:'center'
