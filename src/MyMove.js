@@ -6,7 +6,7 @@ import StatsTable from "./StatsTable";
 import Box from "@mui/material/Box";
 import {Card, CardActionArea, CardContent, CardMedia, CircularProgress, Fab} from "@mui/material";
 import AddMove from "./AddMove";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import {getSvgUrl} from "./util";
 
@@ -14,6 +14,8 @@ export default function MyMove({move, depth, position, stats}) {
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState();
+    const fieldRef = useRef(null);
+
     const handleClose = (newValue) => {
         setOpen(false);
 
@@ -26,12 +28,24 @@ export default function MyMove({move, depth, position, stats}) {
         setOpen(true);
     };
 
+    useEffect(() => {
+        if (fieldRef.current && depth !== 1) {
+            console.log(fieldRef.current)
+            fieldRef.current.scrollIntoView({
+                behavior: "smooth",
+                block:'center'
+            });
+        }
+
+    });
+
+
     return (
         <>
 
-            <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4} >
-                <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
-                    <Typography variant="h3" marginX={2}>
+            <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4} ref={fieldRef}>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={5} >
+                    <Typography variant="h3" marginX={2} >
                         Your move: {depth}.{move.move}
                     </Typography>
                     <Typography marginX={2}>

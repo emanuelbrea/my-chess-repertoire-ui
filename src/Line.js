@@ -5,22 +5,28 @@ import {CircularProgress, Divider, Fab} from "@mui/material";
 import useSWR from 'swr'
 import {getRepertoireUrl} from "./util";
 import ScrollToTop from "react-scroll-to-top";
+import Typography from "@mui/material/Typography";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 
-export default function Line({fen, color}) {
+export default function Line({fen, color, addVariant}) {
     const {data, error} = useSWR(getRepertoireUrl(fen, color), fetcher)
 
 
     if (!data) return (<CircularProgress/>)
+    if(data['success'] === false){
+        return (<Typography variant="h3" marginX={2}>
+            No more lines
+        </Typography>)
+    }
     return (
         <React.Fragment>
             <MyMove move={data['data']['my_move']} stats={data['data']['my_moves']} position={data['data']['position']}
                     depth={data['data']['depth']}/>
             <Divider/>
             <RivalMoves moves={data['data']['rival_moves']} position={data['data']['my_move']}
-                        depth={data['data']['depth']}/>
+                        depth={data['data']['depth']} addVariant={addVariant}/>
             <Divider/>
             <ScrollToTop smooth />
         </React.Fragment>
