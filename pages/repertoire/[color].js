@@ -15,16 +15,21 @@ export default function Repertoire() {
     function addVariant(move, depth) {
         if (move && depth) {
             if (depth + 1 in fens) {
-                for (let i in fens) {
-                    if (i >= depth + 1) {
-                        delete fens[i];
-                    }
-                }
+                removeMoves(depth + 1)
             }
-            setFens((fens) => ({...fens, [depth + 1]: [move.fen]}))
+            setFens((fens) => ({...fens, [depth + 1]: move.fen}))
             setCurrentDepth(depth + 1);
         }
 
+    }
+
+    function removeMoves(depth) {
+        for (let i in fens) {
+            if (i > depth) {
+                delete fens[i];
+            }
+        }
+        setCurrentDepth(depth)
     }
 
     if (!router.isReady) return <CircularProgress/>
@@ -32,7 +37,8 @@ export default function Repertoire() {
     return (
         <React.Fragment>
             {Object.values(fens).map((fen, index) => (
-                <Line fen={fen} color={color} addVariant={addVariant} key={index} currentDepth={currentDepth}/>
+                <Line fen={fen} color={color} addVariant={addVariant} key={index} currentDepth={currentDepth}
+                      removeMoves={removeMoves}/>
 
             ))}
         </React.Fragment>

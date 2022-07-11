@@ -10,17 +10,16 @@ import {useEffect, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import {getSvgUrl} from "./util";
 
-export default function MyMove({move, depth, position, stats, currentDepth}) {
+export default function MyMove({move, depth, position, stats, currentDepth, updateMove}) {
 
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState();
     const fieldRef = useRef(null);
 
     const handleClose = (newValue) => {
         setOpen(false);
 
         if (newValue) {
-            setValue(newValue);
+            updateMove(newValue)
         }
     };
 
@@ -32,7 +31,7 @@ export default function MyMove({move, depth, position, stats, currentDepth}) {
         if (fieldRef.current && depth === currentDepth) {
             fieldRef.current.scrollIntoView({
                 behavior: "smooth",
-                block:'center'
+                block: 'center'
             });
         }
 
@@ -42,9 +41,10 @@ export default function MyMove({move, depth, position, stats, currentDepth}) {
     return (
         <>
 
-            <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4} ref={fieldRef}>
-                <Grid item xs={12} sm={12} md={12} lg={6} xl={5} >
-                    <Typography variant="h3" marginX={2} >
+            <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4}
+                  ref={fieldRef}>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
+                    <Typography variant="h3" marginX={2}>
                         Your move: {depth}.{move.move}
                     </Typography>
                     <Typography marginX={2}>
@@ -60,7 +60,8 @@ export default function MyMove({move, depth, position, stats, currentDepth}) {
                         <br/>
                         <br/>
                     </Typography>
-                    <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'} marginX={2} target='_blank'>
+                    <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
+                          marginX={2} target='_blank'>
                         Read more on WikiBooks
 
                     </Link>
@@ -69,14 +70,14 @@ export default function MyMove({move, depth, position, stats, currentDepth}) {
                     </Box>
 
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={6} xl={4} >
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                     <Card elevation={10}>
                         <CardActionArea
                             onClick={handleClickEditMove}
                         >
                             <CardMedia>
                                 <ReactSVG
-                                    loading={() => <CircularProgress />}
+                                    loading={() => <CircularProgress/>}
                                     src={getSvgUrl(position.fen, move.move)}/>
                             </CardMedia>
                             <CardContent>
@@ -84,16 +85,16 @@ export default function MyMove({move, depth, position, stats, currentDepth}) {
                                     {depth}.{move.move}
                                 </Typography>
                                 <Typography variant="h6" marginX={2}>
-                                    {move.name !== undefined ? move.name : '' }
+                                    {move.name !== undefined ? move.name : ''}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
                     </Card>
                 </Grid>
             </Grid>
-            <Box sx={{display:'flex', justifyContent:'flex-end', margin:4}}>
-                <Fab color="primary" aria-label="edit" variant={"extended"}  onClick={handleClickEditMove}>
-                    <EditIcon />
+            <Box sx={{display: 'flex', justifyContent: 'flex-end', margin: 4}}>
+                <Fab color="primary" aria-label="edit" variant={"extended"} onClick={handleClickEditMove}>
+                    <EditIcon/>
                     Edit move
                 </Fab>
             </Box>
@@ -102,10 +103,8 @@ export default function MyMove({move, depth, position, stats, currentDepth}) {
                 keepMounted
                 open={open}
                 onClose={handleClose}
-                value={value}
                 moves={stats}
                 move={move}
-                rival={false}
                 fen={position.fen}
                 depth={depth}
             />

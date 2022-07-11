@@ -20,7 +20,7 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-scroll-to-top": "^1.0.9",
+    "react-scroll-to-top": "latest",
     "react-svg": "latest",
     "swr": "latest"
   },
