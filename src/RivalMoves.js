@@ -5,7 +5,7 @@ import StatsTable from "./StatsTable";
 import {Card, CardActionArea, CardContent, CardMedia, Container} from "@mui/material";
 import {getSvgUrl} from "./util";
 
-export default function RivalMoves({moves, position, depth, addVariant}) {
+export default function RivalMoves({moves, fen, depth, addVariant, color}) {
 
     const handleChange = (move) => {
         addVariant(move, depth);
@@ -22,11 +22,11 @@ export default function RivalMoves({moves, position, depth, addVariant}) {
                         <Card elevation={10}>
                             <CardActionArea onClick={() => handleChange(move)}>
                                 <CardMedia>
-                                    <ReactSVG key={index} src={getSvgUrl(position.fen, move.move)}></ReactSVG>
+                                    <ReactSVG key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                 </CardMedia>
                                 <CardContent>
                                     <Typography variant="h6" marginX={2}>
-                                        {depth}...{move.move}
+                                        {depth}{color === false ? '.' : '...'}{move.move}
                                     </Typography>
                                     <Typography variant="h6" marginX={2}>
                                         {move.name}

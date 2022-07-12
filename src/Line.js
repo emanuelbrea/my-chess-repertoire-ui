@@ -53,8 +53,8 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
             <MyMove move={data['data']['my_move']} stats={data['data']['my_moves']} position={data['data']['position']}
                     depth={data['data']['depth']} currentDepth={currentDepth} updateMove={updateMove}/>
             <Divider/>
-            <RivalMoves moves={data['data']['rival_moves']} position={data['data']['my_move']}
-                        depth={data['data']['depth']} addVariant={addVariant}/>
+            <RivalMoves moves={data['data']['rival_moves']} fen={data['data']['my_move']['fen']}
+                        depth={data['data']['depth']} addVariant={addVariant} color={data['data']['position']['turn']}/>
             <Divider/>
             <ScrollToTop smooth/>
         </React.Fragment>

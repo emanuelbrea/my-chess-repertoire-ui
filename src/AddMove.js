@@ -8,7 +8,7 @@ import {Card, CardActionArea, CardContent, CardMedia, CircularProgress} from "@m
 import {getSvgUrl} from "./util.js";
 
 export default function AddMove(props) {
-    const {onClose, open, moves, move, fen, depth} = props;
+    const {onClose, open, moves, move, fen, depth, color} = props;
 
     const handleOk = (move) => {
         onClose(move);
@@ -38,7 +38,7 @@ export default function AddMove(props) {
                                 <CardActionArea onClick={() => handleOk(move.move)}>
                                     <CardMedia>
                                         <ReactSVG key={index} loading={() => <CircularProgress/>}
-                                                  src={getSvgUrl(fen, move.move)}></ReactSVG>
+                                                  src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                     </CardMedia>
                                     <CardContent>
                                         <Typography variant="h6" marginX={2}>

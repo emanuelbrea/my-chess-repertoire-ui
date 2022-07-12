@@ -78,7 +78,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                             <CardMedia>
                                 <ReactSVG
                                     loading={() => <CircularProgress/>}
-                                    src={getSvgUrl(position.fen, move.move)}/>
+                                    src={getSvgUrl(position.fen, move.move, position.turn)}/>
                             </CardMedia>
                             <CardContent>
                                 <Typography variant="h6" marginX={2}>
@@ -107,6 +107,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                 move={move}
                 fen={position.fen}
                 depth={depth}
+                color={position.turn}
             />
         </>
     )
