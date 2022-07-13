@@ -50,11 +50,27 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
     }
     return (
         <React.Fragment>
-            <MyMove move={data['data']['my_move']} stats={data['data']['my_moves']} position={data['data']['position']}
-                    depth={data['data']['depth']} currentDepth={currentDepth} updateMove={updateMove}/>
-            <Divider/>
-            <RivalMoves moves={data['data']['rival_moves']} fen={data['data']['my_move']['fen']}
-                        depth={data['data']['depth']} addVariant={addVariant} color={data['data']['position']['turn']}/>
+            { Object.keys(data['data']['my_move']).length > 0 ?
+                <>
+                <MyMove move={data['data']['my_move']}
+                        stats={data['data']['my_moves']}
+                        position={data['data']['position']}
+                        depth={data['data']['depth']}
+                        color={color}
+                        currentDepth={currentDepth}
+                        updateMove={updateMove}/>
+                <Divider/>
+                </>
+                : null
+            }
+            <RivalMoves moves={data['data']['rival_moves']}
+                        fen={ Object.keys(data['data']['my_move']).length > 0 ? data['data']['my_move']['fen'] : fen}
+                        depth={ color === 'white' ||
+                            Object.keys(data['data']['my_move']).length === 0
+                            ? data['data']['depth']
+                            : data['data']['depth'] + 1}
+                        addVariant={addVariant}
+                        color={color}/>
             <Divider/>
             <ScrollToTop smooth/>
         </React.Fragment>

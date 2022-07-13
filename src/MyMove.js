@@ -10,7 +10,7 @@ import {useEffect, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import {getSvgUrl} from "./util";
 
-export default function MyMove({move, depth, position, stats, currentDepth, updateMove}) {
+export default function MyMove({move, depth, position, stats, currentDepth, updateMove, color}) {
 
     const [open, setOpen] = useState(false);
     const fieldRef = useRef(null);
@@ -45,7 +45,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                   ref={fieldRef}>
                 <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
                     <Typography variant="h3" marginX={2}>
-                        Your move: {depth}.{move.move}
+                        Your move: {depth}{color === 'white' ? '.' : '...'}{move.move}
                     </Typography>
                     <Typography marginX={2}>
                         White's assertive opening move opens lines for the queen and king's bishop and fights for
@@ -78,7 +78,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                             <CardMedia>
                                 <ReactSVG
                                     loading={() => <CircularProgress/>}
-                                    src={getSvgUrl(position.fen, move.move, position.turn)}/>
+                                    src={getSvgUrl(position.fen, move.move, color)}/>
                             </CardMedia>
                             <CardContent>
                                 <Typography variant="h6" marginX={2}>
@@ -107,7 +107,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                 move={move}
                 fen={position.fen}
                 depth={depth}
-                color={position.turn}
+                color={color}
             />
         </>
     )

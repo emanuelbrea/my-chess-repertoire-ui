@@ -26,7 +26,7 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                                 </CardMedia>
                                 <CardContent>
                                     <Typography variant="h6" marginX={2}>
-                                        {depth}{color === false ? '.' : '...'}{move.move}
+                                        {depth}{color === 'white' ? '...' : '.'}{move.move}
                                     </Typography>
                                     <Typography variant="h6" marginX={2}>
                                         {move.name}
