@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import MyMove from "../src/MyMove";
 import RivalMoves from "../src/RivalMoves";
-import {CircularProgress, Divider} from "@mui/material";
+import {Alert, CircularProgress, Divider} from "@mui/material";
 import ScrollToTop from "react-scroll-to-top";
 import AddLine from "./AddLine";
 
@@ -24,6 +24,9 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
             color: color
         }), requestOptions)
             .then(res => res.json())
+            .catch((error) => {
+                return {'success' : false}
+            })
 
         setData(moves)
     }
@@ -61,6 +64,9 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
 
     if (!data) return (<CircularProgress/>)
     if (data['success'] === false) {
+        return (<Alert severity="error">There was an error accessing the data.</Alert>)
+    }
+    if (Object.keys(data['data']).length === 0) {
         return (
             <AddLine addRepertoireMoves={addRepertoireMoves} endOfLine={endOfLine}></AddLine>
         )
