@@ -12,9 +12,13 @@ export default function Repertoire() {
     const [currentDepth, setCurrentDepth] = useState(1)
 
     function addVariant(move, depth) {
-        let fenCopy = [...fens]
-        fenCopy.length = depth
         if (move && depth !== undefined) {
+            const index = fens.findIndex(element => element === move.fen);
+            if(index !== -1){
+                depth = index
+            }
+            let fenCopy = [...fens]
+            fenCopy.length = depth
             fenCopy.splice(depth, 0, move.fen)
             setFens(fenCopy)
             if (color === 'white') {
