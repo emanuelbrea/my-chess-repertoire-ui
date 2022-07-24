@@ -19,7 +19,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'GET',
         };
-        const moves = await fetch('http://127.0.0.1:5000/repertoire/?' + new URLSearchParams({
+        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color
         }), requestOptions)
@@ -36,7 +36,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'PUT',
         };
-        const moves = await fetch('http://127.0.0.1:5000/repertoire/?' + new URLSearchParams({
+        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color,
             move: move
@@ -51,7 +51,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'PATCH',
         };
-        const moves = await fetch('http://127.0.0.1:5000/repertoire/?' + new URLSearchParams({
+        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color
         }), requestOptions)

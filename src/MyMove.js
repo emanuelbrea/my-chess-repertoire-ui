@@ -14,6 +14,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
 
     const [open, setOpen] = useState(false);
     const fieldRef = useRef(null);
+    const [description, setDescription] = useState(null);
 
     const handleClose = (newValue) => {
         setOpen(false);
@@ -28,6 +29,9 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
     };
 
     useEffect(() => {
+        if(move.link){
+           getMoveDescription(move)
+        }
         if (fieldRef.current && depth === currentDepth) {
             fieldRef.current.scrollIntoView({
                 behavior: "smooth",
@@ -35,7 +39,15 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
             });
         }
 
-    });
+    },[move]);
+
+    const getMoveDescription = async (move) => {
+
+        const moves = await fetch(move.link.replace('wiki/','w/api.php?titles=') +
+            '&redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=800')
+            .then(res => res.json())
+        setDescription(moves['query']['pages'][0]['extract'])
+    }
 
 
     return (
@@ -44,22 +56,10 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
             <Grid container spacing={3} justifyContent={"space-around"} marginTop={3} padding={3} marginBottom={4}
                   ref={fieldRef}>
                 <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
-                    <Typography variant="h3" marginX={2}>
+                    <Typography variant="h3">
                         Your move: {depth}{color === 'white' ? '.' : '...'}{move.move}
                     </Typography>
-                    <Typography marginX={2}>
-                        White's assertive opening move opens lines for the queen and king's bishop and fights for
-                        control of the squares d5 and f5.
-                        This move is popular at all levels of the game and was the favorite opening move of world
-                        champion Bobby Fischer who called it "best by test".
-                        <br/>
-                        <br/>
-                        Openings with 1.e4 are traditionally considered more sharp and attacking than those with 1.d4,
-                        but this is an extreme generalization and both players will have many more opportunities to
-                        influence the type of position that appears.
-                        <br/>
-                        <br/>
-                    </Typography>
+                    {description != null ? <div dangerouslySetInnerHTML={{__html: description}} /> : null}
                     <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
                           marginX={2} target='_blank'>
                         Read more on WikiBooks
