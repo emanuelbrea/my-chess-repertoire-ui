@@ -25,6 +25,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         }), requestOptions)
             .then(res => res.json())
             .catch((error) => {
+                console.log(error)
                 return {'success' : false}
             })
 
