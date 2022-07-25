@@ -19,9 +19,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'GET',
         };
-        console.log(process)
-        console.log(process.env)
-        console.log(process.env.NEXT_PUBLIC_HOST)
         const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/api/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color
