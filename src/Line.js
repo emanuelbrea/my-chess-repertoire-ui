@@ -5,6 +5,7 @@ import RivalMoves from "../src/RivalMoves";
 import {Alert, CircularProgress, Divider} from "@mui/material";
 import ScrollToTop from "react-scroll-to-top";
 import AddLine from "./AddLine";
+import {API} from "aws-amplify";
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves}) {
     const [data, setData] = useState(null);
@@ -16,18 +17,39 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
     }, [fen])
 
     const getRepertoireMoves = async () => {
-        const requestOptions = {
-            method: 'GET',
+        const apiName = 'chess-repertoire';
+        const path = '/repertoire';
+        const myInit = { // OPTIONAL
+            headers: {}, // OPTIONAL
+            response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+            queryStringParameters: {  // OPTIONAL
+                fen: fen,
+                color: color,
+            },
         };
-        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/api/repertoire/?' + new URLSearchParams({
-            fen: fen,
-            color: color
-        }), requestOptions)
-            .then(res => res.json())
-            .catch((error) => {
-                console.log(error)
-                return {'success' : false}
+
+        const moves = API
+            .get(apiName, path, myInit)
+            .then(res => {
+                res => res.json()
             })
+            .catch(error => {
+                console.log(error.response);
+                return {'success' : false}
+            });
+
+        // const requestOptions = {
+        //     method: 'GET',
+        // };
+        // const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/api/repertoire/?' + new URLSearchParams({
+        //     fen: fen,
+        //     color: color
+        // }), requestOptions)
+        //     .then(res => res.json())
+        //     .catch((error) => {
+        //         console.log(error)
+        //         return {'success' : false}
+        //     })
 
         setData(moves)
     }

@@ -8,6 +8,19 @@ import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import NavBar from "../src/NavBar";
 
+import { Amplify } from 'aws-amplify';
+
+Amplify.configure({
+    API: {
+        endpoints: [
+            {
+                name: "chess-repertoire",
+                endpoint: "https://e2uerhe1d4.execute-api.us-east-1.amazonaws.com/v1"
+            },
+        ]
+    }
+});
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 

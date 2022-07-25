@@ -16,6 +16,7 @@
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "aws-amplify": "^4.3.28",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
