@@ -2,7 +2,6 @@ import * as React from 'react';
 import {useState} from 'react';
 import {useRouter} from 'next/router'
 import Line from "../../src/Line";
-import {CircularProgress} from "@mui/material";
 
 export default function Repertoire() {
     const router = useRouter()
@@ -14,7 +13,7 @@ export default function Repertoire() {
     function addVariant(move, depth) {
         if (move && depth !== undefined) {
             const index = fens.findIndex(element => element === move.fen);
-            if(index !== -1){
+            if (index !== -1) {
                 depth = index
             }
             let fenCopy = [...fens]
@@ -42,7 +41,7 @@ export default function Repertoire() {
 
     }
 
-    if (!router.isReady) return <CircularProgress/>
+    if (!router.isReady) return null;
 
     return (
         <React.Fragment>

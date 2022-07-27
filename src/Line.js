@@ -19,7 +19,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'GET',
         };
-        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/repertoire/?' + new URLSearchParams({
+        const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color
         }), requestOptions)
@@ -37,7 +37,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'PUT',
         };
-        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/repertoire/?' + new URLSearchParams({
+        const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color,
             move: move
@@ -52,7 +52,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
         const requestOptions = {
             method: 'PATCH',
         };
-        const moves = await fetch(process.env.NEXT_PUBLIC_HOST+'/repertoire/?' + new URLSearchParams({
+        const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
             fen: fen,
             color: color
         }), requestOptions)
@@ -63,7 +63,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
     }
 
 
-    if (!data) return (<CircularProgress/>)
+    if (!data) return null;
     if (data['success'] === false) {
         return (<Alert severity="error">There was an error accessing the data.</Alert>)
     }
