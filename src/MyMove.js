@@ -29,8 +29,8 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
     };
 
     useEffect(() => {
-        if(move.link){
-           getMoveDescription(move)
+        if (move.link) {
+            getMoveDescription(move)
         }
         if (fieldRef.current && depth === currentDepth) {
             fieldRef.current.scrollIntoView({
@@ -39,11 +39,11 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
             });
         }
 
-    },[move]);
+    }, [move]);
 
     const getMoveDescription = async (move) => {
 
-        const moves = await fetch(move.link.replace('wiki/','w/api.php?titles=') +
+        const moves = await fetch(move.link.replace('wiki/', 'w/api.php?titles=') +
             '&redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=800')
             .then(res => res.json())
         setDescription(moves['query']['pages'][0]['extract'])
@@ -59,7 +59,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                     <Typography variant="h3">
                         Your move: {depth}{color === 'white' ? '.' : '...'}{move.move}
                     </Typography>
-                    {description != null ? <div dangerouslySetInnerHTML={{__html: description}} /> : null}
+                    {description != null ? <div dangerouslySetInnerHTML={{__html: description}}/> : null}
                     <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
                           marginX={2} target='_blank'>
                         Read more on WikiBooks

@@ -3,8 +3,8 @@ import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export default function StatsTable({stats}){
-    return(
+export default function StatsTable({stats}) {
+    return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650}} aria-label={"position-stats"} size={"small"}>
                 <TableHead>
@@ -57,9 +57,20 @@ export default function StatsTable({stats}){
                             </TableCell>
                             <TableCell align="center">
                                 <Stack direction={"row"}>
-                                    <Box sx={{flex:Math.round(row.white_wins  * 100), backgroundColor:"#bababa2b", borderRadius:'3px 0  0 3px'}}><Typography >{Math.round(row.white_wins *100)}%</Typography></Box>
-                                    <Box sx={{flex:Math.round(row.draws * 100), backgroundColor:"#777574"}}><Typography sx={{color:"white"}}>{Math.round(row.draws * 100)}%</Typography></Box>
-                                    <Box sx={{flex:Math.round(row.black_wins  * 100), backgroundColor:"#403d39", borderRadius:'0 3px 3px 0'}}><Typography sx={{color:"white"}}>{Math.round(row.black_wins * 100)}%</Typography></Box>
+                                    <Box sx={{
+                                        flex: Math.round(row.white_wins * 100),
+                                        backgroundColor: "#bababa2b",
+                                        borderRadius: '3px 0  0 3px'
+                                    }}><Typography>{Math.round(row.white_wins * 100)}%</Typography></Box>
+                                    <Box
+                                        sx={{flex: Math.round(row.draws * 100), backgroundColor: "#777574"}}><Typography
+                                        sx={{color: "white"}}>{Math.round(row.draws * 100)}%</Typography></Box>
+                                    <Box sx={{
+                                        flex: Math.round(row.black_wins * 100),
+                                        backgroundColor: "#403d39",
+                                        borderRadius: '0 3px 3px 0'
+                                    }}><Typography
+                                        sx={{color: "white"}}>{Math.round(row.black_wins * 100)}%</Typography></Box>
                                 </Stack>
                             </TableCell>
 

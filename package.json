@@ -14,15 +14,20 @@
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
+    "@mdi/js": "^7.0.96",
+    "@mdi/react": "^1.6.1",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "formik": "^2.2.9",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-scroll-to-top": "latest",
+    "react-social-login-buttons": "^3.6.1",
     "react-svg": "latest",
-    "swr": "latest"
+    "swr": "latest",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "latest",

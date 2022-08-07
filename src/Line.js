@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import MyMove from "../src/MyMove";
 import RivalMoves from "../src/RivalMoves";
-import {Alert, CircularProgress, Divider} from "@mui/material";
+import {Alert, Divider} from "@mui/material";
 import ScrollToTop from "react-scroll-to-top";
 import AddLine from "./AddLine";
 
@@ -26,7 +26,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves}
             .then(res => res.json())
             .catch((error) => {
                 console.log(error)
-                return {'success' : false}
+                return {'success': false}
             })
 
         setData(moves)

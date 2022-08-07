@@ -6,7 +6,7 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 
 
-export default function AddLine({addRepertoireMoves, endOfLine}){
+export default function AddLine({addRepertoireMoves, endOfLine}) {
     const fieldRef = useRef(null);
     const [open, setOpen] = useState(true);
 
@@ -14,7 +14,7 @@ export default function AddLine({addRepertoireMoves, endOfLine}){
         setOpen(false);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         if (fieldRef.current) {
             fieldRef.current.scrollIntoView({
                 behavior: "smooth",
@@ -31,14 +31,14 @@ export default function AddLine({addRepertoireMoves, endOfLine}){
         <>
             {endOfLine === true ?
                 <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="info" >No more moves in this line!</Alert>
+                    <Alert onClose={handleClose} severity="info">No more moves in this line!</Alert>
                 </Snackbar> :
-            <Box sx={{display: 'flex', justifyContent: 'center', margin: 4}} ref={fieldRef}>
-                <Fab color="primary" aria-label="add" variant={"extended"} onClick={addRepertoireMoves} >
-                    <AddIcon />
-                    Add more moves
-                </Fab>
-            </Box>
+                <Box sx={{display: 'flex', justifyContent: 'center', margin: 4}} ref={fieldRef}>
+                    <Fab color="primary" aria-label="add" variant={"extended"} onClick={addRepertoireMoves}>
+                        <AddIcon/>
+                        Add more moves
+                    </Fab>
+                </Box>
             }
         </>
     )

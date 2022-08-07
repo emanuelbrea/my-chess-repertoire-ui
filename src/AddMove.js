@@ -67,7 +67,8 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
                     </Dialog>
                     :
                     <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="info" sx={{fontSize:18}}>There are no alternatives for this move!</Alert>
+                        <Alert onClose={handleClose} severity="info" sx={{fontSize: 18}}>There are no alternatives for
+                            this move!</Alert>
                     </Snackbar>
             }
         </>
