@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Box from "@mui/material/Box";
-import {Checkbox, Divider, Link, TextField, Typography} from "@mui/material";
+import {Divider, Link, TextField, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {useFormik} from 'formik';
 import * as Yup from "yup";
@@ -9,6 +9,7 @@ import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import NextLink from "next/link";
+import LeftBanner from "../src/LeftBanner";
 
 
 export default function Register() {
@@ -16,6 +17,8 @@ export default function Register() {
     const formik = useFormik({
         initialValues: {
             email: '',
+            firstName: '',
+            lastName: '',
             password: '',
             policy: false
         },
@@ -27,6 +30,16 @@ export default function Register() {
                 .max(255)
                 .required(
                     'Email is required'),
+            firstName: Yup
+                .string()
+                .max(255)
+                .required(
+                    'First name is required'),
+            lastName: Yup
+                .string()
+                .max(255)
+                .required(
+                    'Last name is required'),
             password: Yup
                 .string()
                 .max(255)
@@ -58,42 +71,7 @@ export default function Register() {
                 }}
             >
                 <Grid container sx={{height: '100vh'}}>
-                    <Grid
-                        item
-                        xs={false}
-                        sm={4}
-                        md={6}
-                        lg={6}
-                        xl={6}
-                        sx={{
-                            backgroundImage: 'url(../chess-bg1.jpg)',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            borderRadius: '0% 5% 5% 0%',
-                            boxShadow: 20,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                maxWidth: 800,
-                            }}
-                        >
-                            <Typography gutterBottom variant="h3" component="div" fontWeight={500}>
-                                Your chess repertoire in one place
-                            </Typography>
-                            <Typography sx={{mb: 50}}>
-                                Easily manage your openings
-                            </Typography>
-                        </Box>
-
-
-                    </Grid>
+                    <LeftBanner/>
                     <Grid
                         item
                         xs={12}
@@ -108,15 +86,39 @@ export default function Register() {
                             justifyContent: 'center'
                         }}
                     >
-                        <form onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formik.handleSubmit} style={{display: "grid"}}>
                             <Box sx={{my: 3}}>
                                 <Typography
                                     variant="h3"
                                     fontWeight={500}
                                 >
-                                    Sign up
+                                    Create a new account
                                 </Typography>
                             </Box>
+                            <TextField
+                                error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+                                fullWidth
+                                helperText={formik.touched.firstName && formik.errors.firstName}
+                                label="First Name"
+                                margin="normal"
+                                name="firstName"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                value={formik.values.firstName}
+                                variant="outlined"
+                            />
+                            <TextField
+                                error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                                fullWidth
+                                helperText={formik.touched.lastName && formik.errors.lastName}
+                                label="Last Name"
+                                margin="normal"
+                                name="lastName"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                value={formik.values.lastName}
+                                variant="outlined"
+                            />
                             <TextField
                                 error={Boolean(formik.touched.email && formik.errors.email)}
                                 fullWidth
@@ -143,25 +145,6 @@ export default function Register() {
                                 value={formik.values.password}
                                 variant="outlined"
                             />
-                            <Box
-                                sx={{
-                                    alignItems: 'center',
-                                    display: 'flex',
-                                    ml: -1
-                                }}
-                            >
-                                <Checkbox
-                                    checked={formik.values.policy}
-                                    name="policy"
-                                    onChange={formik.handleChange}
-                                />
-                                <Typography
-                                    color="textSecondary"
-                                    variant="body2"
-                                >
-                                    Remember me
-                                </Typography>
-                            </Box>
 
                             <Box sx={{py: 3}}>
                                 <Button
@@ -179,6 +162,7 @@ export default function Register() {
                                 </Button>
                                 <Divider spacing={2} sx={{my: 3}}>or</Divider>
                                 <GoogleLoginButton align={"center"}>
+                                    <span>Continue with Google</span>
                                 </GoogleLoginButton>
                             </Box>
                             <Typography

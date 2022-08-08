@@ -1,10 +1,9 @@
 import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
 import {ReactSVG} from 'react-svg'
-import Link from "./Link";
 import StatsTable from "./StatsTable";
 import Box from "@mui/material/Box";
-import {Card, CardActionArea, CardContent, CardMedia, CircularProgress, Fab} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia, CircularProgress, Fab, Link} from "@mui/material";
 import AddMove from "./AddMove";
 import {useEffect, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
@@ -63,7 +62,6 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                     <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
                           marginX={2} target='_blank'>
                         Read more on WikiBooks
-
                     </Link>
                     <Box sx={{marginTop: 5}}>
                         <StatsTable stats={stats}/>

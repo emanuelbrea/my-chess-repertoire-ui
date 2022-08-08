@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import {useRouter} from 'next/router'
 import Line from "../../src/Line";
+import NavBar from "../../src/NavBar";
 
 export default function Repertoire() {
     const router = useRouter()
@@ -45,6 +46,7 @@ export default function Repertoire() {
 
     return (
         <React.Fragment>
+            <NavBar/>
             {fens.map((fen, index) => (
                 <Line fen={fen} color={color} addVariant={addVariant} key={index} currentDepth={currentDepth}
                       removeMoves={removeMoves}/>
