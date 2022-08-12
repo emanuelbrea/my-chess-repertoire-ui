@@ -31,14 +31,8 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
         if (move.link) {
             getMoveDescription(move)
         }
-        if (fieldRef.current && depth === currentDepth) {
-            fieldRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: 'center'
-            });
-        }
-
     }, [move]);
+
 
     const getMoveDescription = async (move) => {
 
@@ -48,6 +42,12 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
         setDescription(moves['query']['pages'][0]['extract'])
     }
 
+    if (fieldRef.current && depth === currentDepth) {
+        fieldRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: 'center'
+        });
+    }
 
     return (
         <>
