@@ -27,7 +27,8 @@
     "react-social-login-buttons": "^3.6.1",
     "react-svg": "latest",
     "swr": "latest",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "aos": "latest"
   },
   "devDependencies": {
     "eslint": "latest",

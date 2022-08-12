@@ -6,12 +6,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {CacheProvider} from '@emotion/react';
 import theme from '../styles/theme';
 import createEmotionCache from '../utility/createEmotionCache';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import {useEffect} from "react";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
     const {Component, emotionCache = clientSideEmotionCache, pageProps} = props;
+    useEffect(() => {
+        AOS.init();
+    }, []);
 
     return (
         <CacheProvider value={emotionCache}>

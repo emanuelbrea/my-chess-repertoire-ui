@@ -23,14 +23,16 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
             <Grid container spacing={5} justifyContent={"center"} marginTop={3} paddingRight={3} paddingLeft={3}>
                 {moves.map((move, index) => (
                     <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
-
+                        <div data-aos="flip-left" data-aos-offset="-20" data-aos-delay="100">
                         <Card elevation={10} sx={{border: active === move ? '6px solid green' : null}}>
                             <CardActionArea onClick={() => handleChange(move)}>
-                                <CardMedia>
-                                    <ReactSVG key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
-                                </CardMedia>
+
+                                    <CardMedia>
+                                        <ReactSVG key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
+                                    </CardMedia>
+
                                 <CardContent>
-                                    <Typography variant="h6" marginX={2} id={move.move}>
+                                    <Typography variant="h6" marginX={2}>
                                         {depth}{color === 'white' ? '...' : '.'}{move.move}
                                     </Typography>
                                     <Typography variant="h6" marginX={2}>
@@ -38,10 +40,11 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                    </Card>
+                        </Card>
+                    </div>
 
                     </Grid>
-                    ))}
+                ))}
             </Grid>
             <Container sx={{padding: 4}}>
                 <StatsTable stats={moves}/>
