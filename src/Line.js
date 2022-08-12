@@ -2,9 +2,12 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import MyMove from "../src/MyMove";
 import RivalMoves from "../src/RivalMoves";
-import {Alert, Divider} from "@mui/material";
+import {Alert, Backdrop, CircularProgress, Divider} from "@mui/material";
 import ScrollToTop from "react-scroll-to-top";
 import AddLine from "./AddLine";
+import {mdiChessKing} from '@mdi/js';
+import Icon from "@mdi/react";
+import Box from "@mui/material/Box";
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
     const [data, setData] = useState(null);
@@ -14,7 +17,9 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     useEffect(() => {
         getRepertoireMoves().then(data => {
             setData(data);
-            getCandidates(data)
+            if (data['success'] === true) {
+                getCandidates(data)
+            }
         })
     }, [fen])
 
@@ -23,11 +28,11 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }, [active])
 
 
-    function getCandidates(moves){
-        if( moves  && active && Object.keys(moves['data']).length > 0){
+    function getCandidates(moves) {
+        if (moves && active && Object.keys(moves['data']).length > 0) {
             const rivalMoves = moves['data']['rival_moves']
             let candidates = []
-            for(let rivalMove of rivalMoves){
+            for (let rivalMove of rivalMoves) {
                 candidates.push(rivalMove['fen'])
             }
             addCandidates(candidates, moves['data']['depth'])
@@ -80,11 +85,49 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         setData(moves)
     }
 
+    if (!active) {
+        return null;
+    }
 
-    if (!data) return null;
+    if (!data) {
+        return (
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={true}
+            >
+                <Box sx={{position: 'relative', display: 'inline-flex'}}>
+                    <CircularProgress color="inherit" size={68}/>
+                    <Box
+                        sx={{
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            position: 'absolute',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Icon path={mdiChessKing}
+                              title="Aggressive"
+                              size={2.2}
+                        />
+                    </Box>
+                </Box>
+
+            </Backdrop>
+
+
+        )
+
+    }
+
     if (data['success'] === false) {
+
         return (<Alert severity="error">There was an error accessing the data.</Alert>)
     }
+
     if (active && Object.keys(data['data']).length === 0) {
         return (
             <AddLine addRepertoireMoves={addRepertoireMoves} endOfLine={endOfLine}></AddLine>
