@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Dialog from '@mui/material/Dialog';
-import {Alert, Card, CardActionArea, CardContent, CardMedia, CircularProgress} from "@mui/material";
+import {Alert, Card, CardActionArea, CardContent, CardMedia, Skeleton} from "@mui/material";
 import {getSvgUrl} from "./util.js";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -46,8 +46,11 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
                                         <Card elevation={10}>
                                             <CardActionArea onClick={() => handleOk(move.move)}>
                                                 <CardMedia>
-                                                    <ReactSVG key={index} loading={() => <CircularProgress/>}
-                                                              src={getSvgUrl(fen, move.move, color)}></ReactSVG>
+                                                    <ReactSVG
+                                                        loading={() => <Skeleton animation="wave" variant="rectangular"
+                                                                                 height={300}></Skeleton>}
+                                                        key={index}
+                                                        src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                                 </CardMedia>
                                                 <CardContent>
                                                     <Typography variant="h6" marginX={2}>

@@ -2,7 +2,7 @@ import {ReactSVG} from "react-svg";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import StatsTable from "./StatsTable";
-import {Card, CardActionArea, CardContent, CardMedia, Container} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia, Container, Skeleton} from "@mui/material";
 import {getSvgUrl} from "./util";
 import {useState} from "react";
 import AOS from "aos";
@@ -33,7 +33,10 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                                 <CardActionArea onClick={() => handleChange(move)}>
 
                                     <CardMedia>
-                                        <ReactSVG key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
+                                        <ReactSVG
+                                            loading={() => <Skeleton animation="wave" variant="rectangular"
+                                                                     height={450}></Skeleton>}
+                                            key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                     </CardMedia>
 
                                     <CardContent>

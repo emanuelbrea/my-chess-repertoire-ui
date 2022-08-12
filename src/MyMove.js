@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import {ReactSVG} from 'react-svg'
 import StatsTable from "./StatsTable";
 import Box from "@mui/material/Box";
-import {Card, CardActionArea, CardContent, CardMedia, CircularProgress, Fab, Link} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia, Fab, Link, Skeleton} from "@mui/material";
 import AddMove from "./AddMove";
 import {useEffect, useRef, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
@@ -75,7 +75,8 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                         >
                             <CardMedia>
                                 <ReactSVG
-                                    loading={() => <CircularProgress/>}
+                                    loading={() => <Skeleton animation="wave" variant="rectangular"
+                                                             height={500}></Skeleton>}
                                     src={getSvgUrl(position.fen, move.move, color)}/>
                             </CardMedia>
                             <CardContent>
