@@ -66,7 +66,7 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                           marginX={2} target='_blank'>
                         Read more on WikiBooks
                     </Link>
-                    <Box sx={{marginTop: 5}}>
+                    <Box sx={{mt: 5, mb:1}}>
                         <StatsTable stats={stats} active={move.move}/>
                     </Box>
 
@@ -106,8 +106,8 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
                             </Typography>
                         </Grid>
                         <Grid item xs={4} sm={4} md={4} lg={4} xl={4} display={"flex"} justifyContent={"flex-end"}>
-                            <IconButton color="primary" size={"large"}>
-                                <EditIcon sx={{fontSize: 30}}/>
+                            <IconButton color="primary" size={"large"} onClick={handleClickEditMove}>
+                                <EditIcon sx={{fontSize: 30}} />
                             </IconButton>
                             <IconButton sx={{color: "red"}}>
                                 <FavoriteBorderIcon size={"large"} sx={{fontSize: 30}}/>

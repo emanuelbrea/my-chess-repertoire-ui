@@ -2,7 +2,7 @@ import {ReactSVG} from "react-svg";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import StatsTable from "./StatsTable";
-import {Card, CardActionArea, CardContent, CardMedia, Container, Skeleton} from "@mui/material";
+import {Card, CardActionArea, CardMedia, Container, Skeleton} from "@mui/material";
 import {getSvgUrl} from "./util";
 import {useState} from "react";
 import AOS from "aos";
@@ -21,7 +21,7 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
 
     return (
         <>
-            <Container sx={{display:"flex", justifyContent:"center"}}>
+            <Container sx={{display: "flex", justifyContent: "center", mt:1}}>
                 <Typography variant="h3">
                     Opponent moves
                 </Typography>
@@ -40,17 +40,17 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                                                                      height={450}></Skeleton>}
                                             key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                     </CardMedia>
-
-                                    <CardContent>
-                                        <Typography variant="h6" marginX={2}>
-                                            {depth}{color === 'white' ? '...' : '.'}{move.move}
-                                        </Typography>
-                                        <Typography variant="h6" marginX={2} id={move.move + index}>
-                                            {move.name}
-                                        </Typography>
-                                    </CardContent>
                                 </CardActionArea>
                             </Card>
+                            <Container sx={{alignItems:"center", display:"flex", flexDirection:"column", mt:2}}>
+                                <Typography variant="h6" marginX={2}>
+                                    {depth}{color === 'white' ? '...' : '.'}{move.move}
+                                </Typography>
+                                <Typography variant="h6" marginX={2} id={move.move + index}>
+                                    {move.name}
+                                </Typography>
+                            </Container>
+
                         </div>
 
                     </Grid>
