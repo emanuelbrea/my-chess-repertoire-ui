@@ -161,7 +161,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                                 color={color}
                     />
                     <Divider/>
-                    <ScrollToTop smooth/>
                 </>
                 : null
             }

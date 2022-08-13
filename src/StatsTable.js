@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export default function StatsTable({stats}) {
+export default function StatsTable({stats, active}) {
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 650}} aria-label={"position-stats"} size={"small"}>
@@ -36,6 +36,7 @@ export default function StatsTable({stats}) {
                     {stats.map((row) => (
                         <TableRow
                             key={row.move}
+                            sx={{border: active === row.move ? '2px solid green' : null}}
                         >
                             <TableCell component={'th'} scope={'row'}>
                                 {row.move}

@@ -21,9 +21,11 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
 
     return (
         <>
-            <Typography variant="h3" marginX={2}>
-                Opponent moves:
-            </Typography>
+            <Container sx={{display:"flex", justifyContent:"center"}}>
+                <Typography variant="h3">
+                    Opponent moves
+                </Typography>
+            </Container>
             <Grid container spacing={5} justifyContent={"center"} marginTop={3} paddingRight={3} paddingLeft={3}>
                 {moves.map((move, index) => (
                     <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
@@ -55,7 +57,7 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                 ))}
             </Grid>
             <Container sx={{padding: 4}}>
-                <StatsTable stats={moves}/>
+                <StatsTable stats={moves} active={active?.move}/>
             </Container>
 
         </>
