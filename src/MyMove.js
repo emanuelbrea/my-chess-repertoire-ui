@@ -51,8 +51,8 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                     <Typography variant="h3">
                         Your move: {depth}{color === 'white' ? '.' : '...'}{move.move}
                     </Typography>
-                    {description != null ?
-                        <div dangerouslySetInnerHTML={{__html: description}} style={{fontSize: 18}}/> : null}
+                    {description != null &&
+                        <div dangerouslySetInnerHTML={{__html: description}} style={{fontSize: 18}}/>}
                     <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
                           marginX={2} target='_blank'>
                         Read more on WikiBooks

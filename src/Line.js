@@ -177,7 +177,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
 
     return (
         <>
-            {active === true && Object.keys(data['data']['my_move']).length > 0 ?
+            {active === true && Object.keys(data['data']['my_move']).length > 0 &&
                 <>
                     <div ref={fieldRef1}/>
                     <MyMove move={data['data']['my_move']}
@@ -190,9 +190,8 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                     />
                     <Divider/>
                 </>
-                : null
             }
-            {active === true ?
+            {active === true &&
                 <>
                     <div ref={fieldRef2}/>
                     <RivalMoves moves={data['data']['rival_moves']}
@@ -206,7 +205,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                     />
                     <Divider/>
                 </>
-                : null
             }
         </>
 

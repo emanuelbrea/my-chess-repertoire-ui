@@ -36,7 +36,7 @@ export default function StatsTable({stats, active}) {
                     {stats.map((row) => (
                         <TableRow
                             key={row.move}
-                            sx={{border: active === row.move ? '2px solid green' : null}}
+                            sx={{border: active === row.move && '2px solid green'}}
                         >
                             <TableCell component={'th'} scope={'row'}>
                                 {row.move}
