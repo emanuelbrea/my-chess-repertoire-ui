@@ -23,7 +23,6 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-scroll-to-top": "latest",
     "react-social-login-buttons": "^3.6.1",
     "react-svg": "latest",
     "swr": "latest",

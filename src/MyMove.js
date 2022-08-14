@@ -10,10 +10,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {getSvgUrl} from "./util";
 
-export default function MyMove({move, depth, position, stats, currentDepth, updateMove, color}) {
+export default function MyMove({move, depth, position, stats, updateMove, color}) {
 
     const [open, setOpen] = useState(false);
-    const fieldRef = useRef(null);
     const [description, setDescription] = useState(null);
 
     const handleClose = (newValue) => {
@@ -43,18 +42,10 @@ export default function MyMove({move, depth, position, stats, currentDepth, upda
         setDescription(moves['query']['pages'][0]['extract'])
     }
 
-    if (fieldRef.current && depth === currentDepth) {
-        fieldRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: 'center'
-        });
-    }
-
     return (
         <>
 
-            <Grid container spacing={1} justifyContent={"space-evenly"} marginTop={3} padding={3} marginBottom={4}
-                  ref={fieldRef}>
+            <Grid container spacing={1} justifyContent={"space-evenly"} marginTop={3} padding={3} marginBottom={4}>
                 <Grid item xs={12} sm={12} md={12} lg={6} xl={5} display={"flex"} flexDirection={"column"}
                       justifyContent={"center"}>
                     <Typography variant="h3">

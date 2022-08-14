@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import MyMove from "../src/MyMove";
 import RivalMoves from "../src/RivalMoves";
 import {Alert, Backdrop, CircularProgress, Divider} from "@mui/material";
-import ScrollToTop from "react-scroll-to-top";
 import AddLine from "./AddLine";
 import {mdiChessKing} from '@mdi/js';
 import Icon from "@mdi/react";
@@ -12,6 +11,8 @@ import Box from "@mui/material/Box";
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
     const [data, setData] = useState(null);
     const [endOfLine, setEndOfLine] = useState(false);
+    const fieldRef1 = useRef(null);
+    const fieldRef2 = useRef(null);
 
 
     useEffect(() => {
@@ -26,6 +27,40 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     useEffect(() => {
         getCandidates(data)
     }, [active])
+
+
+    useEffect(() => {
+        if (data && currentDepth && active) {
+            const depth = data['data']['depth'] * 2
+            if (color === 'white') {
+                if (depth - 1 == currentDepth && fieldRef1.current) {
+                    fieldRef1.current.scrollIntoView({
+                        behavior: "smooth",
+                        block: 'start'
+                    });
+                } else if (depth == currentDepth && fieldRef2.current) {
+                    fieldRef2.current.scrollIntoView({
+                        behavior: "smooth",
+                        block: 'start'
+                    });
+                }
+            } else if (color === 'black') {
+                if (depth == currentDepth && fieldRef1.current) {
+                    fieldRef1.current.scrollIntoView({
+                        behavior: "smooth",
+                        block: 'start'
+                    });
+                } else if ((depth + 1 == currentDepth
+                    || currentDepth === 1 && Object.keys(data['data']['my_move']).length === 0) && fieldRef2.current) {
+                    fieldRef2.current.scrollIntoView({
+                        behavior: "smooth",
+                        block: 'start'
+                    });
+                }
+            }
+
+        }
+    },)
 
 
     function getCandidates(moves) {
@@ -56,7 +91,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }
 
     const updateMove = async (move) => {
-        removeMoves(data['data']['depth'])
         const requestOptions = {
             method: 'PUT',
         };
@@ -66,7 +100,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             move: move
         }), requestOptions)
             .then(res => res.json())
-
+        removeMoves(data['data']['depth'])
         setData(moves)
     }
 
@@ -110,7 +144,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                         }}
                     >
                         <Icon path={mdiChessKing}
-                              title="Aggressive"
+                              title="Loading"
                               size={2.2}
                         />
                     </Box>
@@ -138,19 +172,22 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         <>
             {active === true && Object.keys(data['data']['my_move']).length > 0 ?
                 <>
+                    <div ref={fieldRef1}/>
                     <MyMove move={data['data']['my_move']}
                             stats={data['data']['my_moves']}
                             position={data['data']['position']}
                             depth={data['data']['depth']}
                             color={color}
                             currentDepth={currentDepth}
-                            updateMove={updateMove}/>
+                            updateMove={updateMove}
+                    />
                     <Divider/>
                 </>
                 : null
             }
             {active === true ?
                 <>
+                    <div ref={fieldRef2}/>
                     <RivalMoves moves={data['data']['rival_moves']}
                                 fen={Object.keys(data['data']['my_move']).length > 0 ? data['data']['my_move']['fen'] : fen}
                                 depth={color === 'white' ||

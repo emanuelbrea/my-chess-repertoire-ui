@@ -14,7 +14,6 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
     const handleChange = (move) => {
         setActive(move);
         addVariant(move, depth);
-        AOS.refresh();
     };
 
     AOS.refresh();
