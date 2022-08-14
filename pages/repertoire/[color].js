@@ -61,7 +61,6 @@ export default function Repertoire() {
 
     return (
         <React.Fragment>
-            <NavBar/>
             {Object.keys(fens).map((fen, index) => (
                 <Line
                     fen={fen}
