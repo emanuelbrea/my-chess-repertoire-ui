@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useRouter} from 'next/router'
 import Line from "../../src/Line";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -9,14 +9,15 @@ import {Fab} from "@mui/material";
 export default function Repertoire() {
     const router = useRouter()
     const {color} = router.query
-    const [fens, setFens] = useState({})
+    const [fens, setFens] = useState({
+        'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1': {
+            active: true,
+            depth: 1
+        }
+    })
     const [currentDepth, setCurrentDepth] = useState(1)
     const [level, setLevel] = useState(1)
     const initialFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
-
-    useEffect(() => {
-        setFens((fens) => ({...fens, [initialFen]: {active: true, depth: 1}}))
-    }, [])
 
     function addVariant(move, depth) {
         if (color === 'white') {
@@ -39,20 +40,15 @@ export default function Repertoire() {
     }
 
     function removeMoves(depth) {
-        if (color === 'black') {
-            depth += 1
-        }
         for (let activeFen in fens) {
-            if (fens[activeFen]['depth'] >= depth) {
+            if (fens[activeFen]['depth'] > depth) {
                 delete fens[activeFen]
             }
         }
+        setCurrentDepth(currentDepth)
     }
 
     function addCandidates(candidates, depth) {
-        if (color === 'white') {
-            depth = depth + 1
-        }
         for (let candidate of candidates) {
             if (!(candidate in fens)) {
                 setFens((fens) => ({...fens, [candidate]: {active: false, depth: depth}}))

@@ -70,7 +70,12 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             for (let rivalMove of rivalMoves) {
                 candidates.push(rivalMove['fen'])
             }
-            addCandidates(candidates, moves['data']['depth'])
+            if(Object.keys(moves['data']['my_move']).length === 0){
+                addCandidates(candidates, 1)
+            }
+            else{
+                addCandidates(candidates, moves['data']['depth']+1)
+            }
         }
     }
 
@@ -91,6 +96,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }
 
     const updateMove = async (move) => {
+        setData(null)
         const requestOptions = {
             method: 'PUT',
         };
@@ -102,6 +108,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             .then(res => res.json())
         removeMoves(data['data']['depth'])
         setData(moves)
+        getCandidates(moves)
     }
 
     const addRepertoireMoves = async () => {
