@@ -10,10 +10,9 @@ export default function NavBar() {
         <AppBar position={"static"} color="transparent" elevation={0}>
             <Container sx={{mt: 3}}>
                 <Toolbar sx={{justifyContent: "space-between"}}>
-                    <Typography
-                        variant="h6"
-                    >
-                        MY CHESS REPERTOIRE
+                    <img src="/kingLogo.svg" height={80} />
+                    <Typography variant="h6" component="div">
+                        My Chess Repertoire
                     </Typography>
 
                     <Stack direction="row" spacing={1} sx={{display: {xs: 'none', md: 'flex'}}}>

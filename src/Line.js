@@ -33,24 +33,29 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         if (data && currentDepth && active) {
             const depth = data['data']['depth'] * 2
             if (color === 'white') {
-                if (depth - 1 == currentDepth && fieldRef1.current) {
+                if (currentDepth === 1 && fieldRef1.current) {
                     fieldRef1.current.scrollIntoView({
                         behavior: "smooth",
-                        block: 'start'
+                        block: 'center'
                     });
-                } else if (depth == currentDepth && fieldRef2.current) {
+                } else if (depth - 1 === currentDepth && fieldRef1.current) {
+                    fieldRef1.current.scrollIntoView({
+                        behavior: "smooth",
+                        block: 'center'
+                    });
+                } else if (depth === currentDepth && fieldRef2.current) {
                     fieldRef2.current.scrollIntoView({
                         behavior: "smooth",
                         block: 'start'
                     });
                 }
             } else if (color === 'black') {
-                if (depth == currentDepth && fieldRef1.current) {
+                if (depth === currentDepth && fieldRef1.current) {
                     fieldRef1.current.scrollIntoView({
                         behavior: "smooth",
                         block: 'start'
                     });
-                } else if ((depth + 1 == currentDepth
+                } else if ((depth + 1 === currentDepth
                     || currentDepth === 1 && Object.keys(data['data']['my_move']).length === 0) && fieldRef2.current) {
                     fieldRef2.current.scrollIntoView({
                         behavior: "smooth",
@@ -70,11 +75,10 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             for (let rivalMove of rivalMoves) {
                 candidates.push(rivalMove['fen'])
             }
-            if(Object.keys(moves['data']['my_move']).length === 0){
+            if (Object.keys(moves['data']['my_move']).length === 0) {
                 addCandidates(candidates, 1)
-            }
-            else{
-                addCandidates(candidates, moves['data']['depth']+1)
+            } else {
+                addCandidates(candidates, moves['data']['depth'] + 1)
             }
         }
     }

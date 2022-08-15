@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Head from 'next/head';
 import StyleGrid from "../src/Style";
+import NavBarLogged from "../src/NavBarLogged";
 
 export default function Profile(props) {
 
@@ -41,6 +42,7 @@ export default function Profile(props) {
                     Account | My chess repertoire
                 </title>
             </Head>
+            <NavBarLogged/>
             <Box
                 component="main"
                 sx={{

@@ -5,6 +5,7 @@ import Line from "../../src/Line";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Fab} from "@mui/material";
+import NavBarLogged from "../../src/NavBarLogged";
 
 export default function Repertoire() {
     const router = useRouter()
@@ -78,6 +79,7 @@ export default function Repertoire() {
 
     return (
         <React.Fragment>
+            <NavBarLogged/>
             {Object.keys(fens).map((fen, index) => (
                 <Line
                     fen={fen}
