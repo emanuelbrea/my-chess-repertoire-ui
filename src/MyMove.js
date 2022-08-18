@@ -5,14 +5,16 @@ import StatsTable from "./StatsTable";
 import Box from "@mui/material/Box";
 import {Card, CardActionArea, CardMedia, IconButton, Link, Skeleton} from "@mui/material";
 import AddMove from "./AddMove";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {getSvgUrl} from "./util";
 
 export default function MyMove({move, depth, position, stats, updateMove, color}) {
 
     const [open, setOpen] = useState(false);
+    const [favorite, setFavorite] = useState(false);
     const [description, setDescription] = useState(null);
 
     const handleClose = (newValue) => {
@@ -57,7 +59,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                           marginX={2} target='_blank'>
                         Read more on WikiBooks
                     </Link>
-                    <Box sx={{mt: 5, mb:1}}>
+                    <Box sx={{mt: 5, mb: 1}}>
                         <StatsTable stats={stats} active={move.move}/>
                     </Box>
 
@@ -98,10 +100,14 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                         </Grid>
                         <Grid item xs={4} sm={4} md={4} lg={4} xl={4} display={"flex"} justifyContent={"flex-end"}>
                             <IconButton color="primary" size={"large"} onClick={handleClickEditMove}>
-                                <EditIcon sx={{fontSize: 30}} />
+                                <EditIcon sx={{fontSize: 30}}/>
                             </IconButton>
-                            <IconButton sx={{color: "red"}}>
-                                <FavoriteBorderIcon size={"large"} sx={{fontSize: 30}}/>
+                            <IconButton sx={{color: "red"}} onClick={() => setFavorite(!favorite)}>
+                                {favorite ?
+                                    <FavoriteIcon size={"large"} sx={{fontSize: 30}}/>
+                                    :
+                                    <FavoriteBorderIcon size={"large"} sx={{fontSize: 30}}/>}
+
                             </IconButton>
                         </Grid>
                     </Grid>

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 export default function Footer() {
     return (
         <footer>
-            <Container sx={{bgcolor: "#efefd3", position: "fixed", bottom: 0}} maxWidth={false}>
+            <Container sx={{bgcolor: "#acd4b4", position: "fixed", bottom: 0}} maxWidth={false}>
                 <Stack direction={"row"} spacing={5} alignItems={"center"} justifyContent={"center"} mt={5}>
                     <Link href="#" color="inherit" underline="hover">About</Link>
                     <Link href="#" color="inherit" underline="hover">Contact</Link>

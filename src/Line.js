@@ -2,18 +2,21 @@ import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
 import MyMove from "../src/MyMove";
 import RivalMoves from "../src/RivalMoves";
-import {Alert, Backdrop, CircularProgress, Divider} from "@mui/material";
+import {Backdrop, CircularProgress, Divider} from "@mui/material";
 import AddLine from "./AddLine";
 import {mdiChessKing} from '@mdi/js';
 import Icon from "@mdi/react";
 import Box from "@mui/material/Box";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "./util";
+
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
     const [data, setData] = useState(null);
     const [endOfLine, setEndOfLine] = useState(false);
     const fieldRef1 = useRef(null);
     const fieldRef2 = useRef(null);
-
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         getRepertoireMoves().then(data => {
@@ -67,6 +70,14 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         }
     },)
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
 
     function getCandidates(moves) {
         if (moves && active && Object.keys(moves['data']).length > 0) {
@@ -112,6 +123,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             .then(res => res.json())
         removeMoves(data['data']['depth'])
         setData(moves)
+        setOpen(true)
         getCandidates(moves)
     }
 
@@ -170,7 +182,13 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
 
     if (data['success'] === false) {
 
-        return (<Alert severity="error">There was an error accessing the data.</Alert>)
+        return (
+            <Snackbar open={true}>
+                <Alert severity="error" sx={{width: '100%', fontSize: 16}}>
+                    There was an error displaying the website.
+                </Alert>
+            </Snackbar>
+        )
     }
 
     if (active && Object.keys(data['data']).length === 0) {
@@ -193,6 +211,11 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                             updateMove={updateMove}
                     />
                     <Divider/>
+                    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
+                            Repertoire updated correctly!
+                        </Alert>
+                    </Snackbar>
                 </>
             }
             {active === true &&

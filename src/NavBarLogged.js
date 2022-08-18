@@ -36,10 +36,12 @@ export default function NavBarLogged() {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <img src="/kingLogo.svg" height={50}/>
-                    <Typography variant="h6" component="div">
-                        My Chess Repertoire
-                    </Typography>
+                    <Box
+                        marginTop={1}
+                        component="a"
+                        href="/">
+                        <img src="/logo.svg" height={70}/>
+                    </Box>
                 </Toolbar>
             </AppBar>
 
@@ -60,10 +62,10 @@ export default function NavBarLogged() {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <img src="/kingLogo.svg" height={50}/>
-                    <Typography variant="h6" component="div">
-                        My Chess Repertoire
-                    </Typography>
+                    <Box>
+                        <img src="/logo.svg" height={70}/>
+                    </Box>
+
                 </Box>
                 <Divider/>
                 <Box sx={{
@@ -77,7 +79,7 @@ export default function NavBarLogged() {
                         <ListItem key={"white"} disablePadding>
                             <ListItemButton href={'/repertoire/white'}>
                                 <ListItemIcon>
-                                    <img src="/rookW.svg" height={25}/>
+                                    <img src="/rookW.svg" height={35}/>
                                 </ListItemIcon>
                                 <ListItemText primary={"White"}/>
                             </ListItemButton>
@@ -85,7 +87,7 @@ export default function NavBarLogged() {
                         <ListItem key={"black"} disablePadding>
                             <ListItemButton href={'/repertoire/black'}>
                                 <ListItemIcon>
-                                    <img src="/rookB.svg" height={25}/>
+                                    <img src="/rookB.svg" height={35}/>
                                 </ListItemIcon>
                                 <ListItemText primary={"Black"}/>
                             </ListItemButton>

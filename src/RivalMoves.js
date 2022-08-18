@@ -2,12 +2,11 @@ import {ReactSVG} from "react-svg";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import StatsTable from "./StatsTable";
-import {Alert, Card, CardActionArea, CardMedia, Container, Skeleton} from "@mui/material";
-import {getSvgUrl} from "./util";
-import {forwardRef, useEffect, useState} from "react";
+import {Card, CardActionArea, CardMedia, Container, Skeleton} from "@mui/material";
+import Alert, {getSvgUrl} from "./util";
+import {useEffect, useState} from "react";
 import AOS from "aos";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
 export default function RivalMoves({moves, fen, depth, addVariant, color}) {
 
@@ -20,10 +19,6 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
     };
 
     AOS.refresh();
-
-    const Alert = forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    });
 
     useEffect(() => {
         if (moves.length === 0) {
@@ -78,7 +73,7 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                 </>
             }
             <Snackbar open={open} autoHideDuration={5000} onClose={() => setOpen(false)}>
-                <Alert onClose={() => setOpen(false)} severity="info" sx={{fontSize: 18}}>Not enough games to continue
+                <Alert onClose={() => setOpen(false)} severity="info" sx={{width: '100%', fontSize: 16}}>Not enough games to continue
                     this line</Alert>
             </Snackbar>
 

@@ -4,11 +4,11 @@ import Typography from "@mui/material/Typography";
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Dialog from '@mui/material/Dialog';
-import {Alert, Card, CardActionArea, CardContent, CardMedia, Skeleton} from "@mui/material";
-import {getSvgUrl} from "./util.js";
+import {Card, CardActionArea, CardContent, CardMedia, Container, IconButton, Skeleton} from "@mui/material";
+import Alert, {getSvgUrl} from "./util.js";
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import {forwardRef} from "react";
+import Box from "@mui/material/Box";
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function AddMove({onClose, open, moves, move, fen, depth, color}) {
 
@@ -19,10 +19,6 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
     const handleClose = () => {
         onClose();
     };
-
-    const Alert = forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    });
 
     return (
         <>
@@ -35,7 +31,14 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
                         onClose={handleClose}
                     >
                         <DialogTitle>
-                            {'Pick a move to replace ' + depth + '.' + move.move}
+                            <Box display="flex" alignItems="center">
+                                <Box flexGrow={1} fontSize={24}>{'Pick a move to replace ' + depth + '.' + move.move}</Box>
+                                <Box>
+                                    <IconButton onClick={handleClose}>
+                                        <CloseIcon/>
+                                    </IconButton>
+                                </Box>
+                            </Box>
                         </DialogTitle>
                         <DialogContent>
                             <Grid container spacing={5} justifyContent={"center"} paddingRight={2} paddingLeft={2}>
@@ -52,16 +55,17 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
                                                         key={index}
                                                         src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                                 </CardMedia>
-                                                <CardContent>
-                                                    <Typography variant="h6" marginX={2}>
-                                                        {depth}.{move.move}
-                                                    </Typography>
-                                                    <Typography variant="h6" marginX={2}>
-                                                        {move.name}
-                                                    </Typography>
-                                                </CardContent>
                                             </CardActionArea>
                                         </Card>
+                                        <Container
+                                            sx={{display:"flex", flexDirection:"column", alignItems:"center", m:1, mt:2}}>
+                                            <Typography variant="h5">
+                                                {depth}.{move.move}
+                                            </Typography>
+                                            <Typography variant="h5">
+                                                {move?.name}
+                                            </Typography>
+                                        </Container>
 
                                     </Grid>
                                 ))}
@@ -70,7 +74,8 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
                     </Dialog>
                     :
                     <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="info" sx={{fontSize: 18}}>There are no alternatives for
+                        <Alert onClose={handleClose} severity="info" sx={{width: '100%', fontSize: 16}}>There are no
+                            alternatives for
                             this move!</Alert>
                     </Snackbar>
             }
