@@ -1,5 +1,4 @@
 import {AppBar, Container, Stack, Toolbar} from "@mui/material";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 
@@ -10,14 +9,22 @@ export default function NavBar() {
         <AppBar position={"static"} color="transparent" elevation={0}>
             <Container sx={{mt: 3}}>
                 <Toolbar sx={{justifyContent: "space-between"}}>
-                    <img src="/kingLogo.svg" height={80} />
-                    <Typography variant="h6" component="div">
-                        My Chess Repertoire
-                    </Typography>
+                    <img src="/logo2.svg" height={80} />
 
                     <Stack direction="row" spacing={1} sx={{display: {xs: 'none', md: 'flex'}}}>
                         {pages.map((page) => (
-                            <Button sx={{textTransform: "none", fontSize: 18}} key={page}
+                            <Button variant={"text"}
+                                    sx={{
+                                        ':hover': {
+                                            textDecoration: "underline #769656",
+                                            textDecorationThickness:"3px",
+                                            textUnderlineOffset:"10px",
+                                            backgroundColor:"transparent"
+                                        },
+                                        fontSize:18,
+                                        color:"black",
+                                        textTransform: "none"
+                                    }} key={page}
                             >
                                 {page}
                             </Button>
@@ -25,12 +32,22 @@ export default function NavBar() {
                     </Stack>
                     <Stack direction="row" spacing={1}>
                         <Link href="/login" passHref>
-                        <Button sx={{textTransform: "none", mr: 2, fontSize: 18}} size="large">
+                        <Button sx={{':hover': {
+                                textDecoration: "underline #769656",
+                                textDecorationThickness:"3px",
+                                textUnderlineOffset:"10px",
+                                backgroundColor:"transparent"
+                            },
+                            textTransform: "none", mr: 2, fontSize: 18, color:"black"}} size="large">
                             Log in
                         </Button>
                         </Link>
                         <Link href="/register" passHref>
-                        <Button sx={{textTransform: "none", fontSize: 18}} variant="outlined" size="large">
+                        <Button sx={{':hover': {
+                                backgroundColor:"#efefd3",
+                                border:"2px solid #769656"
+                            },
+                            textTransform: "none", fontSize: 18, color:"black", border:"2px solid #769656"}} variant="outlined" size="large">
                             Sign up
                         </Button>
                         </Link>

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import NavBar from "../src/NavBar";
+import LandingPage from "../src/LandingPage";
 
 export default function Index() {
     return (
         <React.Fragment>
-            <NavBar/>
+            <LandingPage/>
         </React.Fragment>
 
 
