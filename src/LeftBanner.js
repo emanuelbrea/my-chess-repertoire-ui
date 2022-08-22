@@ -9,7 +9,7 @@ export default function LeftBanner() {
         <Grid
             item
             xs={false}
-            sm={4}
+            sm={false}
             md={6}
             lg={6}
             xl={6}
@@ -32,11 +32,8 @@ export default function LeftBanner() {
                     maxWidth: 800,
                 }}
             >
-                <Typography gutterBottom variant="h3" component="div" fontWeight={500}>
+                <Typography gutterBottom variant="h3" component="div" fontWeight={700} sx={{mb: 50}}>
                     Your chess repertoire in one place
-                </Typography>
-                <Typography sx={{mb: 50}}>
-                    Easily manage your openings
                 </Typography>
             </Box>
 

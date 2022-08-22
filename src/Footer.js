@@ -5,10 +5,23 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Typography from "@mui/material/Typography";
 
+function Copyright() {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://mychessrepertoire.com/">
+                My Chess Repertoire
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+
 export default function Footer() {
     return (
-        <footer>
-            <Container sx={{bgcolor: "#acd4b4", position: "fixed", bottom: 0}} maxWidth={false}>
+        <Box component="footer" sx={{py: 2, mt: 'auto', px:2}}>
+            <Container>
                 <Stack direction={"row"} spacing={5} alignItems={"center"} justifyContent={"center"} mt={5}>
                     <Link href="#" color="inherit" underline="hover">About</Link>
                     <Link href="#" color="inherit" underline="hover">Contact</Link>
@@ -51,12 +64,10 @@ export default function Footer() {
                     </IconButton>
                 </Box>
                 <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 4}}>
-                    <Typography fontSize={16}>
-                        &copy; 2022 My Chess Repertoire. All rights reserved.
-                    </Typography>
+                    <Copyright/>
                 </Box>
 
             </Container>
-        </footer>
+        </Box>
     );
 }

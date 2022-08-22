@@ -13,7 +13,7 @@ export default function NavBar() {
                     <Box
                         component="a"
                         href="/">
-                        <img src="/logo.svg" height={80}/>
+                        <img src="/logo.svg" height={70}/>
                     </Box>
 
 

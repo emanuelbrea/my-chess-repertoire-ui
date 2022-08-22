@@ -102,7 +102,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                             <IconButton color="primary" size={"large"} onClick={handleClickEditMove}>
                                 <EditIcon sx={{fontSize: 30}}/>
                             </IconButton>
-                            <IconButton sx={{color: "red"}} onClick={() => setFavorite(!favorite)}>
+                            <IconButton sx={{color: "#769656"}} onClick={() => setFavorite(!favorite)}>
                                 {favorite ?
                                     <FavoriteIcon size={"large"} sx={{fontSize: 30}}/>
                                     :

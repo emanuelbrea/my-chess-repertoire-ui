@@ -11,7 +11,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import NextLink from "next/link";
 import LeftBanner from "../src/LeftBanner";
 
-
 export default function Register() {
     const router = useRouter();
     const formik = useFormik({
@@ -68,6 +67,13 @@ export default function Register() {
                             justifyContent: 'center'
                         }}
                     >
+                        <Box
+                            sx={{marginBottom: 3}}
+                            component="a"
+                            href="/">
+                            <img src="/logo.svg" height={100}
+                            />
+                        </Box>
                         <form onSubmit={formik.handleSubmit} sx={{display: "grid"}}>
                             <Box sx={{my: 3}}>
                                 <Typography
@@ -124,19 +130,21 @@ export default function Register() {
                             </Box>
 
                             <Box sx={{py: 3}}>
-                                <Button
-                                    color="primary"
-                                    disabled={formik.isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                >
-                                    <Typography>
-                                        Sign in
-                                    </Typography>
-                                    <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
-                                </Button>
+                                <NextLink href="/repertoire" passHref>
+                                    <Button
+                                        color="primary"
+                                        disabled={formik.isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        type="submit"
+                                        variant="contained"
+                                    >
+                                        <Typography>
+                                            Sign in
+                                        </Typography>
+                                        <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
+                                    </Button>
+                                </NextLink>
                                 <Divider spacing={2} sx={{my: 3}}>or</Divider>
                                 <GoogleLoginButton align={"center"}>
                                 </GoogleLoginButton>
