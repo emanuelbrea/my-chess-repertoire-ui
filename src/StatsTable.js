@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 export default function StatsTable({stats, active}) {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{minWidth: 650}} aria-label={"position-stats"} size={"small"}>
+            <Table sx={{minWidth: 400}} aria-label={"position-stats"} size={"small"}>
                 <TableHead>
                     <TableRow>
                         <TableCell>
@@ -56,7 +56,7 @@ export default function StatsTable({stats, active}) {
                             <TableCell align={"center"}>
                                 {(row.winning_rate * 100).toFixed(2)}
                             </TableCell>
-                            <TableCell align="center">
+                            <TableCell align="center" sx={{minWidth: 250}}>
                                 <Stack direction={"row"}>
                                     <Box sx={{
                                         flex: Math.round(row.white_wins * 100),

@@ -2,8 +2,7 @@ import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
 import {ReactSVG} from 'react-svg'
 import StatsTable from "./StatsTable";
-import Box from "@mui/material/Box";
-import {Card, CardActionArea, CardMedia, IconButton, Link, Skeleton} from "@mui/material";
+import {Card, CardActionArea, CardMedia, Container, IconButton, Link, Skeleton} from "@mui/material";
 import AddMove from "./AddMove";
 import {useEffect, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
@@ -33,6 +32,9 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
         if (move.link) {
             getMoveDescription(move)
         }
+        else{
+            setDescription('')
+        }
     }, [move]);
 
 
@@ -53,18 +55,22 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                     <Typography variant="h3">
                         Your move: {depth}{color === 'white' ? '.' : '...'}{move.move}
                     </Typography>
+                    {description === null &&
+                        <>
+                            <Skeleton variant="text" width={"60%"} sx={{ fontSize: '1rem' }} />
+
+                            <Skeleton variant="rounded" width={"60%"} height={100} />
+                        </>
+                    }
                     {description != null &&
-                        <div dangerouslySetInnerHTML={{__html: description}} style={{fontSize: 18}}/>}
+                        <div dangerouslySetInnerHTML={{__html: description}} style={{fontSize: 18}}/>
+                    }
                     <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
                           marginX={2} target='_blank'>
                         Read more on WikiBooks
                     </Link>
-                    <Box sx={{mt: 5, mb: 1}}>
-                        <StatsTable stats={stats} active={move.move}/>
-                    </Box>
-
                 </Grid>
-                <Grid item xs={12} sm={10} md={10} lg={6} xl={5} display={"flex"} flexDirection={"column"}
+                <Grid item xs={12} sm={10} md={8} lg={6} xl={5} display={"flex"} flexDirection={"column"}
                       justifyContent={"center"}
                 >
                     <Card elevation={10}>
@@ -74,7 +80,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                             <CardMedia>
                                 <ReactSVG
                                     loading={() => <Skeleton animation="wave" variant="rectangular"
-                                                             height={500}></Skeleton>}
+                                                             height={400}></Skeleton>}
                                     src={getSvgUrl(position.fen, move.move, color)}/>
                             </CardMedia>
                         </CardActionArea>
@@ -94,7 +100,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                             <Typography variant="h5">
                                 {depth}.{move.move}
                             </Typography>
-                            <Typography variant="h5">
+                            <Typography variant="h5" textAlign={"center"}>
                                 {move?.name}
                             </Typography>
                         </Grid>
@@ -115,6 +121,9 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
 
                 </Grid>
             </Grid>
+            <Container sx={{mb: 3}}>
+                <StatsTable stats={stats} active={move.move}/>
+            </Container>
             <AddMove
                 id={'edit-move'}
                 keepMounted

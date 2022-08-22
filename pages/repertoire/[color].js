@@ -93,12 +93,6 @@ export default function Repertoire() {
                 />
 
             ))}
-            <Fab color="primary" sx={{position: "fixed", bottom: 40, right: 110}} onClick={moveUp}>
-                <KeyboardArrowUpIcon/>
-            </Fab>
-            <Fab color="primary" sx={{position: "fixed", bottom: 40, right: 40}} onClick={moveDown}>
-                <KeyboardArrowDownIcon/>
-            </Fab>
         </React.Fragment>
 
 

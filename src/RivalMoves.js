@@ -47,7 +47,7 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                                             <CardMedia>
                                                 <ReactSVG
                                                     loading={() => <Skeleton animation="wave" variant="rectangular"
-                                                                             height={450}></Skeleton>}
+                                                                             height={350}></Skeleton>}
                                                     key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
                                             </CardMedia>
                                         </CardActionArea>
