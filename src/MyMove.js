@@ -29,12 +29,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
     };
 
     useEffect(() => {
-        if (move.link) {
-            getMoveDescription(move)
-        }
-        else{
-            setDescription('')
-        }
+        getMoveDescription(move)
     }, [move]);
 
 
@@ -43,7 +38,8 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
         const moves = await fetch(move.link.replace('wiki/', 'w/api.php?titles=') +
             '&redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=800')
             .then(res => res.json())
-        setDescription(moves['query']['pages'][0]['extract'])
+        const info = moves['query']['pages'][0]
+        setDescription(info['extract'])
     }
 
     return (
