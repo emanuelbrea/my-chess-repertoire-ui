@@ -50,7 +50,7 @@ export default function Profile(props) {
                     py: 8,
                 }}
             >
-                <Container maxWidth="lg">
+                <Container maxWidth="md">
                     <form
                         autoComplete="off"
                         noValidate

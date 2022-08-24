@@ -15,7 +15,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     const [data, setData] = useState(null);
     const [endOfLine, setEndOfLine] = useState(false);
     const fieldRef1 = useRef(null);
-    const fieldRef2 = useRef(null);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -34,39 +33,12 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
 
     useEffect(() => {
         if (data && data['success'] === true && currentDepth && active) {
-            const depth = data['data']['depth'] * 2
-            if (color === 'white') {
-                if (currentDepth === 1 && fieldRef1.current) {
-                    fieldRef1.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: 'center'
-                    });
-                } else if (depth - 1 === currentDepth && fieldRef1.current) {
-                    fieldRef1.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: 'start'
-                    });
-                } else if (depth === currentDepth && fieldRef2.current) {
-                    fieldRef2.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: 'start'
-                    });
-                }
-            } else if (color === 'black') {
-                if (depth === currentDepth && fieldRef1.current) {
-                    fieldRef1.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: 'start'
-                    });
-                } else if ((depth + 1 === currentDepth
-                    || currentDepth === 1 && Object.keys(data['data']['my_move']).length === 0) && fieldRef2.current) {
-                    fieldRef2.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: 'start'
-                    });
-                }
+            if (currentDepth === data['data']['depth'] && fieldRef1.current) {
+                fieldRef1.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: 'start'
+                });
             }
-
         }
     },)
 
@@ -128,7 +100,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }
 
     const addRepertoireMoves = async () => {
-
+        setData(null)
         const requestOptions = {
             method: 'PATCH',
         };
@@ -220,7 +192,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             }
             {active === true &&
                 <>
-                    <div ref={fieldRef2}/>
                     <RivalMoves moves={data['data']['rival_moves']}
                                 fen={Object.keys(data['data']['my_move']).length > 0 ? data['data']['my_move']['fen'] : fen}
                                 depth={color === 'white' ||

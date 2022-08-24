@@ -17,7 +17,7 @@ export default function LandingPage() {
                     display: 'flex',
                     flexDirection: 'column',
                     minHeight: '100vh',
-                    backgroundImage: "url(../backgroundLanding1.jpg)", backgroundSize: "cover"
+                    backgroundImage: "url(../backgroundLanding1.webp)", backgroundSize: "cover"
                 }}>
                 <Container component="main"
                            sx={{}}

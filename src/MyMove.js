@@ -94,7 +94,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
                               alignItems={"center"}
                         >
                             <Typography variant="h5">
-                                {depth}.{move.move}
+                                {depth}{color === 'white' ? '.' : '...'}{move.move}
                             </Typography>
                             <Typography variant="h5" textAlign={"center"}>
                                 {move?.name}

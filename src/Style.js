@@ -29,7 +29,7 @@ export default function StyleGrid() {
             <Grid container spacing={1}>
                 <Grid container item spacing={3}>
                     <Grid item xs={4}>
-                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
+                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={"space-between"} display={"flex"}>
                             <Typography>
                                 Solid
                             </Typography>
@@ -49,14 +49,14 @@ export default function StyleGrid() {
                         />
                     </Grid>
                     <Grid item xs={4}>
-                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
-                            <Typography>
-                                Aggressive
-                            </Typography>
+                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={"space-between"} display={"flex"}>
                             <Icon path={mdiSwordCross}
                                   title="Aggressive"
                                   size={1.2}
                             />
+                            <Typography>
+                                Aggressive
+                            </Typography>
                         </Stack>
                     </Grid>
                 </Grid>
@@ -64,9 +64,9 @@ export default function StyleGrid() {
 
                 <Grid container item spacing={3}>
                     <Grid item xs={4}>
-                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
+                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={"space-between"} display={"flex"}>
                             <Typography>
-                                Variation
+                                Side Lines
                             </Typography>
                             <CallSplitIcon sx={{fontSize: 40}}/>
                         </Stack>
@@ -83,11 +83,12 @@ export default function StyleGrid() {
                         />
                     </Grid>
                     <Grid item xs={4}>
-                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
-                            <Typography>
-                                Main line
-                            </Typography>
+                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={"space-between"} display={"flex"}>
                             <MergeIcon sx={{fontSize: 40}}/>
+                            <Typography>
+                                Main lines
+                            </Typography>
+
                         </Stack>
                     </Grid>
                 </Grid>
@@ -95,7 +96,7 @@ export default function StyleGrid() {
 
                 <Grid container item spacing={3}>
                     <Grid item xs={4}>
-                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
+                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={"space-between"} display={"flex"}>
                             <Typography>
                                 Classical
                             </Typography>
@@ -115,11 +116,12 @@ export default function StyleGrid() {
                         />
                     </Grid>
                     <Grid item xs={4}>
-                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
+                        <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={"space-between"} display={"flex"}>
+                            <DesktopMacIcon sx={{fontSize: 30}}/>
                             <Typography>
                                 Popular
                             </Typography>
-                            <DesktopMacIcon sx={{fontSize: 30}}/>
+
                         </Stack>
                     </Grid>
                 </Grid>
