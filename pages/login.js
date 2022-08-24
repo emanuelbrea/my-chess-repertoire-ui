@@ -43,10 +43,10 @@ export default function Register() {
                     Login | My chess repertoire
                 </title>
             </Head>
-            <Container maxWidth={"xs"} component="main"
+            <Container maxWidth={"sm"} component="main"
                        sx={{
                            minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center",
-                           flexDirection: "column"
+                           flexDirection: "column",
                        }}>
                 <Box
                     sx={{marginBottom: 3}}
