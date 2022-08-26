@@ -33,7 +33,13 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
 
     useEffect(() => {
         if (data && data['success'] === true && currentDepth && active) {
-            if (currentDepth === data['data']['depth'] && fieldRef1.current) {
+            if (currentDepth === 1 && fieldRef1.current && color === 'white') {
+                fieldRef1.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: 'center'
+                });
+            }
+            else if (currentDepth === data['data']['depth'] && fieldRef1.current) {
                 fieldRef1.current.scrollIntoView({
                     behavior: "smooth",
                     block: 'start'

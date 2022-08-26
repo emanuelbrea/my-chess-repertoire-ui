@@ -39,7 +39,8 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
             '&redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=800')
             .then(res => res.json())
         const info = moves['query']['pages'][0]
-        setDescription(info['extract'])
+        const desc = info['extract'].replace('When contributing to this Wikibook, please follow the Conventions for organization.', '')
+        setDescription(desc)
     }
 
     return (
