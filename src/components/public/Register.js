@@ -1,17 +1,13 @@
-import Head from "next/head";
 import Box from "@mui/material/Box";
 import {Container, Divider, Link, TextField, Typography} from "@mui/material";
 import {useFormik} from 'formik';
 import * as Yup from "yup";
-import {useRouter} from "next/router";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import NextLink from "next/link";
 
 
 export default function Register() {
-    const router = useRouter();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -51,22 +47,21 @@ export default function Register() {
                 )
         }),
         onSubmit: () => {
-            router.push('/');
         }
     });
 
     return (
         <>
-            <Head>
+            <head>
                 <title>
                     Login | My chess repertoire
                 </title>
-            </Head>
+            </head>
             <Container maxWidth={"sm"} component="main"
                        sx={{
                            minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center",
                            flexDirection: "column",
-                           marginY:5
+                           marginY: 5
                        }}>
                 <Box
                     sx={{marginBottom: 3}}
@@ -160,17 +155,13 @@ export default function Register() {
                     >
                         Have an account?
                         {' '}
-                        <NextLink
+                        <Link
+                            variant="subtitle"
+                            underline="hover"
                             href="/login"
-                            passHref
                         >
-                            <Link
-                                variant="subtitle"
-                                underline="hover"
-                            >
-                                Sign In
-                            </Link>
-                        </NextLink>
+                            Sign In
+                        </Link>
                     </Typography>
 
                 </form>

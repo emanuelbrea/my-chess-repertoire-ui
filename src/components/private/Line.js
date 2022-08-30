@@ -1,14 +1,15 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
-import MyMove from "../src/MyMove";
-import RivalMoves from "../src/RivalMoves";
+import MyMove from "./MyMove";
+import RivalMoves from "./RivalMoves";
 import {Backdrop, CircularProgress, Divider} from "@mui/material";
 import AddLine from "./AddLine";
 import {mdiChessKing} from '@mdi/js';
 import Icon from "@mdi/react";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
-import Alert from "./util";
+import Alert from "../public/Util";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
@@ -16,8 +17,12 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     const [endOfLine, setEndOfLine] = useState(false);
     const fieldRef1 = useRef(null);
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (color !== 'white' && color !== 'black') {
+            return navigate("/")
+        }
         getRepertoireMoves().then(data => {
             setData(data);
             if (data['success'] === true) {
@@ -38,8 +43,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                     behavior: "smooth",
                     block: 'center'
                 });
-            }
-            else if (currentDepth === data['data']['depth'] && fieldRef1.current) {
+            } else if (currentDepth === data['data']['depth'] && fieldRef1.current) {
                 fieldRef1.current.scrollIntoView({
                     behavior: "smooth",
                     block: 'start'

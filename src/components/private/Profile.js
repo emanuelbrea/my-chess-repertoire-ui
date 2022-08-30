@@ -14,9 +14,8 @@ import {
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Head from 'next/head';
-import StyleGrid from "../src/Style";
-import NavBarLogged from "../src/NavBarLogged";
+import StyleGrid from "./Style";
+import NavBarLogged from "./NavBarLogged";
 
 export default function Profile(props) {
 
@@ -37,11 +36,11 @@ export default function Profile(props) {
     };
     return (
         <>
-            <Head>
+            <head>
                 <title>
                     Account | My chess repertoire
                 </title>
-            </Head>
+            </head>
             <NavBarLogged/>
             <Box
                 component="main"

@@ -1,16 +1,12 @@
-import Head from "next/head";
 import Box from "@mui/material/Box";
 import {Checkbox, Container, Divider, Link, TextField, Typography} from "@mui/material";
 import {useFormik} from 'formik';
 import * as Yup from "yup";
-import {useRouter} from "next/router";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import NextLink from "next/link";
 
-export default function Register() {
-    const router = useRouter();
+export default function Login() {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -38,11 +34,11 @@ export default function Register() {
 
     return (
         <>
-            <Head>
+            <head>
                 <title>
                     Login | My chess repertoire
                 </title>
-            </Head>
+            </head>
             <Container maxWidth={"sm"} component="main"
                        sx={{
                            minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center",
@@ -111,7 +107,7 @@ export default function Register() {
                     </Box>
 
                     <Box sx={{py: 3}}>
-                        <NextLink href="/repertoire" passHref>
+                        <Link href="/repertoire/white">
                             <Button
                                 color="primary"
                                 disabled={formik.isSubmitting}
@@ -125,7 +121,7 @@ export default function Register() {
                                 </Typography>
                                 <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
                             </Button>
-                        </NextLink>
+                        </Link>
                         <Divider spacing={2} sx={{my: 3}}>or</Divider>
                         <GoogleLoginButton align={"center"}>
                         </GoogleLoginButton>
@@ -136,17 +132,13 @@ export default function Register() {
                     >
                         Don't have an account?
                         {' '}
-                        <NextLink
+                        <Link
+                            variant="subtitle"
+                            underline="hover"
                             href="/register"
-                            passHref
                         >
-                            <Link
-                                variant="subtitle"
-                                underline="hover"
-                            >
-                                Sign Up
-                            </Link>
-                        </NextLink>
+                            Sign Up
+                        </Link>
                     </Typography>
 
                 </form>

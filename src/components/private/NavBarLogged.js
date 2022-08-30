@@ -2,7 +2,7 @@ import {
     AppBar,
     Divider,
     Drawer,
-    IconButton,
+    IconButton, Link,
     List,
     ListItem,
     ListItemButton,
@@ -16,7 +16,6 @@ import Box from "@mui/material/Box";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Link from "next/link";
 
 export default function NavBarLogged() {
     const [open, setOpen] = useState(false);
@@ -96,7 +95,7 @@ export default function NavBarLogged() {
                         <Divider/>
                         <List>
                             <ListItem key={"profile"} disablePadding>
-                                <Link href="/profile" passHref>
+                                <Link href="/profile" underline={"none"}>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <PersonIcon/>
@@ -114,7 +113,7 @@ export default function NavBarLogged() {
                                 </ListItemButton>
                             </ListItem>
                             <ListItem key={"logout"} disablePadding>
-                                <Link href="/" passHref>
+                                <Link href="/" underline={"none"}>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <LogoutIcon/>

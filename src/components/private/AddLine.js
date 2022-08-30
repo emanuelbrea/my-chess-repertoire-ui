@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import {Fab} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Snackbar from "@mui/material/Snackbar";
-import Alert from "./util";
+import Alert from "../public/Util";
 
 
 export default function AddLine({addRepertoireMoves, endOfLine}) {
