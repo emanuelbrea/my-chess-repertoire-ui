@@ -2,7 +2,8 @@ import {
     AppBar,
     Divider,
     Drawer,
-    IconButton, Link,
+    IconButton,
+    Link,
     List,
     ListItem,
     ListItemButton,
@@ -94,16 +95,18 @@ export default function NavBarLogged() {
                     <Box>
                         <Divider/>
                         <List>
-                            <ListItem key={"profile"} disablePadding>
-                                <Link href="/profile" underline={"none"}>
+                            <Link href="/profile" underline={"none"}>
+                                <ListItem key={"profile"} disablePadding>
+
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <PersonIcon/>
                                         </ListItemIcon>
-                                        <ListItemText primary={"Profile"}/>
+                                        <ListItemText primary={"Profile"} primaryTypographyProps={{style:{color:"black"} }}/>
                                     </ListItemButton>
-                                </Link>
-                            </ListItem>
+
+                                </ListItem>
+                            </Link>
                             <ListItem key={"settings"} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
@@ -112,16 +115,16 @@ export default function NavBarLogged() {
                                     <ListItemText primary={"Settings"}/>
                                 </ListItemButton>
                             </ListItem>
-                            <ListItem key={"logout"} disablePadding>
-                                <Link href="/" underline={"none"}>
+                            <Link href="/" underline={"none"}>
+                                <ListItem key={"logout"} disablePadding>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <LogoutIcon/>
                                         </ListItemIcon>
-                                        <ListItemText primary={"Log out"}/>
+                                        <ListItemText primary={"Log out"} primaryTypographyProps={{style:{color:"black"} }}/>
                                     </ListItemButton>
-                                </Link>
-                            </ListItem>
+                                </ListItem>
+                            </Link>
                         </List>
                     </Box>
 
