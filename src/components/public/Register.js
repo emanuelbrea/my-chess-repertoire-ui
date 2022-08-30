@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import {Auth} from 'aws-amplify';
+import { Hub } from 'aws-amplify';
 
 export default function Register() {
     const formik = useFormik({
@@ -13,8 +14,7 @@ export default function Register() {
             email: '',
             firstName: '',
             lastName: '',
-            password: '',
-            policy: false
+            password: ''
         },
         validationSchema: Yup.object({
             email: Yup
@@ -39,24 +39,49 @@ export default function Register() {
                 .max(255)
                 .required(
                     'Password is required'),
-            policy: Yup
-                .boolean()
-                .oneOf(
-                    [true],
-                    'This field must be checked'
-                )
         }),
-        onSubmit: () => {
+        onSubmit: (values) => {
+            let { email, firstName, lastName, password} = values;
+            Auth.signUp({
+                username: email,
+                password,
+                attributes: {
+                    email,
+                    name: firstName,
+                },
+                autoSignIn: {
+                    enabled: true,
+                }
+            }).then((user) => {
+                console.log(user)
+            }).catch(err => {
+                console.log(err)
+            })
         }
     });
 
+    function listenToAutoSignInEvent() {
+        Hub.listen('auth', ({ payload }) => {
+            const { event } = payload;
+            if (event === 'autoSignIn') {
+                const user = payload.data;
+                // assign user
+            } else if (event === 'autoSignIn_failure') {
+                // redirect to sign in page
+            }
+        })
+    }
+
+    async function confirmSignUp(username, code) {
+        try {
+            await Auth.confirmSignUp(username, code);
+        } catch (error) {
+            console.log('error confirming sign up', error);
+        }
+    }
+
     return (
         <>
-            <head>
-                <title>
-                    Login | My chess repertoire
-                </title>
-            </head>
             <Container maxWidth={"sm"} component="main"
                        sx={{
                            minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center",

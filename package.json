@@ -7,6 +7,7 @@
     "start": "react-scripts start"
   },
   "dependencies": {
+    "@aws-amplify/cli": "latest",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mdi/js": "^7.0.96",
@@ -14,6 +15,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "aos": "latest",
+    "aws-amplify": "^4.3.33",
     "formik": "^2.2.9",
     "react": "latest",
     "react-dom": "latest",

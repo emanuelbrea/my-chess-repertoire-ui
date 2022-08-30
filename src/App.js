@@ -6,8 +6,12 @@ import LandingPage from "./components/public/LandingPage";
 import Repertoire from "./components/private/Repertoire";
 import PrivateRoute from "./routes/PrivateRoute";
 import Profile from "./components/private/Profile";
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
 
 export default function App() {
+
+    Amplify.configure(awsconfig);
 
     return (
         <BrowserRouter>
