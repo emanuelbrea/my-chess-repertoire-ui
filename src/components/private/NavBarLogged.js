@@ -3,7 +3,6 @@ import {
     Divider,
     Drawer,
     IconButton,
-    Link,
     List,
     ListItem,
     ListItemButton,
@@ -17,6 +16,7 @@ import Box from "@mui/material/Box";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import {Link} from "react-router-dom";
 
 export default function NavBarLogged() {
     const [open, setOpen] = useState(false);
@@ -95,7 +95,7 @@ export default function NavBarLogged() {
                     <Box>
                         <Divider/>
                         <List>
-                            <Link href="/profile" underline={"none"}>
+                            <Link to="/profile" style={{ textDecoration: 'none' }}>
                                 <ListItem key={"profile"} disablePadding>
 
                                     <ListItemButton>
