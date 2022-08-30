@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import {Container, Divider, Link, TextField, Typography} from "@mui/material";
+import {Container, Divider, TextField, Typography} from "@mui/material";
 import {useFormik} from 'formik';
 import * as Yup from "yup";
 import {GoogleLoginButton} from "react-social-login-buttons";
@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Auth} from 'aws-amplify';
 import { Hub } from 'aws-amplify';
+import {Link} from "react-router-dom";
 
 export default function Register() {
     const formik = useFormik({
@@ -181,9 +182,8 @@ export default function Register() {
                         Have an account?
                         {' '}
                         <Link
-                            variant="subtitle"
-                            underline="hover"
-                            href="/login"
+                            to="/login"
+                            style={{ textDecoration: 'none' }}
                         >
                             Sign In
                         </Link>

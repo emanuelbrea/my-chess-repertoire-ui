@@ -1,10 +1,11 @@
 import Box from "@mui/material/Box";
-import {Checkbox, Container, Divider, Link, TextField, Typography} from "@mui/material";
+import {Checkbox, Container, Divider, TextField, Typography} from "@mui/material";
 import {useFormik} from 'formik';
 import * as Yup from "yup";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import {Link} from "react-router-dom";
 
 export default function Login() {
     const formik = useFormik({
@@ -107,7 +108,7 @@ export default function Login() {
                     </Box>
 
                     <Box sx={{py: 3}}>
-                        <Link href="/repertoire/white">
+                        <Link to="/repertoire/white" style={{ textDecoration: 'none' }}>
                             <Button
                                 color="primary"
                                 disabled={formik.isSubmitting}
@@ -132,10 +133,8 @@ export default function Login() {
                     >
                         Don't have an account?
                         {' '}
-                        <Link
-                            variant="subtitle"
-                            underline="hover"
-                            href="/register"
+                        <Link style={{ textDecoration: 'none' }}
+                            to="/register"
                         >
                             Sign Up
                         </Link>
