@@ -1,6 +1,6 @@
 version: 0.1
 phases:
-  preBuild:
+  pre_build:
     commands:
       - npm install
   build:
