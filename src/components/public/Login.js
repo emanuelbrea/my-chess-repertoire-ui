@@ -5,9 +5,15 @@ import * as Yup from "yup";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {Auth} from 'aws-amplify';
+import {useState} from "react";
+import Loading from "./Loading";
 
 export default function Login() {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -28,18 +34,23 @@ export default function Login() {
                 .required(
                     'Password is required'),
         }),
-        onSubmit: () => {
-            router.push('/');
+        onSubmit: (values, actions) => {
+            setLoading(true)
+            let {email, password} = values;
+            Auth.signIn(email, password).then((user) => {
+                setLoading(false)
+                navigate("/repertoire/white")
+            }).catch(err => {
+                setLoading(false)
+            }).finally(
+                actions.setSubmitting(false)
+            )
         }
     });
 
+
     return (
         <>
-            <head>
-                <title>
-                    Login | My chess repertoire
-                </title>
-            </head>
             <Container maxWidth={"sm"} component="main"
                        sx={{
                            minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center",
@@ -108,21 +119,19 @@ export default function Login() {
                     </Box>
 
                     <Box sx={{py: 3}}>
-                        <Link to="/repertoire/white" style={{ textDecoration: 'none' }}>
-                            <Button
-                                color="primary"
-                                disabled={formik.isSubmitting}
-                                fullWidth
-                                size="large"
-                                type="submit"
-                                variant="contained"
-                            >
-                                <Typography>
-                                    Sign in
-                                </Typography>
-                                <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
-                            </Button>
-                        </Link>
+                        <Button
+                            color="primary"
+                            disabled={formik.isSubmitting}
+                            fullWidth
+                            size="large"
+                            type="submit"
+                            variant="contained"
+                        >
+                            <Typography>
+                                Sign in
+                            </Typography>
+                            <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
+                        </Button>
                         <Divider spacing={2} sx={{my: 3}}>or</Divider>
                         <GoogleLoginButton align={"center"}>
                         </GoogleLoginButton>
@@ -133,8 +142,8 @@ export default function Login() {
                     >
                         Don't have an account?
                         {' '}
-                        <Link style={{ textDecoration: 'none' }}
-                            to="/register"
+                        <Link style={{textDecoration: 'none'}}
+                              to="/register"
                         >
                             Sign Up
                         </Link>
@@ -142,6 +151,7 @@ export default function Login() {
 
                 </form>
             </Container>
+            {loading && <Loading/>}
 
         </>
     );

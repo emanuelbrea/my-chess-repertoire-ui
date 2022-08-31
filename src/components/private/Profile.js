@@ -36,11 +36,6 @@ export default function Profile(props) {
     };
     return (
         <>
-            <head>
-                <title>
-                    Account | My chess repertoire
-                </title>
-            </head>
             <NavBarLogged/>
             <Box
                 component="main"
