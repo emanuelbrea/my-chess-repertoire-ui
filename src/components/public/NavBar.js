@@ -1,7 +1,7 @@
 import {AppBar, Container, Stack, Toolbar} from "@mui/material";
 import Button from "@mui/material/Button";
-import Link from "next/link";
 import Box from "@mui/material/Box";
+import {Link} from "react-router-dom";
 
 export default function NavBar() {
     const pages = ['Home', 'About', 'Contact'];
@@ -37,7 +37,7 @@ export default function NavBar() {
                         ))}
                     </Stack>
                     <Stack direction="row" spacing={1}>
-                        <Link href="/login" passHref>
+                        <Link to="/login" style={{ textDecoration: 'none' }}>
                             <Button sx={{
                                 ':hover': {
                                     textDecoration: "underline #769656",
@@ -50,7 +50,7 @@ export default function NavBar() {
                                 Log in
                             </Button>
                         </Link>
-                        <Link href="/register" passHref>
+                        <Link to="/register" style={{ textDecoration: 'none' }}>
                             <Button sx={{
                                 ':hover': {
                                     border: "2px solid #769656"

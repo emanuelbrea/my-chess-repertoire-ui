@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {useRouter} from 'next/router'
-import Line from "../../src/Line";
-import NavBarLogged from "../../src/NavBarLogged";
+import Line from "./Line";
+import NavBarLogged from "./NavBarLogged";
+import {useParams} from "react-router-dom";
 
 export default function Repertoire() {
-    const router = useRouter()
-    const {color} = router.query
+    const {color} = useParams();
+
     const [fens, setFens] = useState({
         'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1': {
             active: true,
@@ -49,8 +49,6 @@ export default function Repertoire() {
             }
         }
     }
-
-    if (!router.isReady) return null;
 
     return (
         <React.Fragment>

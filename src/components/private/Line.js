@@ -1,14 +1,13 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
-import MyMove from "../src/MyMove";
-import RivalMoves from "../src/RivalMoves";
-import {Backdrop, CircularProgress, Divider} from "@mui/material";
+import MyMove from "./MyMove";
+import RivalMoves from "./RivalMoves";
+import {Divider} from "@mui/material";
 import AddLine from "./AddLine";
-import {mdiChessKing} from '@mdi/js';
-import Icon from "@mdi/react";
-import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
-import Alert from "./util";
+import Alert from "../public/Util";
+import {useNavigate} from "react-router-dom";
+import Loading from "../public/Loading";
 
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
@@ -16,8 +15,12 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     const [endOfLine, setEndOfLine] = useState(false);
     const fieldRef1 = useRef(null);
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (color !== 'white' && color !== 'black') {
+            return navigate("/")
+        }
         getRepertoireMoves().then(data => {
             setData(data);
             if (data['success'] === true) {
@@ -38,8 +41,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                     behavior: "smooth",
                     block: 'center'
                 });
-            }
-            else if (currentDepth === data['data']['depth'] && fieldRef1.current) {
+            } else if (currentDepth === data['data']['depth'] && fieldRef1.current) {
                 fieldRef1.current.scrollIntoView({
                     behavior: "smooth",
                     block: 'start'
@@ -125,36 +127,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }
 
     if (!data) {
-        return (
-            <Backdrop
-                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
-                open={true}
-            >
-                <Box sx={{position: 'relative', display: 'inline-flex'}}>
-                    <CircularProgress color="inherit" size={68}/>
-                    <Box
-                        sx={{
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                            position: 'absolute',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <Icon path={mdiChessKing}
-                              title="Loading"
-                              size={2.2}
-                        />
-                    </Box>
-                </Box>
-
-            </Backdrop>
-
-
-        )
+        return (<Loading/>)
 
     }
 

@@ -3,34 +3,43 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "build": "react-scripts build",
+    "start": "react-scripts start"
   },
   "dependencies": {
-    "@emotion/cache": "latest",
+    "@aws-amplify/cli": "latest",
     "@emotion/react": "latest",
-    "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@mdi/js": "^7.0.96",
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "aos": "latest",
+    "aws-amplify": "^4.3.33",
     "formik": "^2.2.9",
-    "next": "latest",
-    "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "latest",
     "react-social-login-buttons": "^3.6.1",
     "react-svg": "latest",
     "swr": "latest",
-    "yup": "^0.32.11",
-    "aos": "latest"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "latest",
     "eslint-config-next": "latest"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -16,10 +16,22 @@ import Box from "@mui/material/Box";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Link from "next/link";
+import {Link, useNavigate} from "react-router-dom";
+import {Auth} from 'aws-amplify';
 
 export default function NavBarLogged() {
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+
+    async function signOut() {
+        try {
+            await Auth.signOut();
+            navigate("/")
+
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
+    }
 
     return (
         <>
@@ -95,16 +107,19 @@ export default function NavBarLogged() {
                     <Box>
                         <Divider/>
                         <List>
-                            <ListItem key={"profile"} disablePadding>
-                                <Link href="/profile" passHref>
+                            <Link to="/profile" style={{textDecoration: 'none'}}>
+                                <ListItem key={"profile"} disablePadding>
+
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <PersonIcon/>
                                         </ListItemIcon>
-                                        <ListItemText primary={"Profile"}/>
+                                        <ListItemText primary={"Profile"}
+                                                      primaryTypographyProps={{style: {color: "black"}}}/>
                                     </ListItemButton>
-                                </Link>
-                            </ListItem>
+
+                                </ListItem>
+                            </Link>
                             <ListItem key={"settings"} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
@@ -113,15 +128,14 @@ export default function NavBarLogged() {
                                     <ListItemText primary={"Settings"}/>
                                 </ListItemButton>
                             </ListItem>
-                            <ListItem key={"logout"} disablePadding>
-                                <Link href="/" passHref>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            <LogoutIcon/>
-                                        </ListItemIcon>
-                                        <ListItemText primary={"Log out"}/>
-                                    </ListItemButton>
-                                </Link>
+                            <ListItem key={"logout"} disablePadding onClick={signOut}>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <LogoutIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Log out"}
+                                                  primaryTypographyProps={{style: {color: "black"}}}/>
+                                </ListItemButton>
                             </ListItem>
                         </List>
                     </Box>

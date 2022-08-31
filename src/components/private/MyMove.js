@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {getSvgUrl} from "./util";
+import {getSvgUrl} from "../public/Util";
 
 export default function MyMove({move, depth, position, stats, updateMove, color}) {
 

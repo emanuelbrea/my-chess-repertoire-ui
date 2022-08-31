@@ -3,9 +3,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import StatsTable from "./StatsTable";
 import {Card, CardActionArea, CardMedia, Container, Skeleton} from "@mui/material";
-import Alert, {getSvgUrl} from "./util";
+import Alert, {getSvgUrl} from "../public/Util";
 import {useEffect, useState} from "react";
-import AOS from "aos";
 import Snackbar from "@mui/material/Snackbar";
 
 export default function RivalMoves({moves, fen, depth, addVariant, color}) {
@@ -17,8 +16,6 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
         setActive(move);
         addVariant(move, depth);
     };
-
-    AOS.refresh();
 
     useEffect(() => {
         if (moves.length === 0) {

@@ -1,24 +1,23 @@
-import Head from "next/head";
 import Box from "@mui/material/Box";
-import {Container, Divider, Link, TextField, Typography} from "@mui/material";
+import {Container, Divider, TextField, Typography} from "@mui/material";
 import {useFormik} from 'formik';
 import * as Yup from "yup";
-import {useRouter} from "next/router";
 import {GoogleLoginButton} from "react-social-login-buttons";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import NextLink from "next/link";
-
+import {Auth} from 'aws-amplify';
+import {Link} from "react-router-dom";
+import {useState} from "react";
+import Loading from "./Loading";
 
 export default function Register() {
-    const router = useRouter();
+    const [loading, setLoading] = useState(false);
     const formik = useFormik({
         initialValues: {
             email: '',
             firstName: '',
             lastName: '',
-            password: '',
-            policy: false
+            password: ''
         },
         validationSchema: Yup.object({
             email: Yup
@@ -41,32 +40,41 @@ export default function Register() {
             password: Yup
                 .string()
                 .max(255)
+                .min(8)
                 .required(
                     'Password is required'),
-            policy: Yup
-                .boolean()
-                .oneOf(
-                    [true],
-                    'This field must be checked'
-                )
         }),
-        onSubmit: () => {
-            router.push('/');
+        onSubmit: (values, actions) => {
+            setLoading(true)
+            let {email, firstName, lastName, password} = values;
+            Auth.signUp({
+                username: email,
+                password,
+                attributes: {
+                    email,
+                    name: firstName,
+                },
+                autoSignIn: {
+                    enabled: true,
+                }
+            }).then((user) => {
+                setLoading(false)
+            }).catch(err => {
+                setLoading(false)
+                console.log(err)
+            }).finally(
+                actions.setSubmitting(false)
+            )
         }
     });
 
     return (
         <>
-            <Head>
-                <title>
-                    Login | My chess repertoire
-                </title>
-            </Head>
             <Container maxWidth={"sm"} component="main"
                        sx={{
                            minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center",
                            flexDirection: "column",
-                           marginY:5
+                           marginY: 5
                        }}>
                 <Box
                     sx={{marginBottom: 3}}
@@ -160,21 +168,17 @@ export default function Register() {
                     >
                         Have an account?
                         {' '}
-                        <NextLink
-                            href="/login"
-                            passHref
+                        <Link
+                            to="/login"
+                            style={{textDecoration: 'none'}}
                         >
-                            <Link
-                                variant="subtitle"
-                                underline="hover"
-                            >
-                                Sign In
-                            </Link>
-                        </NextLink>
+                            Sign In
+                        </Link>
                     </Typography>
 
                 </form>
             </Container>
+            {loading && <Loading/>}
         </>
     )
         ;
