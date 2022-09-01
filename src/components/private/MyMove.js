@@ -4,7 +4,7 @@ import {ReactSVG} from 'react-svg'
 import StatsTable from "./StatsTable";
 import {Card, CardActionArea, CardMedia, Container, IconButton, Link, Skeleton} from "@mui/material";
 import AddMove from "./AddMove";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -29,11 +29,11 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
     };
 
     useEffect(() => {
-        getMoveDescription(move)
+        getMoveDescription(move).catch(console.error);
     }, [move]);
 
 
-    const getMoveDescription = async (move) => {
+    const getMoveDescription = useCallback(async (move) => {
 
         const moves = await fetch(move.link.replace('wiki/', 'w/api.php?titles=') +
             '&redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=800')
@@ -46,7 +46,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
         else{
             setDescription(undefined)
         }
-    }
+    }, [])
 
     return (
         <>

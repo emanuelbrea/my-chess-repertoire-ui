@@ -1,5 +1,4 @@
-import * as React from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import MyMove from "./MyMove";
 import RivalMoves from "./RivalMoves";
 import {Divider} from "@mui/material";
@@ -8,7 +7,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "../public/Util";
 import {useNavigate} from "react-router-dom";
 import Loading from "../public/Loading";
-
+import {Auth} from 'aws-amplify';
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
     const [data, setData] = useState(null);
@@ -16,17 +15,17 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     const fieldRef1 = useRef(null);
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+    const [accessToken, setAccessToken] = useState(null);
 
     useEffect(() => {
         if (color !== 'white' && color !== 'black') {
             return navigate("/")
         }
-        getRepertoireMoves().then(data => {
-            setData(data);
-            if (data['success'] === true) {
-                getCandidates(data)
-            }
+        getCurrentJwt().then(jwt => {
+            getRepertoireMoves(jwt).catch(console.error);
         })
+
+
     }, [fen])
 
     useEffect(() => {
@@ -74,10 +73,21 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         }
     }
 
+    const getCurrentJwt = useCallback(async () => {
+        const session = await Auth.currentSession();
+        let accessToken = session.getAccessToken()
+        let jwt = accessToken.getJwtToken()
+        setAccessToken(jwt)
+        return jwt
+    }, [])
 
-    const getRepertoireMoves = async () => {
+    const getRepertoireMoves = useCallback(async (jwt) => {
         const requestOptions = {
             method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + jwt,
+                'Content-Type': 'application/json'
+            }
         };
         const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
             fen: fen,
@@ -87,13 +97,18 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
             .catch((error) => {
                 return {'success': false}
             })
-        return moves
-    }
+        setData(moves)
+        getCandidates(moves)
+    }, [])
 
     const updateMove = async (move) => {
         setData(null)
         const requestOptions = {
             method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            }
         };
         const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
             fen: fen,
@@ -111,6 +126,10 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         setData(null)
         const requestOptions = {
             method: 'PATCH',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json'
+            }
         };
         const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
             fen: fen,

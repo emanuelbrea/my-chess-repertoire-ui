@@ -7,21 +7,20 @@ export default function PrivateRoute({children}) {
     const [loading, setLoading] = useState(true);
     const [loggedIn, setLoggedIn] = useState(false);
 
-    async function checkAuthState() {
-        try {
-            setLoading(true);
-            const user = await Auth.currentAuthenticatedUser();
-            setLoggedIn(!!user);
-        } catch (err) {
-            setLoggedIn(false)
-        } finally {
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
-        checkAuthState()
-    })
+        async function checkAuthState() {
+            try {
+                setLoading(true);
+                const user = await Auth.currentAuthenticatedUser();
+                setLoggedIn(!!user);
+            } catch (err) {
+                setLoggedIn(false)
+            } finally {
+                setLoading(false)
+            }
+        }
+        checkAuthState().catch(console.error);
+    },[])
 
     if (loading) {
         return (<Loading/>)
