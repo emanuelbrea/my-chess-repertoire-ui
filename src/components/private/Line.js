@@ -75,8 +75,8 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
 
     const getCurrentJwt = useCallback(async () => {
         const session = await Auth.currentSession();
-        let accessToken = session.getAccessToken()
-        let jwt = accessToken.getJwtToken()
+        let idToken = session.getIdToken()
+        let jwt = idToken.getJwtToken()
         setAccessToken(jwt)
         return jwt
     }, [])
