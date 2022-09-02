@@ -17,6 +17,7 @@
     "aos": "latest",
     "aws-amplify": "^4.3.33",
     "formik": "^2.2.9",
+    "prop-types": "^15.8.1",
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "^6.3.0",
@@ -27,8 +28,9 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "eslint": "latest",
-    "eslint-config-next": "latest"
+    "eslint": "8.22.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.31.1"
   },
   "browserslist": {
     "production": [
