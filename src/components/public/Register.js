@@ -44,29 +44,50 @@ export default function Register() {
                 .required(
                     'Password is required'),
         }),
-        onSubmit: (values, actions) => {
+        onSubmit: async (values, actions) => {
             setLoading(true)
             let {email, firstName, lastName, password} = values;
-            Auth.signUp({
-                username: email,
-                password,
-                attributes: {
-                    email,
-                    name: firstName,
-                },
-                autoSignIn: {
-                    enabled: true,
-                }
-            }).then((user) => {
+            try{
+                const cognitoUser = await Auth.signUp({
+                    username: email,
+                    password,
+                    attributes: {
+                        email,
+                        name: firstName,
+                    },
+                    autoSignIn: {
+                        enabled: true,
+                    }
+                })
+
+                const user =  await createUser(email, firstName)
+            }
+            catch (error) {
+                console.log('error creating user: ', error);
+            }
+            finally {
                 setLoading(false)
-            }).catch(err => {
-                setLoading(false)
-                console.log(err)
-            }).finally(
                 actions.setSubmitting(false)
-            )
+            }
+
         }
     });
+
+    const createUser = async (email, firstName) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                first_name: firstName,
+                email: email
+            })
+        };
+        const user_created = await fetch('/api/user', requestOptions)
+            .then(res => res.json())
+        return user_created
+    }
 
     return (
         <>

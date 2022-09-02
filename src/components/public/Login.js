@@ -34,17 +34,19 @@ export default function Login() {
                 .required(
                     'Password is required'),
         }),
-        onSubmit: (values, actions) => {
+        onSubmit: async (values, actions) => {
             setLoading(true)
             let {email, password} = values;
-            Auth.signIn(email, password).then((user) => {
+
+            try {
+                const cognitoUser = await Auth.signIn(email, password);
+                navigate("/repertoire/white");
+            } catch (error) {
+                console.log("Error signing in", error)
+            } finally {
                 setLoading(false)
-                navigate("/repertoire/white")
-            }).catch(err => {
-                setLoading(false)
-            }).finally(
                 actions.setSubmitting(false)
-            )
+            }
         }
     });
 
