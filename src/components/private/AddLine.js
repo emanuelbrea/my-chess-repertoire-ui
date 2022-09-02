@@ -4,6 +4,7 @@ import {Fab} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '../public/Util';
+import PropTypes from 'prop-types';
 
 
 export default function AddLine({addRepertoireMoves, endOfLine}) {
@@ -41,3 +42,8 @@ export default function AddLine({addRepertoireMoves, endOfLine}) {
     </>
   );
 }
+
+AddLine.propTypes = {
+  addRepertoireMoves: PropTypes.func,
+  endOfLine: PropTypes.bool,
+};

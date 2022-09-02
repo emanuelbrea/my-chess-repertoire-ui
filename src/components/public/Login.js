@@ -40,7 +40,7 @@ export default function Login() {
 
       try {
         const cognitoUser = await Auth.signIn(email, password);
-        navigate('/repertoire/white');
+        navigate('/profile');
       } catch (error) {
         console.log('Error signing in', error);
       } finally {

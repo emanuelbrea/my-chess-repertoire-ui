@@ -9,9 +9,15 @@ import {Auth} from 'aws-amplify';
 import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
 import Loading from './Loading';
+import Verify from './Verify';
+import Alert from './Util';
+import Snackbar from '@mui/material/Snackbar';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -60,9 +66,12 @@ export default function Register() {
           },
         });
 
-        const user = await createUser(email, firstName);
+        const user = await createUser(email, firstName, lastName);
+        setVerify(true);
+        setOpen(true);
       } catch (error) {
         console.log('error creating user: ', error);
+        setErrorMessage(error.message);
       } finally {
         setLoading(false);
         actions.setSubmitting(false);
@@ -70,7 +79,7 @@ export default function Register() {
     },
   });
 
-  const createUser = async (email, firstName) => {
+  const createUser = async (email, firstName, lastName) => {
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -78,12 +87,21 @@ export default function Register() {
       },
       body: JSON.stringify({
         first_name: firstName,
+        last_name: lastName,
         email: email,
       }),
     };
     const userCreated = await fetch('/api/user', requestOptions)
         .then((res) => res.json());
     return userCreated;
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -101,7 +119,7 @@ export default function Register() {
           <img src="/logo.svg" height={100}
           />
         </Box>
-        <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
+        {!verify && <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>
             <Typography
               variant="h3"
@@ -194,9 +212,21 @@ export default function Register() {
             </Link>
           </Typography>
 
-        </form>
+        </form>}
+        {verify && <Verify email={formik.values.email}/> }
       </Container>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
+      Account created correctly!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
+        <Alert onClose={()=> setErrorMessage(null)} severity="error" sx={{width: '100%', fontSize: 16}}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
       {loading && <Loading/>}
+
     </>
   )
   ;

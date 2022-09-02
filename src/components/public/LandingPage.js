@@ -20,21 +20,18 @@ export default function LandingPage() {
           backgroundImage: 'url(../backgroundLanding1.webp)', backgroundSize: 'cover',
         }}>
         <Container component="main"
-          sx={{}}
           maxWidth={false}>
           <NavBar/>
           <Container sx={{mt: 15}}>
-            <Container>
-              <Typography variant="h2" fontWeight={700}>
+            <Typography variant="h2" fontWeight={700}>
                                 All your openings.
-              </Typography>
-              <Typography variant="h2" fontWeight={700}>
+            </Typography>
+            <Typography variant="h2" fontWeight={700}>
                                 One place.
-              </Typography>
-              <Typography variant="body1" fontSize={18} mt={3}>
+            </Typography>
+            <Typography variant="body1" fontSize={18} mt={3}>
                                 Get a generated repertoire for your playing style.
-              </Typography>
-            </Container>
+            </Typography>
             <Container>
               <Box>
                 <Typography variant="h4" fontWeight={700} mt={20}>

@@ -11,13 +11,10 @@ import Icon from '@mdi/react';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import DesktopMacIcon from '@mui/icons-material/DesktopMac';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PropTypes from 'prop-types';
 
 
-export default function StyleGrid() {
-  const [aggressive, setAggressive] = React.useState(0);
-  const [fashion, setFashion] = React.useState(0);
-  const [popular, setPopular] = React.useState(0);
-
+export default function StyleGrid({aggressive, fashion, popular, handleChange}) {
   const marks = [
     {
       value: 0,
@@ -40,12 +37,13 @@ export default function StyleGrid() {
             <Slider
               aria-label="Aggressive"
               value={aggressive}
-              onChange={(e) => setAggressive(e.target.value)}
+              onChange={handleChange}
               min={-1}
               max={1}
               defaultValue={0}
               step={0.01}
               marks={marks}
+              name={'risk'}
             />
           </Grid>
           <Grid item xs={4}>
@@ -74,12 +72,14 @@ export default function StyleGrid() {
           <Grid item xs={4}>
             <Slider
               aria-label="Popular"
-              value={popular} onChange={(e) => setPopular(e.target.value)}
+              value={popular}
+              onChange={handleChange}
               min={-1}
               max={1}
               defaultValue={0}
               step={0.01}
               marks={marks}
+              name={'popularity'}
             />
           </Grid>
           <Grid item xs={4}>
@@ -107,12 +107,13 @@ export default function StyleGrid() {
             <Slider
               aria-label="Fashion"
               value={fashion}
-              onChange={(e) => setFashion(e.target.value)}
+              onChange={handleChange}
               min={-1}
               max={1}
               defaultValue={0}
               step={0.01}
               marks={marks}
+              name={'fashion'}
             />
           </Grid>
           <Grid item xs={4}>
@@ -129,3 +130,10 @@ export default function StyleGrid() {
     </Box>
   );
 }
+
+StyleGrid.propTypes = {
+  aggressive: PropTypes.number,
+  fashion: PropTypes.number,
+  popular: PropTypes.number,
+  handleChange: PropTypes.func,
+};

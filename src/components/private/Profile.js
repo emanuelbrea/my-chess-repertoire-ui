@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   Card,
   CardContent,
@@ -16,23 +16,94 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import StyleGrid from './Style';
 import NavBarLogged from './NavBarLogged';
+import getCurrentJwt from '../../auth/CognitoService';
+import Loading from '../public/Loading';
+import Alert from '../public/Util';
+import Snackbar from '@mui/material/Snackbar';
 
-export default function Profile(props) {
-  const [values, setValues] = useState({
-    firstName: 'Emanuel',
-    lastName: 'Brea',
-    email: 'emanuel@gmail.com',
-    ratingElo: 2400,
+export default function Profile() {
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+  const [user, setUser] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    rating: 0,
+    popularity: 0,
+    risk: 0,
+    fashion: 0,
   });
+
+
+  useEffect(() => {
+    getCurrentJwt().then((jwt) => {
+      setAccessToken(jwt);
+      getCurrentUser(jwt);
+    });
+  }, []);
+
+  const getCurrentUser = useCallback(async (jwt) => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + jwt,
+        'Content-Type': 'application/json',
+      },
+    };
+    const user = await fetch('http://localhost:5000/api/user', requestOptions)
+        .then((res) => res.json())
+        .catch((error) => {
+          return null;
+        });
+    setUser(user.data);
+    setLoading(false);
+    return user;
+  }, []);
+
+  const updateUser = async (user) => {
+    setLoading(true);
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        popularity: user.popularity,
+        fashion: user.fashion,
+        risk: user.risk,
+        rating: user.rating,
+      }),
+    };
+    await fetch('http://localhost:5000/api/user', requestOptions)
+        .then((res) => res.json())
+        .catch((error) => {
+          return null;
+        });
+    setLoading(false);
+    setOpen(true);
+  };
 
   const [unrated, setUnrated] = useState(false);
 
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    setUser({
+      ...user,
       [event.target.name]: event.target.value,
     });
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <>
       <NavBarLogged/>
@@ -47,7 +118,6 @@ export default function Profile(props) {
           <form
             autoComplete="off"
             noValidate
-            {...props}
           >
             <Card sx={{my: 3}}>
               <CardHeader
@@ -68,10 +138,10 @@ export default function Profile(props) {
                       fullWidth
                       helperText="Please specify the first name"
                       label="First name"
-                      name="firstName"
+                      name="first_name"
                       onChange={handleChange}
                       required
-                      value={values.firstName}
+                      value={user.first_name}
                       variant="outlined"
                     />
                   </Grid>
@@ -83,10 +153,10 @@ export default function Profile(props) {
                     <TextField
                       fullWidth
                       label="Last name"
-                      name="lastName"
+                      name="last_name"
                       onChange={handleChange}
                       required
-                      value={values.lastName}
+                      value={user.last_name}
                       variant="outlined"
                     />
                   </Grid>
@@ -101,8 +171,9 @@ export default function Profile(props) {
                       name="email"
                       onChange={handleChange}
                       required
-                      value={values.email}
+                      value={user.email}
                       variant="outlined"
+                      disabled={true}
                     />
                   </Grid>
                   <Grid
@@ -113,11 +184,11 @@ export default function Profile(props) {
                     <Box sx={{display: 'flex', flexDirection: 'row'}}>
                       <TextField
                         label="FIDE rating"
-                        name="ratingElo"
+                        name="rating"
                         onChange={handleChange}
                         required
                         type="number"
-                        value={values.ratingElo}
+                        value={user.rating}
                         variant="outlined"
                         InputProps={{
                           inputProps: {
@@ -131,9 +202,9 @@ export default function Profile(props) {
                         <FormControlLabel
                           control={<Checkbox
                             onChange={(event) => {
-                              setValues({
-                                ...values,
-                                ['ratingElo']: 0,
+                              setUser({
+                                ...user,
+                                ['rating']: 0,
                               });
                               setUnrated(event.target.checked);
                             }
@@ -154,7 +225,7 @@ export default function Profile(props) {
               />
               <Divider/>
               <CardContent>
-                <StyleGrid/>
+                <StyleGrid aggressive={user.risk} fashion={user.fashion} popular={user.popularity} handleChange={handleChange}/>
 
               </CardContent>
               <Divider/>
@@ -168,6 +239,7 @@ export default function Profile(props) {
                 <Button
                   color="primary"
                   variant="contained"
+                  onClick={()=> updateUser(user)}
                 >
                                     Save details
                 </Button>
@@ -177,7 +249,12 @@ export default function Profile(props) {
 
         </Container>
       </Box>
-
+      {loading && <Loading/>}
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
+          Profile updated correctly!
+        </Alert>
+      </Snackbar>
     </>
 
 

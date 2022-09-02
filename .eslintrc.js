@@ -22,4 +22,9 @@ module.exports = {
     'react/prop-types': 'warn',
     'no-unused-vars': 'warn',
   },
+  'settings': {
+    'react': {
+      'version': 'detect',
+    },
+  },
 };

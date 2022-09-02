@@ -10,6 +10,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function AddMove({onClose, open, moves, move, fen, depth, color}) {
   const handleOk = (move) => {
@@ -83,3 +84,13 @@ export default function AddMove({onClose, open, moves, move, fen, depth, color})
 
   );
 }
+
+AddMove.propTypes = {
+  onClose: PropTypes.func,
+  moves: PropTypes.array,
+  move: PropTypes.object,
+  fen: PropTypes.string,
+  depth: PropTypes.number,
+  color: PropTypes.string,
+  open: PropTypes.bool,
+};

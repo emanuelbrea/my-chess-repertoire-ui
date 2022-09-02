@@ -7,8 +7,9 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '../public/Util';
 import {useNavigate} from 'react-router-dom';
 import Loading from '../public/Loading';
-import {Auth} from 'aws-amplify';
 import PropTypes from 'prop-types';
+import getCurrentJwt from '../../auth/CognitoService';
+
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
   const [data, setData] = useState(null);
@@ -23,7 +24,8 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
       return navigate('/');
     }
     getCurrentJwt().then((jwt) => {
-      getRepertoireMoves(jwt).catch(console.error);
+      setAccessToken(jwt);
+      getRepertoireMoves(jwt);
     });
   }, [fen]);
 
@@ -72,14 +74,6 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }
   }
 
-  const getCurrentJwt = useCallback(async () => {
-    const session = await Auth.currentSession();
-    const idToken = session.getIdToken();
-    const jwt = idToken.getJwtToken();
-    setAccessToken(jwt);
-    return jwt;
-  }, []);
-
   const getRepertoireMoves = useCallback(async (jwt) => {
     const requestOptions = {
       method: 'GET',
@@ -98,6 +92,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         });
     setData(moves);
     getCandidates(moves);
+    return moves;
   }, []);
 
   const updateMove = async (move) => {

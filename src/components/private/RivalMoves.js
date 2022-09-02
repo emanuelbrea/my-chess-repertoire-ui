@@ -6,6 +6,7 @@ import {Card, CardActionArea, CardMedia, Container, Skeleton} from '@mui/materia
 import Alert, {getSvgUrl} from '../public/Util';
 import React, {useEffect, useState} from 'react';
 import Snackbar from '@mui/material/Snackbar';
+import PropTypes from 'prop-types';
 
 export default function RivalMoves({moves, fen, depth, addVariant, color}) {
   const [active, setActive] = useState(null);
@@ -78,3 +79,11 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
 
   );
 }
+
+RivalMoves.propTypes = {
+  moves: PropTypes.array,
+  fen: PropTypes.string,
+  depth: PropTypes.number,
+  addVariant: PropTypes.func,
+  color: PropTypes.string,
+};

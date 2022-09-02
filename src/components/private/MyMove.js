@@ -10,6 +10,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {getSvgUrl} from '../public/Util';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function MyMove({move, depth, position, stats, updateMove, color}) {
   const [open, setOpen] = useState(false);
@@ -137,3 +138,12 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
     </>
   );
 }
+MyMove.propTypes = {
+  move: PropTypes.object,
+  depth: PropTypes.number,
+  position: PropTypes.object,
+  stats: PropTypes.array,
+  updateMove: PropTypes.func,
+  color: PropTypes.string,
+};
+
