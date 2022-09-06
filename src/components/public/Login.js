@@ -1,24 +1,39 @@
 import Box from '@mui/material/Box';
-import {Checkbox, Container, Divider, TextField, Typography} from '@mui/material';
+import {Container, Divider, IconButton, InputAdornment, TextField, Typography} from '@mui/material';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {GoogleLoginButton} from 'react-social-login-buttons';
 import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {Auth} from 'aws-amplify';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Loading from './Loading';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
+import Alert from './Util';
+import Snackbar from '@mui/material/Snackbar';
 
 export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const [open, setOpen] = useState(false);
+  const {state} = useLocation();
+  const successMessage = state ? state.successMessage : '';
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    if (successMessage) {
+      setOpen(true);
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
-      remember: false,
     },
     validationSchema: Yup.object({
       email: Yup
@@ -31,6 +46,7 @@ export default function Login() {
       password: Yup
           .string()
           .max(255)
+          .min(8)
           .required(
               'Password is required'),
     }),
@@ -39,16 +55,24 @@ export default function Login() {
       const {email, password} = values;
 
       try {
-        const cognitoUser = await Auth.signIn(email, password);
+        await Auth.signIn(email, password);
         navigate('/profile');
       } catch (error) {
-        console.log('Error signing in', error);
+        setErrorMessage('Invalid email / password combination. Please try again.');
       } finally {
         setLoading(false);
         actions.setSubmitting(false);
       }
     },
   });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 
   return (
@@ -96,28 +120,43 @@ export default function Login() {
             name="password"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={formik.values.password}
             variant="outlined"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Box
             sx={{
-              alignItems: 'center',
               display: 'flex',
-              ml: -1,
+              flexDirection: 'column',
+              alignItems: 'flex-end',
             }}
           >
-            <Checkbox
-              checked={formik.values.remember}
-              name="remember"
-              onChange={formik.handleChange}
-            />
-            <Typography
-              color="textSecondary"
-              variant="body2"
+            <Link
+              component="button"
+              to="/recover"
+              style={{textDecoration: 'none'}}
             >
-                            Remember me
-            </Typography>
+              <Typography
+                variant="body1"
+                fontWeight={200}
+                color={'green'}
+              >
+                <b>Forgot password?</b>
+              </Typography>
+            </Link>
           </Box>
 
           <Box sx={{py: 3}}>
@@ -144,16 +183,25 @@ export default function Login() {
           >
                         Don&apos;t have an account?
             {' '}
-            <Link style={{textDecoration: 'none'}}
-              to="/register"
+            <Link style={{textDecoration: 'none', color: 'green'}} component="button" to="/register"
             >
-                            Sign Up
+              <b>Sign Up</b>
             </Link>
           </Typography>
 
         </form>
       </Container>
       {loading && <Loading/>}
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
+          {successMessage}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
+        <Alert onClose={()=> setErrorMessage(null)} severity="warning" sx={{width: '100%', fontSize: 16}}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
 
     </>
   );

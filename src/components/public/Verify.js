@@ -6,21 +6,10 @@ import {Link, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
-import {useNavigate} from 'react-router-dom';
 
-export default function Verify({email}) {
+export default function Verify({email, onSubmit}) {
   const [code, setCode] = useState('');
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-
-  async function confirmSignUp(code) {
-    try {
-      await Auth.confirmSignUp(email, code);
-      navigate('/repertoire/white');
-    } catch (error) {
-      console.log('error confirming sign up', error);
-    }
-  }
 
   async function resendConfirmationCode() {
     try {
@@ -54,7 +43,7 @@ export default function Verify({email}) {
           We have sent a code to <b> {email}</b>
         </Typography>
       </Box>
-      <ReactInputVerificationCode onChange={setCode} length={6} onCompleted={(code) => confirmSignUp(code)} placeholder={''} autoFocus={true} value={code}/>
+      <ReactInputVerificationCode onChange={setCode} length={6} onCompleted={(code) => onSubmit(code)} placeholder={''} autoFocus={true} value={code}/>
 
       <Box sx={{my: 3}}>
         <Typography
@@ -89,4 +78,5 @@ export default function Verify({email}) {
 
 Verify.propTypes = {
   email: PropTypes.string,
+  onSubmit: PropTypes.func,
 };

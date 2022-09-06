@@ -1,23 +1,29 @@
 import Box from '@mui/material/Box';
-import {Container, Divider, TextField, Typography} from '@mui/material';
+import {Container, Divider, IconButton, InputAdornment, TextField, Typography} from '@mui/material';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {GoogleLoginButton} from 'react-social-login-buttons';
 import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Auth} from 'aws-amplify';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import React, {useState} from 'react';
 import Loading from './Loading';
 import Verify from './Verify';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
   const [verify, setVerify] = useState(false);
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -54,7 +60,7 @@ export default function Register() {
       setLoading(true);
       const {email, firstName, lastName, password} = values;
       try {
-        const cognitoUser = await Auth.signUp({
+        await Auth.signUp({
           username: email,
           password,
           attributes: {
@@ -66,11 +72,10 @@ export default function Register() {
           },
         });
 
-        const user = await createUser(email, firstName, lastName);
+        await createUser(email, firstName, lastName);
         setVerify(true);
         setOpen(true);
       } catch (error) {
-        console.log('error creating user: ', error);
         setErrorMessage(error.message);
       } finally {
         setLoading(false);
@@ -92,7 +97,9 @@ export default function Register() {
       }),
     };
     const userCreated = await fetch('/api/user', requestOptions)
-        .then((res) => res.json());
+        .then((res) => res.json()).catch((error) =>{
+          throw new Error('There was an error creating the account. Please try again later.');
+        });
     return userCreated;
   };
 
@@ -103,6 +110,15 @@ export default function Register() {
 
     setOpen(false);
   };
+
+  async function confirmSignUp(code) {
+    try {
+      await Auth.confirmSignUp(formik.values.email, code);
+      navigate('/login', {state: {successMessage: 'Account activated successfully.'}});
+    } catch (error) {
+      setErrorMessage('Invalid verification code provided, please try again.');
+    }
+  }
 
   return (
     <>
@@ -174,9 +190,22 @@ export default function Register() {
             name="password"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={formik.values.password}
             variant="outlined"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Box sx={{py: 3}}>
@@ -206,14 +235,14 @@ export default function Register() {
             {' '}
             <Link
               to="/login"
-              style={{textDecoration: 'none'}}
+              style={{textDecoration: 'none', color: 'green'}}
             >
-                            Sign In
+              <b>Sign In</b>
             </Link>
           </Typography>
 
         </form>}
-        {verify && <Verify email={formik.values.email}/> }
+        {verify && <Verify email={formik.values.email} onSubmit={confirmSignUp}/> }
       </Container>
       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
@@ -221,7 +250,7 @@ export default function Register() {
         </Alert>
       </Snackbar>
       <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
-        <Alert onClose={()=> setErrorMessage(null)} severity="error" sx={{width: '100%', fontSize: 16}}>
+        <Alert onClose={()=> setErrorMessage(null)} severity="warning" sx={{width: '100%', fontSize: 16}}>
           {errorMessage}
         </Alert>
       </Snackbar>
