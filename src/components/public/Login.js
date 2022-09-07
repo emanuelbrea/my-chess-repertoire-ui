@@ -58,6 +58,9 @@ export default function Login() {
         await Auth.signIn(email, password);
         navigate('/profile');
       } catch (error) {
+        if (error.message === 'User is not confirmed.') {
+          navigate('/verify', {state: {email: email}});
+        }
         setErrorMessage('Invalid email / password combination. Please try again.');
       } finally {
         setLoading(false);

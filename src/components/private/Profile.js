@@ -51,7 +51,7 @@ export default function Profile() {
         'Content-Type': 'application/json',
       },
     };
-    const user = await fetch('http://localhost:5000/api/user', requestOptions)
+    const user = await fetch('/api/user', requestOptions)
         .then((res) => res.json())
         .catch((error) => {
           return null;
@@ -78,7 +78,7 @@ export default function Profile() {
         rating: user.rating,
       }),
     };
-    await fetch('http://localhost:5000/api/user', requestOptions)
+    await fetch('/api/user', requestOptions)
         .then((res) => res.json())
         .catch((error) => {
           return null;

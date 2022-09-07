@@ -9,15 +9,13 @@ import {Auth} from 'aws-amplify';
 import {Link, useNavigate} from 'react-router-dom';
 import React, {useState} from 'react';
 import Loading from './Loading';
-import Verify from './Verify';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
+import createUser from '../../api';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
-  const [verify, setVerify] = useState(false);
-  const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -60,21 +58,20 @@ export default function Register() {
       setLoading(true);
       const {email, firstName, lastName, password} = values;
       try {
+        await createUser(email, firstName, lastName);
         await Auth.signUp({
           username: email,
           password,
           attributes: {
             email,
             name: firstName,
+            family_name: lastName,
           },
           autoSignIn: {
             enabled: true,
           },
         });
-
-        await createUser(email, firstName, lastName);
-        setVerify(true);
-        setOpen(true);
+        navigate('/verify', {state: {email: email}});
       } catch (error) {
         setErrorMessage(error.message);
       } finally {
@@ -83,42 +80,6 @@ export default function Register() {
       }
     },
   });
-
-  const createUser = async (email, firstName, lastName) => {
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-      }),
-    };
-    const userCreated = await fetch('/api/user', requestOptions)
-        .then((res) => res.json()).catch((error) =>{
-          throw new Error('There was an error creating the account. Please try again later.');
-        });
-    return userCreated;
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  async function confirmSignUp(code) {
-    try {
-      await Auth.confirmSignUp(formik.values.email, code);
-      navigate('/login', {state: {successMessage: 'Account activated successfully.'}});
-    } catch (error) {
-      setErrorMessage('Invalid verification code provided, please try again.');
-    }
-  }
 
   return (
     <>
@@ -135,7 +96,7 @@ export default function Register() {
           <img src="/logo.svg" height={100}
           />
         </Box>
-        {!verify && <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
+        <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>
             <Typography
               variant="h3"
@@ -241,14 +202,8 @@ export default function Register() {
             </Link>
           </Typography>
 
-        </form>}
-        {verify && <Verify email={formik.values.email} onSubmit={confirmSignUp}/> }
+        </form>
       </Container>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
-      Account created correctly!
-        </Alert>
-      </Snackbar>
       <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
         <Alert onClose={()=> setErrorMessage(null)} severity="warning" sx={{width: '100%', fontSize: 16}}>
           {errorMessage}

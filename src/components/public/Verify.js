@@ -1,82 +1,69 @@
-import React, {useState} from 'react';
-import ReactInputVerificationCode from 'react-input-verification-code';
-import {Auth} from 'aws-amplify';
-import PropTypes from 'prop-types';
-import {Link, Typography} from '@mui/material';
-import Box from '@mui/material/Box';
-import Alert from './Util';
+import {Auth, Hub} from 'aws-amplify';
+import React, {useEffect, useState} from 'react';
+import Loading from './Loading';
 import Snackbar from '@mui/material/Snackbar';
+import Alert from './Util';
+import {useLocation, useNavigate} from 'react-router-dom';
+import Box from '@mui/material/Box';
+import {Container} from '@mui/material';
+import VerificationCode from './VerificationCode';
 
-export default function Verify({email, onSubmit}) {
-  const [code, setCode] = useState('');
-  const [open, setOpen] = useState(false);
 
-  async function resendConfirmationCode() {
+export default function Verify() {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const {state} = useLocation();
+  const email = state ? state.email : '';
+
+  useEffect(() => {
+    if (email === '') {
+      navigate('/login');
+    }
+    Hub.listen('auth', async ({payload}) => {
+      const {event} = payload;
+      if (event === 'autoSignIn') {
+        navigate('/profile');
+      } else if (event === 'autoSignIn_failure') {
+        navigate('/login');
+      }
+    });
+  } );
+
+
+  async function confirmSignUp(code) {
     try {
-      await Auth.resendSignUp(email);
-      setOpen(true);
-    } catch (err) {
-      console.log('error resending code: ', err);
+      setLoading(true);
+      await Auth.confirmSignUp(email, code);
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage('Invalid verification code provided, please try again.');
     }
   }
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   return (
     <>
-      <Box sx={{my: 3}} display={'flex'} flexDirection={'column'}>
-        <Typography
-          variant="h4"
-          fontWeight={500}
-        >
-          Verification code
-        </Typography>
-        <Typography
-          variant="subtitle1"
-        >
-          We have sent a code to <b> {email}</b>
-        </Typography>
-      </Box>
-      <ReactInputVerificationCode onChange={setCode} length={6} onCompleted={(code) => onSubmit(code)} placeholder={''} autoFocus={true} value={code}/>
-
-      <Box sx={{my: 3}}>
-        <Typography
-          variant="subtitle1"
-          marginRight={1}
-        >
-        Didn&apos;t get a code?
-        </Typography>
-        <Link
-          component="button"
-          onClick={() => {
-            resendConfirmationCode();
-          }}
-        >
-          <Typography
-            variant="body1"
-            fontWeight={200}
-          >
-            <b>Click to resend</b>
-          </Typography>
-        </Link>
-      </Box>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{width: '100%', fontSize: 16}}>
-          Code resent to <b> {email}</b>
+      <Container maxWidth={'sm'} component="main"
+        sx={{
+          minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          flexDirection: 'column',
+          marginY: 5,
+        }}>
+        <Box
+          sx={{marginBottom: 3}}
+          component="a"
+          href="/">
+          <img src="/logo.svg" height={100}
+          />
+        </Box>
+        <VerificationCode email={email} onSubmit={confirmSignUp}/>
+      </Container>
+      {loading && <Loading/>}
+      <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
+        <Alert onClose={()=> setErrorMessage(null)} severity="warning" sx={{width: '100%', fontSize: 16}}>
+          {errorMessage}
         </Alert>
       </Snackbar>
     </>
-
   );
-};
-
-Verify.propTypes = {
-  email: PropTypes.string,
-  onSubmit: PropTypes.func,
-};
+}

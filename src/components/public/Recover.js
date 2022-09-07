@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import Loading from './Loading';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import Verify from './Verify';
+import VerificationCode from './VerificationCode';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
 
@@ -195,7 +195,7 @@ export default function Recover() {
           </form>
         </>
         }
-        {step === 'code' && <Verify email={formik.values.email} onSubmit={verifyCode}/>}
+        {step === 'code' && <VerificationCode email={formik.values.email} onSubmit={verifyCode}/>}
       </Container>
       {loading && <Loading/>}
       <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>

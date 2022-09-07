@@ -9,6 +9,7 @@ import Profile from './components/private/Profile';
 import {Amplify} from 'aws-amplify';
 import awsconfig from './aws-exports';
 import Recover from './components/public/Recover';
+import Verify from './components/public/Verify';
 
 export default function App() {
   Amplify.configure(awsconfig);
@@ -19,6 +20,7 @@ export default function App() {
         <Route exact path="/register" element={<Register/>}/>
         <Route exact path="/login" element={<Login/>}/>
         <Route exact path="/recover" element={<Recover/>}/>
+        <Route exact path="/verify" element={<Verify/>}/>
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/repertoire/:color' element={
           <PrivateRoute>

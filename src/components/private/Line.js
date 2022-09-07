@@ -82,7 +82,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         'Content-Type': 'application/json',
       },
     };
-    const moves = await fetch('api/repertoire/?' + new URLSearchParams({
+    const moves = await fetch('/api/repertoire?' + new URLSearchParams({
       fen: fen,
       color: color,
     }), requestOptions)
@@ -104,7 +104,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         'Content-Type': 'application/json',
       },
     };
-    const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
+    const moves = await fetch('/api/repertoire?' + new URLSearchParams({
       fen: fen,
       color: color,
       move: move,
@@ -125,7 +125,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
         'Content-Type': 'application/json',
       },
     };
-    const moves = await fetch('/api/repertoire/?' + new URLSearchParams({
+    const moves = await fetch('/api/repertoire?' + new URLSearchParams({
       fen: fen,
       color: color,
     }), requestOptions)
