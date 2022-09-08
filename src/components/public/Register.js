@@ -12,7 +12,7 @@ import Loading from './Loading';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import createUser from '../../api';
+import {createUser} from '../../api/user';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
@@ -57,27 +57,24 @@ export default function Register() {
     onSubmit: async (values, actions) => {
       setLoading(true);
       const {email, firstName, lastName, password} = values;
-      try {
-        await createUser(email, firstName, lastName);
-        await Auth.signUp({
-          username: email,
-          password,
-          attributes: {
-            email,
-            name: firstName,
-            family_name: lastName,
-          },
-          autoSignIn: {
-            enabled: true,
-          },
-        });
-        navigate('/verify', {state: {email: email}});
-      } catch (error) {
-        setErrorMessage(error.message);
-      } finally {
-        setLoading(false);
-        actions.setSubmitting(false);
-      }
+      createUser(email, firstName, lastName)
+          .then(()=>{
+            Auth.signUp({
+              username: email,
+              password,
+              attributes: {
+                email,
+                name: firstName,
+                family_name: lastName,
+              },
+              autoSignIn: {
+                enabled: true,
+              },
+            }).then(()=>navigate('/verify', {state: {email: email}}));
+          }).catch((error)=>setErrorMessage(error.message)).finally(()=>{
+            setLoading(false);
+            actions.setSubmitting(false);
+          });
     },
   });
 

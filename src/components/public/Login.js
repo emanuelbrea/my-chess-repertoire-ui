@@ -56,7 +56,7 @@ export default function Login() {
 
       try {
         await Auth.signIn(email, password);
-        navigate('/profile');
+        navigate('/repertoires');
       } catch (error) {
         if (error.message === 'User is not confirmed.') {
           navigate('/verify', {state: {email: email}});

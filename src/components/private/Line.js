@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import MyMove from './MyMove';
 import RivalMoves from './RivalMoves';
 import {Divider} from '@mui/material';
@@ -9,6 +9,7 @@ import {useNavigate} from 'react-router-dom';
 import Loading from '../public/Loading';
 import PropTypes from 'prop-types';
 import getCurrentJwt from '../../auth/CognitoService';
+import {addMoves, getRepertoireMoves, updateMove} from '../../api/repertoire';
 
 
 export default function Line({fen, color, addVariant, currentDepth, removeMoves, active, addCandidates}) {
@@ -18,14 +19,18 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [accessToken, setAccessToken] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (color !== 'white' && color !== 'black') {
-      return navigate('/');
+      return navigate('/repertoires');
     }
     getCurrentJwt().then((jwt) => {
       setAccessToken(jwt);
-      getRepertoireMoves(jwt);
+      getRepertoireMoves(jwt, fen, color).then((moves) => {
+        setData(moves);
+        getCandidates(moves);
+      }).catch((error) => setErrorMessage(error.message));
     });
   }, [fen]);
 
@@ -74,65 +79,22 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     }
   }
 
-  const getRepertoireMoves = useCallback(async (jwt) => {
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + jwt,
-        'Content-Type': 'application/json',
-      },
-    };
-    const moves = await fetch('/api/repertoire?' + new URLSearchParams({
-      fen: fen,
-      color: color,
-    }), requestOptions)
-        .then((res) => res.json())
-        .catch((error) => {
-          return {'success': false};
-        });
-    setData(moves);
-    getCandidates(moves);
-    return moves;
-  }, []);
-
-  const updateMove = async (move) => {
+  const updateRepertoireMove = async (move) => {
     setData(null);
-    const requestOptions = {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json',
-      },
-    };
-    const moves = await fetch('/api/repertoire?' + new URLSearchParams({
-      fen: fen,
-      color: color,
-      move: move,
-    }), requestOptions)
-        .then((res) => res.json());
-    removeMoves(data['data']['depth']);
-    setData(moves);
-    setOpen(true);
-    getCandidates(moves);
+    updateMove(accessToken, move, fen, color).then((moves) => {
+      removeMoves(data['data']['depth']);
+      setData(moves);
+      setOpen(true);
+      getCandidates(moves);
+    } ).catch((error) => setErrorMessage(error.message));
   };
 
   const addRepertoireMoves = async () => {
     setData(null);
-    const requestOptions = {
-      method: 'PATCH',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json',
-      },
-    };
-    const moves = await fetch('/api/repertoire?' + new URLSearchParams({
-      fen: fen,
-      color: color,
-    }), requestOptions)
-        .then((res) => res.json());
-
-    setEndOfLine(true);
-    setData(moves);
+    addMoves(accessToken, fen, color).then((moves) => {
+      setEndOfLine(true);
+      setData(moves);
+    } ).catch((error) => setErrorMessage(error.message));
   };
 
   if (!active) {
@@ -170,7 +132,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                     depth={data['data']['depth']}
                     color={color}
                     currentDepth={currentDepth}
-                    updateMove={updateMove}
+                    updateMove={updateRepertoireMove}
                   />
                   <Divider/>
                   <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
@@ -194,6 +156,11 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
                   <Divider/>
                 </>
       }
+      <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
+        <Alert onClose={()=> setErrorMessage(null)} severity="error" sx={{width: '100%', fontSize: 16}}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </>
 
   );
