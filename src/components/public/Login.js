@@ -12,6 +12,7 @@ import Loading from './Loading';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
+import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -177,7 +178,7 @@ export default function Login() {
               <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
             </Button>
             <Divider spacing={2} sx={{my: 3}}>or</Divider>
-            <GoogleLoginButton align={'center'}>
+            <GoogleLoginButton align={'center'} onClick={() => Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google})}>
             </GoogleLoginButton>
           </Box>
           <Typography

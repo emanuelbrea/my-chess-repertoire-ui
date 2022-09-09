@@ -57,21 +57,20 @@ export default function Register() {
     onSubmit: async (values, actions) => {
       setLoading(true);
       const {email, firstName, lastName, password} = values;
-      createUser(email, firstName, lastName)
-          .then(()=>{
-            Auth.signUp({
-              username: email,
-              password,
-              attributes: {
-                email,
-                name: firstName,
-                family_name: lastName,
-              },
-              autoSignIn: {
-                enabled: true,
-              },
-            }).then(()=>navigate('/verify', {state: {email: email}}));
-          }).catch((error)=>setErrorMessage(error.message)).finally(()=>{
+      Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          email,
+          given_name: firstName,
+          family_name: lastName,
+        },
+        autoSignIn: {
+          enabled: true,
+        },
+      }).then(()=>navigate('/verify', {state: {email: email}}))
+          .catch((error)=>setErrorMessage(error.message))
+          .finally(()=>{
             setLoading(false);
             actions.setSubmitting(false);
           });
