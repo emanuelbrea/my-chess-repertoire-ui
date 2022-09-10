@@ -66,15 +66,22 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
           {description != null &&
                         <div dangerouslySetInnerHTML={{__html: description}} style={{fontSize: 18}}/>
           }
-          <Link href={move.link !== null ? move.link : 'https://en.wikibooks.org/wiki/Chess_Opening_Theory'}
-            marginX={2} target='_blank'>
-                        Read more on WikiBooks
-          </Link>
+          {
+            move.link !== null && description != null &&
+            <Link href={move.link}
+              marginX={2} target='_blank'>
+              Read more on WikiBooks
+            </Link>
+          }
         </Grid>
         <Grid item xs={12} sm={10} md={8} lg={6} xl={5} display={'flex'} flexDirection={'column'}
           justifyContent={'center'}
         >
-          <Card elevation={10}>
+          <Card elevation={10} sx={{
+            ':hover': {
+              boxShadow: 20,
+            },
+          }}>
             <CardActionArea
               onClick={handleClickEditMove}
             >

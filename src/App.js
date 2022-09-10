@@ -11,6 +11,7 @@ import awsconfig from './aws-exports';
 import Recover from './components/public/Recover';
 import Verify from './components/public/Verify';
 import Repertoires from './components/private/Repertoires';
+import NavBar from './components/public/NavBar';
 
 export default function App() {
   Amplify.configure(awsconfig);
@@ -25,17 +26,26 @@ export default function App() {
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/repertoires' element={
           <PrivateRoute>
-            <Repertoires/>
+            <>
+              <NavBar/>
+              <Repertoires/>
+            </>
           </PrivateRoute>
         }/>
         <Route path='/repertoire/:color' element={
           <PrivateRoute>
-            <Repertoire/>
+            <>
+              <NavBar/>
+              <Repertoire/>
+            </>
           </PrivateRoute>
         }/>
         <Route path='/profile' element={
           <PrivateRoute>
-            <Profile/>
+            <>
+              <NavBar/>
+              <Profile/>
+            </>
           </PrivateRoute>
         }/>
         <Route

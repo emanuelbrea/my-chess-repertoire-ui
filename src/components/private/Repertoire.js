@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
 import Line from './Line';
-import NavBarLogged from './NavBarLogged';
 import {useParams} from 'react-router-dom';
 
 export default function Repertoire() {
@@ -52,7 +51,6 @@ export default function Repertoire() {
 
   return (
     <React.Fragment>
-      <NavBarLogged/>
       {Object.keys(fens).map((fen, index) => (
         <Line
           fen={fen}

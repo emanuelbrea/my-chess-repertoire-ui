@@ -2,11 +2,11 @@ import {AppBar, Container, Stack, Toolbar} from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import {Link} from 'react-router-dom';
-import React from 'react';
+import React, {useContext} from 'react';
+import {UserContext} from '../../routes/PrivateRoute';
 
 export default function NavBar() {
-  const pages = ['Home', 'About', 'Contact'];
-
+  const user = useContext(UserContext);
   return (
     <AppBar position={'static'} color="transparent" elevation={0}>
       <Container sx={{mt: 3}}>
@@ -18,8 +18,8 @@ export default function NavBar() {
           </Box>
 
 
-          <Stack direction="row" spacing={1} sx={{display: {xs: 'none', md: 'flex'}}}>
-            {pages.map((page) => (
+          <Stack direction="row" spacing={2} sx={{display: {xs: 'none', md: 'flex'}}}>
+            <Link to="/" style={{textDecoration: 'none'}}>
               <Button variant={'text'}
                 sx={{
                   ':hover': {
@@ -31,11 +31,62 @@ export default function NavBar() {
                   'fontSize': 18,
                   'color': 'black',
                   'textTransform': 'none',
-                }} key={page}
+                }}
               >
-                {page}
+                Home
               </Button>
-            ))}
+            </Link>
+            <Link to="/about" style={{textDecoration: 'none'}}>
+              <Button variant={'text'}
+                sx={{
+                  ':hover': {
+                    textDecoration: 'underline #769656',
+                    textDecorationThickness: '3px',
+                    textUnderlineOffset: '10px',
+                    backgroundColor: 'transparent',
+                  },
+                  'fontSize': 18,
+                  'color': 'black',
+                  'textTransform': 'none',
+                }}
+              >
+              About
+              </Button>
+            </Link>
+            <Link to="/contact" style={{textDecoration: 'none'}}>
+              <Button variant={'text'}
+                sx={{
+                  ':hover': {
+                    textDecoration: 'underline #769656',
+                    textDecorationThickness: '3px',
+                    textUnderlineOffset: '10px',
+                    backgroundColor: 'transparent',
+                  },
+                  'fontSize': 18,
+                  'color': 'black',
+                  'textTransform': 'none',
+                }}
+              >
+              Contact
+              </Button>
+            </Link>
+            {user && <Link to="/repertoires" style={{textDecoration: 'none'}}>
+              <Button variant={'text'}
+                sx={{
+                  ':hover': {
+                    textDecoration: 'underline #769656',
+                    textDecorationThickness: '3px',
+                    textUnderlineOffset: '10px',
+                    backgroundColor: 'transparent',
+                  },
+                  'fontSize': 18,
+                  'color': 'black',
+                  'textTransform': 'none',
+                }}
+              >
+                Repertoires
+              </Button>
+            </Link>}
           </Stack>
           <Stack direction="row" spacing={1}>
             <Link to="/login" style={{textDecoration: 'none'}}>

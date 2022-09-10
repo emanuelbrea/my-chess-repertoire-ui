@@ -38,7 +38,9 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                       <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
                         <div data-aos="flip-left" data-aos-offset="0" data-aos-delay={300 + index * 50}
                           data-aos-duration="800">
-                          <Card elevation={10} sx={{border: active === move && '6px solid #769656'}}>
+                          <Card elevation={10} sx={{'border': active === move && '6px solid #769656', ':hover': {
+                            boxShadow: 20,
+                          }}}>
                             <CardActionArea onClick={() => handleChange(move)}>
 
                               <CardMedia>

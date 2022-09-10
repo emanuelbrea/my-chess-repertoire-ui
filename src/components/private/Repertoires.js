@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import getCurrentJwt from '../../auth/CognitoService';
 import Loading from '../public/Loading';
-import {Card, CardActionArea, CardContent, CardMedia, Container, Step, StepLabel, Stepper} from '@mui/material';
+import {Card, CardActionArea, CardMedia, Container, Step, StepLabel, Stepper} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
@@ -24,6 +23,7 @@ export default function Repertoires() {
   const [accessToken, setAccessToken] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
+
   const [whiteRepertoire, setWhiteRepertoire] = useState({
     total: 0,
     last_updated: '',
@@ -77,65 +77,59 @@ export default function Repertoires() {
   return (
     <>
       <Container component="main">
-        <Grid container spacing={6} mt={6} justifyContent={'center'}>
+        <Typography variant="h3" mt={5}>
+          My repertoires
+        </Typography>
+        <Grid container spacing={2} mt={6} justifyContent={'space-around'}>
           <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+            <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} mb={3}>
+              <Typography gutterBottom variant="h4" component="div">
+                White
+              </Typography>
+            </Box>
             <Card elevation={10} sx={{
               ':hover': {
                 boxShadow: 20,
               },
-              'display': 'flex',
-              'height': '100%',
-              'flexDirection': 'column',
+              'mb': 3,
             }}>
               <CardActionArea onClick={() => handleClick('white')}>
                 <CardMedia sx={{display: 'flex', justifyContent: 'center'}}>
-                  <AddCircleIcon sx={{color: '#769656', mt: 5, fontSize: 100}}/>
+                  <img src="/white_initial.svg"/>
                 </CardMedia>
-                <CardContent>
-                  <Box display={'flex'} justifyContent={'center'} flexDirection={'row'}>
-                    <Typography gutterBottom variant="h4" component="div">
-                      White
-                    </Typography>
-                  </Box>
-                  {loaded && <Typography gutterBottom variant="body1" component="div">
-                    {whiteRepertoire.total} moves
-                  </Typography>}
-                  {loaded && <Typography gutterBottom variant="body1" component="div">
-                    Last updated: {whiteRepertoire.last_updated}
-                  </Typography>}
-                </CardContent>
               </CardActionArea>
             </Card>
+            {loaded && <Typography gutterBottom variant="body1" component="div">
+              {whiteRepertoire.total} moves
+            </Typography>}
+            {loaded && <Typography gutterBottom variant="body2" component="div">
+              Last updated: {new Date(whiteRepertoire.last_updated).toDateString()}
+            </Typography>}
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+            <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} mb={3}>
+              <Typography gutterBottom variant="h4" component="div">
+                Black
+              </Typography>
+            </Box>
             <Card elevation={10} sx={{
               ':hover': {
                 boxShadow: 20,
               },
-              'display': 'flex',
-              'height': '100%',
-              'flexDirection': 'column',
+              'mb': 3,
             }}>
               <CardActionArea onClick={() => handleClick('black')}>
                 <CardMedia sx={{display: 'flex', justifyContent: 'center'}}>
-                  <AddCircleIcon sx={{color: '#769656', mt: 5, fontSize: 100}}/>
+                  <img src="/black_initial.svg"/>
                 </CardMedia>
-                <CardContent>
-                  <Box display={'flex'} justifyContent={'center'} flexDirection={'row'}>
-                    <Typography gutterBottom variant="h4" component="div">
-                      Black
-                    </Typography>
-                  </Box>
-
-                  {loaded && <Typography gutterBottom variant="body1" component="div">
-                    {blackRepertoire.total} moves
-                  </Typography>}
-                  {loaded && <Typography gutterBottom variant="body1" component="div">
-                    Last updated: {blackRepertoire.last_updated}
-                  </Typography>}
-                </CardContent>
               </CardActionArea>
             </Card>
+            {loaded && <Typography gutterBottom variant="body1" component="div">
+              {blackRepertoire.total} moves
+            </Typography>}
+            {loaded && <Typography gutterBottom variant="body2" component="div">
+              Last updated: {new Date(blackRepertoire.last_updated).toDateString()}
+            </Typography>}
           </Grid>
         </Grid>
         {colorSelected != null &&
