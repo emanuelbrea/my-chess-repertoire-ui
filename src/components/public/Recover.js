@@ -4,7 +4,7 @@ import {Container, TextField, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Loading from './Loading';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -93,13 +93,10 @@ export default function Recover() {
           minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
           flexDirection: 'column',
         }}>
-        <Box
-          sx={{marginBottom: 3}}
-          component="a"
-          href="/">
+        <Link to={'/'}>
           <img src="/logo.svg" height={100}
           />
-        </Box>
+        </Link>
         {step ==='email' && <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>
             <Typography

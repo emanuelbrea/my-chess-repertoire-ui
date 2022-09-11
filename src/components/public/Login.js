@@ -81,18 +81,16 @@ export default function Login() {
 
   return (
     <>
-      <Container maxWidth={'sm'} component="main"
+      <Container maxWidth={'xs'} component="main"
         sx={{
-          minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          minHeight: '100vh', display: 'flex', justifyContent: 'center',
           flexDirection: 'column',
         }}>
-        <Box
-          sx={{marginBottom: 3}}
-          component="a"
-          href="/">
+        <Link to={'/'}>
           <img src="/logo.svg" height={100}
           />
-        </Box>
+        </Link>
+
         <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>
             <Typography
