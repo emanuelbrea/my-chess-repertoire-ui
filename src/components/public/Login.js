@@ -61,11 +61,11 @@ export default function Login() {
       } catch (error) {
         if (error.message === 'User is not confirmed.') {
           navigate('/verify', {state: {email: email}});
+        } else {
+          setErrorMessage('Invalid email / password combination. Please try again.');
+          setLoading(false);
+          actions.setSubmitting(false);
         }
-        setErrorMessage('Invalid email / password combination. Please try again.');
-      } finally {
-        setLoading(false);
-        actions.setSubmitting(false);
       }
     },
   });
@@ -93,7 +93,7 @@ export default function Login() {
           <img src="/logo.svg" height={100}
           />
         </Box>
-        <form onSubmit={formik.handleSubmit} sx={{display: 'grid'}}>
+        <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>
             <Typography
               variant="h3"

@@ -16,10 +16,11 @@ import {mdiSwordCross} from '@mdi/js';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import MergeIcon from '@mui/icons-material/Merge';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import DesktopMacIcon from '@mui/icons-material/DesktopMac';
+import ComputerIcon from '@mui/icons-material/Computer';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {getCurrentUser, updateUser} from '../../api/user';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Profile() {
   const [loading, setLoading] = useState(true);
@@ -46,12 +47,12 @@ export default function Profile() {
   useEffect(() => {
     getCurrentJwt().then((jwt) => {
       setAccessToken(jwt);
-      getCurrentUser(jwt).then((user)=>{
+      getCurrentUser(jwt).then((user) => {
         setUserProfile(user.data.user);
         setChessStyle(user.data.style);
         setLoading(false);
-      }).catch((error)=> setErrorMessage(error.message))
-          .finally(()=>setLoading(false));
+      }).catch((error) => setErrorMessage(error.message))
+          .finally(() => setLoading(false));
     });
   }, []);
 
@@ -77,18 +78,18 @@ export default function Profile() {
     setOpen(false);
   };
 
-  const updateUserInfo = async (accessToken, userProfile, chessStyle) =>{
+  const updateUserInfo = async (accessToken, userProfile, chessStyle) => {
     setLoading(true);
     updateUser(accessToken, userProfile, chessStyle)
-        .then(()=>setOpen(true))
-        .catch((error)=>(setErrorMessage(error.message)))
-        .finally(()=>setLoading(false));
+        .then(() => setOpen(true))
+        .catch((error) => (setErrorMessage(error.message)))
+        .finally(() => setLoading(false));
   };
 
   return (
     <>
       <Container component={'main'} sx={{my: 6}}>
-        <Paper variant="outlined" sx={{my: {xs: 3, md: 6}, p: {xs: 2, md: 3}}}>
+        <Paper variant="outlined" sx={{p: {xs: 2, md: 3}}}>
           <ProfileForm userProfile={userProfile} updateUserProfile={updateUserProfile}/>
           <Divider sx={{my: 3}}/>
           <ChessProfileForm chessStyle={chessStyle} updateChessStyle={updateChessStyle}/>
@@ -103,7 +104,7 @@ export default function Profile() {
             <Button
               color="primary"
               variant="contained"
-              onClick={()=> updateUserInfo(accessToken, userProfile, chessStyle)}
+              onClick={() => updateUserInfo(accessToken, userProfile, chessStyle)}
             >
               Save details
             </Button>
@@ -116,8 +117,8 @@ export default function Profile() {
           Profile updated correctly!
         </Alert>
       </Snackbar>
-      <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={()=> setErrorMessage(null)}>
-        <Alert onClose={()=> setErrorMessage(null)} severity="error" sx={{width: '100%', fontSize: 16}}>
+      <Snackbar open={errorMessage != null} autoHideDuration={4000} onClose={() => setErrorMessage(null)}>
+        <Alert onClose={() => setErrorMessage(null)} severity="error" sx={{width: '100%', fontSize: 16}}>
           {errorMessage}
         </Alert>
       </Snackbar>
@@ -130,7 +131,7 @@ export default function Profile() {
 export function ProfileForm({userProfile, updateUserProfile}) {
   return (
     <>
-      <Typography variant="h6" gutterBottom mb={3}>
+      <Typography variant="h4" gutterBottom mb={3}>
         Profile
       </Typography>
       <Grid container spacing={3}>
@@ -216,6 +217,7 @@ export function ProfileForm({userProfile, updateUserProfile}) {
           <TextField
             fullWidth
             label="Playing since"
+            helperText="At what age you started playing chess"
             name="playing_since"
             onChange={updateUserProfile}
             required
@@ -249,12 +251,13 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom mb={3}>
+      <Typography variant="h4" gutterBottom mb={3}>
         Elo Rating
       </Typography>
       <TextField
         label="FIDE rating"
         name="rating"
+        helperText="Official elo rating. Select 0 if unrated."
         onChange={updateChessStyle}
         required
         type="number"
@@ -268,17 +271,19 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
         sx={{paddingRight: 2, minWidth: 140}}
       />
       <Divider sx={{my: 3}}/>
-      <Typography variant="h6" gutterBottom mb={3}>
+      <Typography variant="h4" gutterBottom mb={3}>
         Playing style
       </Typography>
       <Grid container spacing={1} my={5}>
         <Grid container item spacing={3}>
           <Grid item xs={4}>
-            <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
+            <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <Typography>
-                Solid
-              </Typography>
+              <Tooltip title={'You are a positional player that wants to minimize losses.'} arrow>
+                <Typography gutterBottom variant={'h6'}>
+                  Solid
+                </Typography>
+              </Tooltip>
               <FortIcon sx={{fontSize: 30}}/>
             </Stack>
           </Grid>
@@ -296,15 +301,17 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
             />
           </Grid>
           <Grid item xs={4}>
-            <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
+            <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
               <Icon path={mdiSwordCross}
                 title="Aggressive"
                 size={1.2}
               />
-              <Typography>
-                Aggressive
-              </Typography>
+              <Tooltip title={'You try to avoid draws and take more risks to go for the win.'} arrow>
+                <Typography gutterBottom variant={'h6'}>
+                  Aggressive
+                </Typography>
+              </Tooltip>
             </Stack>
           </Grid>
         </Grid>
@@ -312,13 +319,17 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
 
         <Grid container item spacing={3}>
           <Grid item xs={4}>
-            <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
+
+            <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <Typography>
-                Side Lines
-              </Typography>
-              <CallSplitIcon sx={{fontSize: 40}}/>
+              <Tooltip title={'You prefer lines that are less played to surprise your opponent.'} arrow>
+                <Typography gutterBottom variant={'h6'}>
+                  Side Lines
+                </Typography>
+              </Tooltip>
+              <CallSplitIcon sx={{fontSize: 30}}/>
             </Stack>
+
           </Grid>
           <Grid item xs={4}>
             <Slider
@@ -334,27 +345,35 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
             />
           </Grid>
           <Grid item xs={4}>
-            <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
-              display={'flex'}>
-              <MergeIcon sx={{fontSize: 40}}/>
-              <Typography>
-                Main lines
-              </Typography>
 
+            <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
+              display={'flex'}>
+              <MergeIcon sx={{fontSize: 30}}/>
+              <Tooltip title={'You prefer lines that are played more frequently that others.'} arrow>
+                <Typography gutterBottom variant={'h6'}>
+                  Main lines
+                </Typography>
+              </Tooltip>
             </Stack>
+
           </Grid>
         </Grid>
 
 
         <Grid container item spacing={3}>
           <Grid item xs={4}>
-            <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
+
+            <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <Typography>
-                Classical
-              </Typography>
+              <Tooltip title={'You prefer lines that used to be played a lot.'} arrow>
+                <Typography gutterBottom variant={'h6'}>
+                  Classical
+                </Typography>
+              </Tooltip>
               <MenuBookIcon sx={{fontSize: 30}}/>
+
             </Stack>
+
           </Grid>
           <Grid item xs={4}>
             <Slider
@@ -370,14 +389,17 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
             />
           </Grid>
           <Grid item xs={4}>
+
             <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <DesktopMacIcon sx={{fontSize: 30}}/>
-              <Typography>
-                Popular
-              </Typography>
-
+              <ComputerIcon sx={{fontSize: 30}}/>
+              <Tooltip title={'You prefer lines that became popular in the last years.'} arrow>
+                <Typography gutterBottom variant={'h6'}>
+                  Modern
+                </Typography>
+              </Tooltip>
             </Stack>
+
           </Grid>
         </Grid>
       </Grid>

@@ -23,35 +23,32 @@ export default function App() {
         <Route exact path="/login" element={<Login/>}/>
         <Route exact path="/recover" element={<Recover/>}/>
         <Route exact path="/verify" element={<Verify/>}/>
-        <Route exact path='/' element={<LandingPage/>}/>
-        <Route path='/repertoires' element={
-          <PrivateRoute>
-            <>
-              <NavBar/>
-              <Repertoires/>
-            </>
-          </PrivateRoute>
-        }/>
-        <Route path='/repertoire/:color' element={
-          <PrivateRoute>
-            <>
-              <NavBar/>
+        <Route exact path='/' element={<NavBar/>}>
+          <Route index element={<LandingPage/>}/>
+          <Route path='/repertoires' element={
+            <PrivateRoute>
+              <>
+                <Repertoires/>
+              </>
+            </PrivateRoute>
+          }/>
+          <Route path='/repertoire/:color' element={
+            <PrivateRoute>
               <Repertoire/>
-            </>
-          </PrivateRoute>
-        }/>
-        <Route path='/profile' element={
-          <PrivateRoute>
-            <>
-              <NavBar/>
-              <Profile/>
-            </>
-          </PrivateRoute>
-        }/>
-        <Route
-          path="*"
-          element={<Navigate to="/" replace/>}
-        />
+            </PrivateRoute>
+          }/>
+          <Route path='/profile' element={
+            <PrivateRoute>
+              <>
+                <Profile/>
+              </>
+            </PrivateRoute>
+          }/>
+          <Route
+            path="*"
+            element={<Navigate to="/" replace/>}
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

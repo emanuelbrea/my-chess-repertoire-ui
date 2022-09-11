@@ -5,7 +5,14 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function StatsTable({stats, active}) {
+export default function StatsTable({stats, active, handleChange}) {
+  const handleClick = (move) => {
+    if (handleChange) {
+      handleChange(move);
+    }
+  };
+
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 400}} aria-label={'position-stats'} size={'small'}>
@@ -39,6 +46,7 @@ export default function StatsTable({stats, active}) {
             <TableRow
               key={row.move}
               sx={{border: active === row.move && '2px solid green'}}
+              onClick={()=> handleClick(row)}
             >
               <TableCell component={'th'} scope={'row'}>
                 {row.move}
@@ -62,9 +70,9 @@ export default function StatsTable({stats, active}) {
                 <Stack direction={'row'}>
                   <Box sx={{
                     flex: Math.round(row.white_wins * 100),
-                    backgroundColor: '#bababa2b',
+                    backgroundColor: 'rgb(255,255,255)',
                     borderRadius: '3px 0  0 3px',
-                  }}><Typography>{Math.round(row.white_wins * 100)}%</Typography></Box>
+                  }}><Typography color={'#111111'}>{Math.round(row.white_wins * 100)}%</Typography></Box>
                   <Box
                     sx={{flex: Math.round(row.draws * 100), backgroundColor: '#777574'}}><Typography
                       sx={{color: 'white'}}>{Math.round(row.draws * 100)}%</Typography></Box>
@@ -89,4 +97,5 @@ export default function StatsTable({stats, active}) {
 StatsTable.propTypes = {
   stats: PropTypes.array,
   active: PropTypes.string,
+  handleChange: PropTypes.func,
 };

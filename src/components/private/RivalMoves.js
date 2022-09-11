@@ -67,7 +67,7 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                     ))}
                   </Grid>
                   <Container sx={{padding: 4}}>
-                    <StatsTable stats={moves} active={active?.move}/>
+                    <StatsTable stats={moves} active={active?.move} handleChange={handleChange}/>
                   </Container>
                 </>
       }

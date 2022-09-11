@@ -100,7 +100,7 @@ export default function Recover() {
           <img src="/logo.svg" height={100}
           />
         </Box>
-        {step ==='email' && <form onSubmit={formik.handleSubmit} sx={{display: 'grid'}}>
+        {step ==='email' && <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>
             <Typography
               variant="h4"
@@ -147,7 +147,7 @@ export default function Recover() {
 
         </form>}
         {step === 'password' && <>
-          <form onSubmit={formikReset.handleSubmit} sx={{display: 'grid'}}>
+          <form onSubmit={formikReset.handleSubmit} style={{display: 'grid'}}>
             <Box sx={{my: 3}}>
               <Typography
                 variant="h4"

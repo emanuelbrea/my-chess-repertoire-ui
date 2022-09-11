@@ -73,6 +73,10 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
               Read more on WikiBooks
             </Link>
           }
+          <Link href={'https://lichess.org/analysis?fen=' + position.fen + '&color=' + color}
+            marginX={2} target='_blank'>
+            View on lichess
+          </Link>
         </Grid>
         <Grid item xs={12} sm={10} md={8} lg={6} xl={5} display={'flex'} flexDirection={'column'}
           justifyContent={'center'}

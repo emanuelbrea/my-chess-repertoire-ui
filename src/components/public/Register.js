@@ -12,7 +12,6 @@ import Loading from './Loading';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {createUser} from '../../api/user';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);

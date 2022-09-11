@@ -9,7 +9,6 @@
   "dependencies": {
     "@aws-amplify/auth": "^4.6.5",
     "@aws-amplify/cli": "latest",
-    "@aws-amplify/ui-react": "^3.5.1",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mdi/js": "^7.0.96",
@@ -20,8 +19,8 @@
     "aws-amplify": "^4.3.33",
     "formik": "^2.2.9",
     "prop-types": "^15.8.1",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-input-verification-code": "^1.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "latest",

@@ -1,4 +1,3 @@
-import NavBar from './NavBar';
 import * as React from 'react';
 import Footer from './Footer';
 import Typography from '@mui/material/Typography';
@@ -16,12 +15,9 @@ export default function LandingPage() {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '100vh',
-          backgroundImage: 'url(../backgroundLanding1.webp)', backgroundSize: 'cover',
         }}>
         <Container component="main"
           maxWidth={false}>
-          <NavBar/>
           <Container sx={{mt: 15}}>
             <Typography variant="h2" fontWeight={700}>
                                 All your openings.
