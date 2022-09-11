@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import getCurrentJwt from '../../auth/CognitoService';
 import Loading from '../public/Loading';
-import {Card, CardActionArea, CardMedia, Container, Step, StepLabel, Stepper} from '@mui/material';
+import {Card, CardActionArea, CardMedia, Container, IconButton, Step, StepLabel, Stepper} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,7 +13,8 @@ import Snackbar from '@mui/material/Snackbar';
 import {useNavigate} from 'react-router-dom';
 import {ChessProfileForm, ProfileForm} from './Profile';
 import {getCurrentUser, updateUser} from '../../api/user';
-import {createRepertoire, getRepertoireInfo} from '../../api/repertoire';
+import {createRepertoire, deleteRepertoire, getRepertoireInfo} from '../../api/repertoire';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Repertoires() {
   const [loading, setLoading] = useState(true);
@@ -23,15 +24,13 @@ export default function Repertoires() {
   const [accessToken, setAccessToken] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
+  const initialData = {
+    total: 0,
+    last_updated: '',
+  };
 
-  const [whiteRepertoire, setWhiteRepertoire] = useState({
-    total: 0,
-    last_updated: '',
-  });
-  const [blackRepertoire, setBlackRepertoire] = useState({
-    total: 0,
-    last_updated: '',
-  });
+  const [whiteRepertoire, setWhiteRepertoire] = useState(initialData);
+  const [blackRepertoire, setBlackRepertoire] = useState(initialData);
 
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function Repertoires() {
       setAccessToken(jwt);
       getRepertoireInfo(jwt)
           .then((info)=>{
-            if (Object.keys(info.data.white).length > 0 > 0) {
+            if (Object.keys(info.data.white).length > 0) {
               setWhiteRepertoire(info.data.white);
             }
             if (Object.keys(info.data.black).length > 0) {
@@ -73,6 +72,16 @@ export default function Repertoires() {
     }
   };
 
+  const deleteUserRepertoire = (color) => {
+    setLoading(true);
+    deleteRepertoire(accessToken, color).then(() => {
+      if (color === 'white') {
+        setWhiteRepertoire(initialData);
+      } else {
+        setBlackRepertoire(initialData);
+      }
+    }).catch((error) => setErrorMessage(error.message)).finally(() => setLoading(false));
+  };
 
   return (
     <>
@@ -89,9 +98,8 @@ export default function Repertoires() {
             </Box>
             <Card elevation={10} sx={{
               ':hover': {
-                boxShadow: 20,
               },
-              'mb': 3,
+              'mb': 2,
             }}>
               <CardActionArea onClick={() => handleClick('white')}>
                 <CardMedia sx={{display: 'flex', justifyContent: 'center'}}>
@@ -99,12 +107,23 @@ export default function Repertoires() {
                 </CardMedia>
               </CardActionArea>
             </Card>
-            {loaded && <Typography gutterBottom variant="body1" component="div">
-              {whiteRepertoire.total} moves
-            </Typography>}
-            {loaded && <Typography gutterBottom variant="body2" component="div">
-              Last updated: {new Date(whiteRepertoire.last_updated).toDateString()}
-            </Typography>}
+            {loaded && <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+              <Box display={'flex'} flexDirection={'column'}>
+                <Typography gutterBottom variant="body1" component="div">
+                  {whiteRepertoire.total} moves
+                </Typography>
+                <Typography gutterBottom variant="body2" component="div">
+                  Last updated: {whiteRepertoire.last_updated && new Date(whiteRepertoire.last_updated).toDateString()}
+                </Typography>
+              </Box>
+              { whiteRepertoire.total > 0 &&
+                <IconButton color="error" size={'large'} onClick={() => deleteUserRepertoire('white')}>
+                  <DeleteIcon />
+                </IconButton>
+              }
+
+            </Box>
+            }
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
             <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} mb={3}>
@@ -114,7 +133,6 @@ export default function Repertoires() {
             </Box>
             <Card elevation={10} sx={{
               ':hover': {
-                boxShadow: 20,
               },
               'mb': 3,
             }}>
@@ -124,12 +142,23 @@ export default function Repertoires() {
                 </CardMedia>
               </CardActionArea>
             </Card>
-            {loaded && <Typography gutterBottom variant="body1" component="div">
-              {blackRepertoire.total} moves
-            </Typography>}
-            {loaded && <Typography gutterBottom variant="body2" component="div">
-              Last updated: {new Date(blackRepertoire.last_updated).toDateString()}
-            </Typography>}
+            {loaded && <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+              <Box display={'flex'} flexDirection={'column'}>
+                <Typography gutterBottom variant="body1" component="div">
+                  {blackRepertoire.total} moves
+                </Typography>
+                <Typography gutterBottom variant="body2" component="div">
+                  Last updated: {blackRepertoire.last_updated && new Date(blackRepertoire.last_updated).toDateString()}
+                </Typography>
+              </Box>
+              { blackRepertoire.total > 0 &&
+                <IconButton color="error" size={'large'} onClick={() => deleteUserRepertoire('black')}>
+                  <DeleteIcon />
+                </IconButton>
+              }
+
+            </Box>
+            }
           </Grid>
         </Grid>
         {colorSelected != null &&

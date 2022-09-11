@@ -96,4 +96,24 @@ const addMoves = async (jwt, fen, color) => {
   return moves;
 };
 
-export {createRepertoire, getRepertoireInfo, getRepertoireMoves, updateMove, addMoves};
+const deleteRepertoire = async (accessToken, color) => {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'Bearer ' + accessToken,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      color: color,
+    }),
+  };
+  await fetch('http://localhost:5000/api/repertoire', requestOptions)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('There was an error deleting the repertoire.');
+        }
+        return res.json();
+      });
+};
+
+export {createRepertoire, getRepertoireInfo, getRepertoireMoves, updateMove, addMoves, deleteRepertoire};

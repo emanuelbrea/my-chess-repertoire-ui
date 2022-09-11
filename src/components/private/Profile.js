@@ -131,7 +131,7 @@ export default function Profile() {
 export function ProfileForm({userProfile, updateUserProfile}) {
   return (
     <>
-      <Typography variant="h4" gutterBottom mb={3}>
+      <Typography variant="h5" gutterBottom mb={3}>
         Profile
       </Typography>
       <Grid container spacing={3}>
@@ -251,7 +251,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom mb={3}>
+      <Typography variant="h5" gutterBottom mb={3}>
         Elo Rating
       </Typography>
       <TextField
@@ -271,7 +271,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
         sx={{paddingRight: 2, minWidth: 140}}
       />
       <Divider sx={{my: 3}}/>
-      <Typography variant="h4" gutterBottom mb={3}>
+      <Typography variant="h5" gutterBottom mb={3}>
         Playing style
       </Typography>
       <Grid container spacing={1} my={5}>
