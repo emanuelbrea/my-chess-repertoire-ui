@@ -5,11 +5,12 @@ import AddIcon from '@mui/icons-material/Add';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '../public/Util';
 import PropTypes from 'prop-types';
-
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export default function AddLine({addRepertoireMoves, endOfLine}) {
   const fieldRef = useRef(null);
   const [open, setOpen] = useState(true);
+  const [visible, setVisible] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -23,6 +24,25 @@ export default function AddLine({addRepertoireMoves, endOfLine}) {
       });
     }
   });
+
+
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 30) {
+      setVisible(true);
+    } else if (scrolled <= 30) {
+      setVisible(false);
+    }
+  };
+
+  window.addEventListener('scroll', toggleVisible);
+
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <>
@@ -39,6 +59,11 @@ export default function AddLine({addRepertoireMoves, endOfLine}) {
                   </Fab>
                 </Box>
       }
+      { visible && <Box sx={{position: 'fixed', right: 24, bottom: 24}} >
+        <Fab color="primary" aria-label="scroll" onClick={scrollToTop}>
+          <ArrowUpwardIcon/>
+        </Fab>
+      </Box>}
     </>
   );
 }

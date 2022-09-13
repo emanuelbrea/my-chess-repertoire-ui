@@ -223,10 +223,13 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
           .then(() => {
             createRepertoire(accessToken, colorSelected)
                 .then(() => repertoireCreated())
-                .catch((error) => setErrorMessage(error.message));
+                .catch((error) => setErrorMessage(error.message))
+                .finally(()=>setLoading(false));
           })
-          .catch((error) => setErrorMessage(error.message))
-          .finally(()=>setLoading(false));
+          .catch((error) => {
+            setErrorMessage(error.message);
+            setLoading(false);
+          });
     }
   }, [activeStep]);
 

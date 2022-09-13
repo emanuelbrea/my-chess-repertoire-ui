@@ -94,7 +94,11 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     addMoves(accessToken, fen, color).then((moves) => {
       setEndOfLine(true);
       setData(moves);
-    } ).catch((error) => setErrorMessage(error.message));
+      getCandidates(moves);
+    } ).catch((error) => {
+      setErrorMessage(error.message);
+      setData({success: false});
+    });
   };
 
   if (!active) {
