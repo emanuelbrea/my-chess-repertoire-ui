@@ -35,7 +35,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
 
 
   const getMoveDescription = useCallback(async (move) => {
-    const moves = await fetch(move.link.replace('wiki/', 'w/api.php?titles=') +
+    const moves = await fetch( 'https://en.wikibooks.org/w/api.php?titles=Chess_Opening_Theory/' + move.link +
             '&redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=800')
         .then((res) => res.json());
     const info = moves['query']['pages'][0];
