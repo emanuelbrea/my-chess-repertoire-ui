@@ -79,7 +79,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
           }
           {
             move.link !== null && description != null &&
-            <Link href={move.link}
+            <Link href={'https://en.wikibooks.org/wiki/Chess_Opening_Theory/' + move.link}
               marginX={2} target='_blank'>
               Read more on WikiBooks
             </Link>
