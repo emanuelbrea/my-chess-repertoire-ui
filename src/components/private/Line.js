@@ -86,7 +86,10 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
       setData(moves);
       setOpen(true);
       getCandidates(moves);
-    } ).catch((error) => setErrorMessage(error.message));
+    } ).catch((error) => {
+      setErrorMessage(error.message);
+      setData({success: false});
+    });
   };
 
   const addRepertoireMoves = async () => {
@@ -113,7 +116,7 @@ export default function Line({fen, color, addVariant, currentDepth, removeMoves,
     return (
       <Snackbar open={true}>
         <Alert severity="error" sx={{width: '100%', fontSize: 16}}>
-                    There was an error displaying the website.
+                    Something went wrong. Please try again in a few minutes.
         </Alert>
       </Snackbar>
     );

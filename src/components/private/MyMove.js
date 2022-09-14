@@ -11,11 +11,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {getSvgUrl} from '../public/Util';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {addFavoriteMove} from '../../api/user';
+import getCurrentJwt from '../../auth/CognitoService';
 
 export default function MyMove({move, depth, position, stats, updateMove, color}) {
   const [open, setOpen] = useState(false);
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(move['favorite']);
   const [description, setDescription] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
 
   const handleClose = (newValue) => {
     setOpen(false);
@@ -31,6 +34,9 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
 
   useEffect(() => {
     getMoveDescription(move).catch(console.error);
+    getCurrentJwt().then((jwt) => {
+      setAccessToken(jwt);
+    }).catch(console.error);
   }, [move]);
 
 
@@ -46,6 +52,11 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
       setDescription(undefined);
     }
   }, []);
+
+  const addToFavorite = () => {
+    setFavorite(!favorite);
+    addFavoriteMove(accessToken, position.fen, move.move ).catch(console.error);
+  };
 
   return (
     <>
@@ -120,7 +131,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
               <IconButton color="primary" size={'large'} onClick={handleClickEditMove}>
                 <EditIcon sx={{fontSize: 30}}/>
               </IconButton>
-              <IconButton sx={{color: '#769656'}} onClick={() => setFavorite(!favorite)}>
+              <IconButton sx={{color: '#769656'}} onClick={addToFavorite}>
                 {favorite ?
                                     <FavoriteIcon size={'large'} sx={{fontSize: 30}}/> :
                                     <FavoriteBorderIcon size={'large'} sx={{fontSize: 30}}/>}
