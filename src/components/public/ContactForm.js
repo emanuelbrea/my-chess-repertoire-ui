@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import {Container, TextField, Typography} from '@mui/material';
+import {Container, Rating, TextField, Typography} from '@mui/material';
 import Button from '@mui/material/Button';
 import React, {useState} from 'react';
 import {useFormik} from 'formik';
@@ -7,12 +7,28 @@ import * as Yup from 'yup';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from './Util';
 import Loading from './Loading';
-
+import StarIcon from '@mui/icons-material/Star';
+import {addNewContact} from '../../api/user';
 
 export default function ContactForm() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(-1);
+
+  const labels = {
+    1: 'Useless',
+    2: 'Poor',
+    3: 'Ok',
+    4: 'Good',
+    5: 'Excellent',
+  };
+
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -50,6 +66,9 @@ export default function ContactForm() {
       }).finally(()=>{
         setLoading(false);
         actions.resetForm();
+      });
+      addNewContact(email, name, message, rating).catch((err)=>{
+        console.log(err.message);
       });
     },
   });
@@ -94,7 +113,7 @@ export default function ContactForm() {
               variant="h5"
               fontWeight={200}
             >
-            We would love to hear from you
+            We would love to hear from you!
             </Typography>
           </Box>
           <TextField
@@ -136,6 +155,37 @@ export default function ContactForm() {
             multiline
             rows={4}
           />
+          <Typography
+            variant="body1" my={3}
+          >
+            How would you rate your experience with the website? (Optional)
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              mb: 2,
+            }}
+          >
+
+            <Rating
+              name="rating"
+              value={rating}
+              precision={1}
+              size="large"
+              onChange={(event, newValue) => {
+                setRating(newValue);
+              }}
+              onChangeActive={(event, newHover) => {
+                setHover(newHover);
+              }}
+              getLabelText={getLabelText}
+              emptyIcon={<StarIcon style={{opacity: 0.55}} fontSize="inherit"/>}
+            />
+            {(
+              <Box sx={{ml: 2}}>{labels[hover !== -1 ? hover : rating]}</Box>
+            )}
+          </Box>
 
 
           <Box sx={{py: 3}}>
