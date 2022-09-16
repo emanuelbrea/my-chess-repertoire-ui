@@ -13,6 +13,7 @@ import Verify from './components/public/Verify';
 import Repertoires from './components/private/Repertoires';
 import NavBar from './components/public/NavBar';
 import ContactForm from './components/public/ContactForm';
+import About from './components/public/About';
 
 export default function App() {
   Amplify.configure(awsconfig);
@@ -27,6 +28,7 @@ export default function App() {
         <Route exact path='/' element={<NavBar/>}>
           <Route index element={<LandingPage/>}/>
           <Route exact path="/contact" element={<ContactForm/>}/>
+          <Route exact path="/about" element={<About/>}/>
           <Route path='/repertoires' element={
             <PrivateRoute>
               <>
