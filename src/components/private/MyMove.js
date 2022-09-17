@@ -61,7 +61,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
   return (
     <>
 
-      <Grid container spacing={1} justifyContent={'space-evenly'} marginTop={3} padding={3} marginBottom={4}>
+      <Grid container spacing={1} justifyContent={'space-evenly'} marginTop={15} padding={3} marginBottom={4}>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={5} display={'flex'} flexDirection={'column'}
           justifyContent={'center'}>
           <Typography variant="h3">

@@ -22,12 +22,12 @@ function Copyright() {
 
 export default function Footer() {
   return (
-    <Box component="footer" sx={{py: 2, mt: 'auto', px: 2}}>
+    <Box component="footer" sx={{pb: 2, mt: 'auto', px: 2, pt: 5}}>
       <Container>
         <Stack direction={'row'} spacing={5} alignItems={'center'} justifyContent={'center'} mt={5}>
           <LinkRouter to='/about' style={{textDecoration: 'none', color: 'white'}}>About</LinkRouter>
           <LinkRouter to="/contact" style={{textDecoration: 'none', color: 'white'}}>Contact</LinkRouter>
-          <LinkRouter to="/" style={{textDecoration: 'none', color: 'white'}}>FAQ</LinkRouter>
+          <LinkRouter to="/faq" style={{textDecoration: 'none', color: 'white'}}>FAQ</LinkRouter>
           <Link href="https://mychessrepertoire.com/" sx={{textDecoration: 'none', color: 'white'}}>Donate</Link>
         </Stack>
         <Box sx={{

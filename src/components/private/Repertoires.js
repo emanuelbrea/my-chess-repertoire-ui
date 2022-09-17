@@ -86,7 +86,7 @@ export default function Repertoires() {
   return (
     <>
       <Container component="main">
-        <Typography variant="h3" mt={5}>
+        <Typography variant="h3" mt={15}>
           My repertoires
         </Typography>
         <Grid container spacing={2} mt={6} justifyContent={'space-around'}>

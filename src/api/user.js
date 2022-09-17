@@ -64,5 +64,27 @@ const addFavoriteMove = async (jwt, fen, move) => {
       });
 };
 
+const addNewContact = async (email, name, message, rating) => {
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      name: name,
+      message: message,
+      rating: rating,
+    }),
+  };
+  await fetch('/api/user/message', requestOptions)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('There was an error storing the message.');
+        }
+        return res.json();
+      });
+};
 
-export {getCurrentUser, updateUser, addFavoriteMove};
+
+export {getCurrentUser, updateUser, addFavoriteMove, addNewContact};

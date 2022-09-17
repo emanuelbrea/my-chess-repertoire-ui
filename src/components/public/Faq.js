@@ -10,7 +10,7 @@ export default function Faq() {
 
   return (
     <>
-      <Container maxWidth={'md'} component={'main'} >
+      <Container maxWidth={'md'} component={'main'} sx={{mt: 15, mb: 6}}>
         <Box sx={{mt: 3, mb: 6}}>
           <Typography
             variant="h5"

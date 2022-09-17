@@ -97,7 +97,7 @@ export default function NavBar() {
 
   return (
     <>
-      <AppBar position={'static'} color="primary" elevation={1}>
+      <AppBar position={'fixed'} color="primary" elevation={1} sx={{paddingLeft: 'calc(100vw - 100%)'}}>
         <Container sx={{mt: 1}}>
           <Toolbar sx={{justifyContent: 'space-between'}} disableGutters>
 
@@ -150,7 +150,7 @@ export default function NavBar() {
             </Box>
 
 
-            <Box sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}>
+            <Box sx={{display: {xs: 'none', md: 'flex'}}}>
               <Link to="/" style={{textDecoration: 'none'}}>
                 <img src="/logo.svg" height={70}/>
               </Link>
@@ -218,7 +218,7 @@ export default function NavBar() {
                 <Link to="/login" style={{textDecoration: 'none'}}>
                   <Button sx={{
                     ':hover': linkHighlight,
-                    'textTransform': 'none', 'mr': 2, 'fontSize': 18, 'color': 'white',
+                    'textTransform': 'none', 'mr': 2, 'fontSize': 20, 'color': 'white',
                   }} size="large">
                     Log in
                   </Button>
@@ -229,7 +229,7 @@ export default function NavBar() {
                       ':hover': {
                         border: '2px solid #769656',
                       },
-                      'textTransform': 'none', 'fontSize': 18, 'color': 'white', 'border': '2px solid #769656',
+                      'textTransform': 'none', 'fontSize': 20, 'color': 'white', 'border': '2px solid #769656',
                     }} variant="outlined" size="large">
                     Sign up
                     </Button>

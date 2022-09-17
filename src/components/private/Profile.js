@@ -88,7 +88,7 @@ export default function Profile() {
 
   return (
     <>
-      <Container component={'main'} sx={{my: 6}}>
+      <Container component={'main'} sx={{my: 6, mt: 15}}>
         <Paper variant="outlined" sx={{p: {xs: 2, md: 3}}}>
           <ProfileForm userProfile={userProfile} updateUserProfile={updateUserProfile}/>
           <Divider sx={{my: 3}}/>

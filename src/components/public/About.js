@@ -1,20 +1,28 @@
 import {Card, CardMedia, Container, Typography} from '@mui/material';
-import Box from '@mui/material/Box';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Grid from '@mui/material/Grid';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Footer from './Footer';
+import {Link} from 'react-router-dom';
 
 export default function About() {
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    },
+    );
+  }, []);
+
   return (
     <>
-      <Container maxWidth={'xl'} component={'main'} >
-        <Box sx={{mt: 3, mb: 6}}>
-          <Typography
-            variant="h3"
-            fontWeight={500}
-          >
+      <Container maxWidth={'xl'} component={'main'} sx={{mt: 15}}>
+        <Typography
+          variant="h3"
+          fontWeight={500}
+        >
             Features
-          </Typography>
-        </Box>
+        </Typography>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={3} lg={4}>
             <Typography
@@ -23,18 +31,18 @@ export default function About() {
               Select the repertoire that you want to create
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature1.png'>
+          <Grid item xs={12} sm={12} md={9} lg={8} >
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
+              <CardMedia component="img" image='/feature1.webp'>
               </CardMedia>
             </Card>
 
           </Grid>
         </Grid>
-        <Grid container spacing={4} mt={2} alignItems={'center'}>
+        <Grid container spacing={4} mt={2} alignItems={'center'} >
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature2.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-up">
+              <CardMedia component="img" image='/feature2.webp'>
               </CardMedia>
             </Card>
 
@@ -55,9 +63,9 @@ export default function About() {
               The repertoire will be generated automatically based on your profile. Click on it to view the lines.
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature3.png'>
+          <Grid item xs={12} sm={12} md={9} lg={8} >
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
+              <CardMedia component="img" image='/feature3.webp'>
               </CardMedia>
             </Card>
 
@@ -65,8 +73,8 @@ export default function About() {
         </Grid>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature4.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
+              <CardMedia component="img" image='/feature4.webp'>
               </CardMedia>
             </Card>
 
@@ -112,8 +120,8 @@ export default function About() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature5.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-down-left">
+              <CardMedia component="img" image='/feature5.webp'>
               </CardMedia>
             </Card>
 
@@ -121,8 +129,8 @@ export default function About() {
         </Grid>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature6.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
+              <CardMedia component="img" image='/feature6.webp'>
               </CardMedia>
             </Card>
 
@@ -162,8 +170,8 @@ export default function About() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature7.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
+              <CardMedia component="img" image='/feature7.webp'>
               </CardMedia>
             </Card>
 
@@ -171,8 +179,8 @@ export default function About() {
         </Grid>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature8.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
+              <CardMedia component="img" image='/feature8.webp'>
               </CardMedia>
             </Card>
 
@@ -200,8 +208,8 @@ export default function About() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature9.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="flip-right">
+              <CardMedia component="img" image='/feature9.webp'>
               </CardMedia>
             </Card>
 
@@ -209,8 +217,8 @@ export default function About() {
         </Grid>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
-            <Card sx={{border: '2px solid #769656'}}>
-              <CardMedia component="img" image='/feature10.png'>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="flip-left">
+              <CardMedia component="img" image='/feature10.webp'>
               </CardMedia>
             </Card>
 
@@ -225,11 +233,20 @@ export default function About() {
             <Typography
               variant="h5"
             >
-              If you would like to contribute to the project and donate, you can do it here. Thank you.
+              If you would like to contribute to the project and donate, you can do it{' '}
+              <Link
+                to="/login"
+                style={{color: 'green'}}
+              >
+                <b>here</b>
+              </Link>
+              {' '}
+               .Thank you.
             </Typography>
           </Grid>
         </Grid>
       </Container>
+      <Footer/>
     </>
   );
 }

@@ -98,8 +98,7 @@ export default function ContactForm() {
     <>
       <Container maxWidth={'sm'} component="main"
         sx={{
-          display: 'flex', justifyContent: 'center',
-          flexDirection: 'column', my: 15,
+          my: 15,
         }}>
         <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>

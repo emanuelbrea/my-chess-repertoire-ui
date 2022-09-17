@@ -7,6 +7,8 @@ import Alert, {getSvgUrl} from '../public/Util';
 import React, {useEffect, useState} from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import PropTypes from 'prop-types';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function RivalMoves({moves, fen, depth, addVariant, color}) {
   const [active, setActive] = useState(null);
@@ -23,6 +25,10 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
     }
   }, [moves]);
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
     <>
       {moves.length > 0 &&
@@ -36,33 +42,31 @@ export default function RivalMoves({moves, fen, depth, addVariant, color}) {
                     paddingLeft={3}>
                     {moves.map((move, index) => (
                       <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
-                        <div data-aos="flip-left" data-aos-offset="0" data-aos-delay={300 + index * 50}
-                          data-aos-duration="800">
-                          <Card elevation={10} sx={{'border': active === move && '6px solid #769656', ':hover': {
-                            boxShadow: 20,
-                          }}}>
-                            <CardActionArea onClick={() => handleChange(move)}>
+                        <Card elevation={10} sx={{'border': active === move && '6px solid #769656', ':hover': {
+                          boxShadow: 20,
+                        }}}
+                        data-aos="flip-left" data-aos-offset="0"
+                        data-aos-delay={300 + index * 50} data-aos-duration="800"
+                        >
+                          <CardActionArea onClick={() => handleChange(move)}>
 
-                              <CardMedia>
-                                <ReactSVG
-                                  loading={() => <Skeleton animation="wave" variant="rectangular"
-                                    height={350}></Skeleton>}
-                                  key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
-                              </CardMedia>
-                            </CardActionArea>
-                          </Card>
-                          <Container
-                            sx={{alignItems: 'center', display: 'flex', flexDirection: 'column', mt: 2}}>
-                            <Typography variant="h6" marginX={2}>
-                              {depth}{color === 'white' ? '...' : '.'}{move.move}
-                            </Typography>
-                            <Typography variant="h6" marginX={2} id={move.move + index}>
-                              {move.name}
-                            </Typography>
-                          </Container>
-
-                        </div>
-
+                            <CardMedia>
+                              <ReactSVG
+                                loading={() => <Skeleton animation="wave" variant="rectangular"
+                                  height={350}></Skeleton>}
+                                key={index} src={getSvgUrl(fen, move.move, color)}></ReactSVG>
+                            </CardMedia>
+                          </CardActionArea>
+                        </Card>
+                        <Container
+                          sx={{alignItems: 'center', display: 'flex', flexDirection: 'column', mt: 2}}>
+                          <Typography variant="h6" marginX={2}>
+                            {depth}{color === 'white' ? '...' : '.'}{move.move}
+                          </Typography>
+                          <Typography variant="h6" marginX={2} id={move.move + index}>
+                            {move.name}
+                          </Typography>
+                        </Container>
                       </Grid>
                     ))}
                   </Grid>
