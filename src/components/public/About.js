@@ -1,18 +1,25 @@
-import {Card, CardMedia, Container, Typography} from '@mui/material';
-import React, {useEffect} from 'react';
+import {Card, CardActionArea, CardMedia, Container, Typography} from '@mui/material';
+import React, {useEffect, useState} from 'react';
 import Grid from '@mui/material/Grid';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from './Footer';
 import {Link} from 'react-router-dom';
+import ImageModal from './ImageModal';
 
 export default function About() {
   useEffect(() => {
-    AOS.init({
-      once: true,
-    },
-    );
+    AOS.init();
   }, []);
+
+  const [open, setOpen] = useState(false);
+  const [imageSource, setImageSource] = useState('');
+  const handleClose = () => setOpen(false);
+
+  const handleOpenImagen = (source) =>{
+    setImageSource(source);
+    setOpen(true);
+  };
 
   return (
     <>
@@ -32,9 +39,11 @@ export default function About() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8} >
-            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
-              <CardMedia component="img" image='/feature1.webp'>
-              </CardMedia>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left" >
+              <CardActionArea onClick={()=> handleOpenImagen('/feature1.webp')}>
+                <CardMedia component="img" image='/feature1.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -42,8 +51,10 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'} >
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-up">
-              <CardMedia component="img" image='/feature2.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature2.webp')}>
+                <CardMedia component="img" image='/feature2.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -65,8 +76,10 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8} >
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
-              <CardMedia component="img" image='/feature3.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature3.webp')}>
+                <CardMedia component="img" image='/feature3.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -74,8 +87,10 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
-              <CardMedia component="img" image='/feature4.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature4.webp')}>
+                <CardMedia component="img" image='/feature4.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -121,8 +136,10 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-down-left">
-              <CardMedia component="img" image='/feature5.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature5.webp')}>
+                <CardMedia component="img" image='/feature5.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -130,8 +147,10 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
-              <CardMedia component="img" image='/feature6.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature6.webp')}>
+                <CardMedia component="img" image='/feature6.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -171,8 +190,10 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
-              <CardMedia component="img" image='/feature7.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature7.webp')}>
+                <CardMedia component="img" image='/feature7.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -180,8 +201,10 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
-              <CardMedia component="img" image='/feature8.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature8.webp')}>
+                <CardMedia component="img" image='/feature8.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -209,17 +232,20 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="flip-right">
-              <CardMedia component="img" image='/feature9.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature9.webp')}>
+                <CardMedia component="img" image='/feature9.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
-
           </Grid>
         </Grid>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="flip-left">
-              <CardMedia component="img" image='/feature10.webp'>
-              </CardMedia>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature10.webp')}>
+                <CardMedia component="img" image='/feature10.webp'>
+                </CardMedia>
+              </CardActionArea>
             </Card>
 
           </Grid>
@@ -245,6 +271,7 @@ export default function About() {
             </Typography>
           </Grid>
         </Grid>
+        <ImageModal open={open} handleClose={handleClose} image={imageSource}/>
       </Container>
       <Footer/>
     </>

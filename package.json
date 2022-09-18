@@ -26,7 +26,6 @@
     "react-scripts": "latest",
     "react-social-login-buttons": "^3.6.1",
     "react-svg": "latest",
-    "swr": "latest",
     "yup": "^0.32.11"
   },
   "devDependencies": {

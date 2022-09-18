@@ -2,6 +2,7 @@ import {Container, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Footer from './Footer';
 
 
 export default function Faq() {
@@ -22,7 +23,14 @@ export default function Faq() {
             variant="h3"
             fontWeight={500}
           >
-            Frequently asked questions
+            Frequently Asked
+          </Typography>
+          <Typography
+            variant="h3"
+            fontWeight={500}
+            color={'primary'}
+          >
+            Questions
           </Typography>
         </Box>
         {questions.map((question, index) =>
@@ -51,7 +59,7 @@ export default function Faq() {
           my={10}
           fontSize={20}
         >
-          Still have questions? Feel free to {' '}
+          If you have more questions, please feel free to {' '}
           <Link
             to="/contact"
             style={{textDecoration: 'none', color: 'green'}}
@@ -60,6 +68,7 @@ export default function Faq() {
           </Link>
         </Typography>
       </Container>
+      <Footer/>
     </>
   );
 }

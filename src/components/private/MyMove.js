@@ -84,7 +84,7 @@ export default function MyMove({move, depth, position, stats, updateMove, color}
               Read more on WikiBooks
             </Link>
           }
-          <Link href={'https://lichess.org/analysis?fen=' + position.fen + '&color=' + color}
+          <Link href={'https://lichess.org/analysis?fen=' + move.fen + '&color=' + color}
             marginX={2} target='_blank'>
             View on lichess
           </Link>
