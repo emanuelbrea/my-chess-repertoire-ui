@@ -16,7 +16,7 @@ export default function LandingPage() {
         <Typography variant="h2" >
                                 All your openings.
         </Typography>
-        <Typography variant="h2" >
+        <Typography variant="h2" color={'primary'}>
                                 One place.
         </Typography>
         <Typography variant="body1" fontSize={20} mt={3}>
