@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import VerificationCode from './VerificationCode';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
+import {ReactComponent as ChessLogo} from '../../assets/logo.svg';
 
 
 export default function Recover() {
@@ -88,14 +89,15 @@ export default function Recover() {
 
   return (
     <>
-      <Container maxWidth={'sm'} component="main"
+      <Container maxWidth={'xs'} component="main"
         sx={{
-          minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          minHeight: '100vh', display: 'flex', justifyContent: 'center',
           flexDirection: 'column',
         }}>
         <Link to={'/'}>
-          <img src="/logo.svg" height={100}
-          />
+          <Box height={100}>
+            <ChessLogo/>
+          </Box>
         </Link>
         {step ==='email' && <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>
           <Box sx={{my: 3}}>

@@ -7,6 +7,7 @@ import {Auth} from 'aws-amplify';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import {ReactComponent as ReactLogo} from '../../assets/logo.svg';
 
 export default function NavBar() {
   const [user, setUser] = useState(null);
@@ -97,8 +98,8 @@ export default function NavBar() {
 
   return (
     <>
-      <AppBar position={'fixed'} color="primary" elevation={1} sx={{paddingLeft: 'calc(100vw - 100%)'}}>
-        <Container sx={{mt: 1}}>
+      <AppBar position={'fixed'} color="primary" elevation={1} >
+        <Container sx={{mt: 1, px: {xs: 0, sm: 3, md: 3, lg: 3, xl: 3}}}>
           <Toolbar sx={{justifyContent: 'space-between'}} disableGutters>
 
 
@@ -142,19 +143,18 @@ export default function NavBar() {
                   </MenuItem>
                 ))}
               </Menu>
-              <Box sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} >
+              <Box sx={{display: {xs: 'flex', md: 'none'}, ml: 1}} >
                 <Link to="/" style={{textDecoration: 'none'}}>
                   <img src="/logo.svg" height={70}/>
                 </Link>
               </Box>
             </Box>
 
-
-            <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-              <Link to="/" style={{textDecoration: 'none'}}>
-                <img src="/logo.svg" height={70}/>
-              </Link>
-            </Box>
+            <Link to="/" style={{textDecoration: 'none'}}>
+              <Box sx={{display: {xs: 'none', md: 'flex'}, height: 70}}>
+                <ReactLogo/>
+              </Box>
+            </Link>
 
 
             <Stack direction="row" spacing={2} sx={{display: {xs: 'none', md: 'flex'}}}>

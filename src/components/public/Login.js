@@ -13,6 +13,7 @@ import {Visibility, VisibilityOff} from '@mui/icons-material';
 import Alert from './Util';
 import Snackbar from '@mui/material/Snackbar';
 import {CognitoHostedUIIdentityProvider} from '@aws-amplify/auth';
+import {ReactComponent as ChessLogo} from '../../assets/logo.svg';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -87,8 +88,9 @@ export default function Login() {
           flexDirection: 'column',
         }}>
         <Link to={'/'}>
-          <img src="/logo.svg" height={100}
-          />
+          <Box height={100}>
+            <ChessLogo/>
+          </Box>
         </Link>
 
         <form onSubmit={formik.handleSubmit} style={{display: 'grid'}}>

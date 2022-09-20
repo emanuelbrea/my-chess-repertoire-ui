@@ -3,11 +3,11 @@ import React, {useEffect, useState} from 'react';
 import Loading from './Loading';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from './Util';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import {Container} from '@mui/material';
 import VerificationCode from './VerificationCode';
-
+import {ReactComponent as ReactLogo} from '../../assets/logo.svg';
 
 export default function Verify() {
   const [loading, setLoading] = useState(false);
@@ -45,17 +45,15 @@ export default function Verify() {
     <>
       <Container maxWidth={'sm'} component="main"
         sx={{
-          minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+          minHeight: '100vh', display: 'flex', justifyContent: 'center',
           flexDirection: 'column',
           marginY: 5,
         }}>
-        <Box
-          sx={{marginBottom: 3}}
-          component="a"
-          href="/">
-          <img src="/logo.svg" height={100}
-          />
-        </Box>
+        <Link to={'/'}>
+          <Box>
+            <ReactLogo/>
+          </Box>
+        </Link>
         <VerificationCode email={email} onSubmit={confirmSignUp}/>
       </Container>
       {loading && <Loading/>}
