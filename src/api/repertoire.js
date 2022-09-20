@@ -107,7 +107,7 @@ const deleteRepertoire = async (accessToken, color) => {
       color: color,
     }),
   };
-  await fetch('http://localhost:5000/api/repertoire', requestOptions)
+  await fetch('/api/repertoire', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error deleting the repertoire.');
