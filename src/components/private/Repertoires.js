@@ -91,7 +91,7 @@ export default function Repertoires() {
         <Typography variant="h3" mt={15} color={'primary'}>
           My repertoires
         </Typography>
-        <Grid container spacing={2} mt={4} justifyContent={'space-around'}>
+        <Grid container spacing={2} mt={4} mb={6} justifyContent={'space-around'}>
           <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
             <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} mb={3}>
               <Typography gutterBottom variant="h4" component="div">
@@ -136,7 +136,7 @@ export default function Repertoires() {
             <Card elevation={10} sx={{
               ':hover': {
               },
-              'mb': 3,
+              'mb': 2,
             }}>
               <CardActionArea onClick={() => handleClick('black')}>
                 <CardMedia sx={{display: 'flex', justifyContent: 'center'}}>

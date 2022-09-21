@@ -63,20 +63,20 @@ export default function About() {
             <Typography
               variant="h5"
             >
-              Complete your chess profile with your playing style
+              Complete your chess profile
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={4} mt={2} alignItems={'center'}>
+        <Grid container spacing={4} mt={2} alignItems={'center'} >
           <Grid item xs={12} sm={12} md={3} lg={4}>
             <Typography
               variant="h5"
             >
-              The repertoire will be generated automatically based on your profile. Click on it to view the lines.
+              Choose your playing style
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={12} md={9} lg={8} >
-            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
+          <Grid item xs={12} sm={12} md={9} lg={8}>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-up">
               <CardActionArea onClick={()=> handleOpenImagen('/feature3.webp')}>
                 <CardMedia component="img" image='/feature3.webp'>
                 </CardMedia>
@@ -86,15 +86,24 @@ export default function About() {
           </Grid>
         </Grid>
         <Grid container spacing={4} mt={2} alignItems={'center'}>
-          <Grid item xs={12} sm={12} md={9} lg={8}>
+          <Grid item xs={12} sm={12} md={9} lg={8} >
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
               <CardActionArea onClick={()=> handleOpenImagen('/feature4.webp')}>
                 <CardMedia component="img" image='/feature4.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
-
           </Grid>
+          <Grid item xs={12} sm={12} md={3} lg={4}>
+            <Typography
+              variant="h5"
+            >
+              The repertoire will be generated automatically based on your profile. Click on it to view the lines.
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container spacing={4} mt={2} alignItems={'center'}>
+
           <Grid item xs={12} sm={12} md={3} lg={4}>
             <Typography
               variant="h6"
@@ -114,8 +123,30 @@ export default function About() {
             >
               On the right the move is displayed and highlighted so you can easily memorize it.
             </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={9} lg={8}>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
+              <CardActionArea onClick={()=> handleOpenImagen('/feature5.webp')}>
+                <CardMedia component="img" image='/feature5.webp'>
+                </CardMedia>
+              </CardActionArea>
+            </Card>
+
+          </Grid>
+        </Grid>
+        <Grid container spacing={4} mt={2} alignItems={'center'}>
+          <Grid item xs={12} sm={12} md={9} lg={8}>
+            <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-down-right">
+              <CardActionArea onClick={()=> handleOpenImagen('/feature6.webp')}>
+                <CardMedia component="img" image='/feature6.webp'>
+                </CardMedia>
+              </CardActionArea>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={12} md={3} lg={4}>
             <Typography
-              variant="h6"
+              variant="h5"
+              mb={2}
             >
               At the bottom you will find a table with stats of the most popular moves in the position, like total amount of games or number of wins by color.
             </Typography>
@@ -137,8 +168,8 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-down-left">
-              <CardActionArea onClick={()=> handleOpenImagen('/feature5.webp')}>
-                <CardMedia component="img" image='/feature5.webp'>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature7.webp')}>
+                <CardMedia component="img" image='/feature7.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
@@ -148,8 +179,8 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
-              <CardActionArea onClick={()=> handleOpenImagen('/feature6.webp')}>
-                <CardMedia component="img" image='/feature6.webp'>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature8.webp')}>
+                <CardMedia component="img" image='/feature8.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
@@ -191,8 +222,8 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-left">
-              <CardActionArea onClick={()=> handleOpenImagen('/feature7.webp')}>
-                <CardMedia component="img" image='/feature7.webp'>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature9.webp')}>
+                <CardMedia component="img" image='/feature9.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
@@ -202,8 +233,8 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="fade-right">
-              <CardActionArea onClick={()=> handleOpenImagen('/feature8.webp')}>
-                <CardMedia component="img" image='/feature8.webp'>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature10.webp')}>
+                <CardMedia component="img" image='/feature10.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
@@ -233,8 +264,8 @@ export default function About() {
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="flip-right">
-              <CardActionArea onClick={()=> handleOpenImagen('/feature9.webp')}>
-                <CardMedia component="img" image='/feature9.webp'>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature11.webp')}>
+                <CardMedia component="img" image='/feature11.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
@@ -243,8 +274,8 @@ export default function About() {
         <Grid container spacing={4} mt={2} alignItems={'center'}>
           <Grid item xs={12} sm={12} md={9} lg={8}>
             <Card sx={{border: '2px solid #769656'}} data-aos-delay="100" data-aos="flip-left">
-              <CardActionArea onClick={()=> handleOpenImagen('/feature10.webp')}>
-                <CardMedia component="img" image='/feature10.webp'>
+              <CardActionArea onClick={()=> handleOpenImagen('/feature12.webp')}>
+                <CardMedia component="img" image='/feature12.webp'>
                 </CardMedia>
               </CardActionArea>
             </Card>
