@@ -11,8 +11,7 @@ import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import FortIcon from '@mui/icons-material/Fort';
 import Slider from '@mui/material/Slider';
-import Icon from '@mdi/react';
-import {mdiSwordCross} from '@mdi/js';
+import {ReactComponent as Sword} from '../../assets/aggresive.svg';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import MergeIcon from '@mui/icons-material/Merge';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -249,6 +248,19 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
     },
   ];
 
+  const colorIcon = (style, side) => {
+    if (side === 'left' && style < 0 ) {
+      return 'primary';
+    }
+    if (side === 'right' && style > 0 ) {
+      return 'primary';
+    }
+    if (style === 0 ) {
+      return undefined;
+    }
+    return undefined;
+  };
+
   return (
     <>
       <Typography variant="h5" gutterBottom mb={3}>
@@ -284,7 +296,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
                   Solid
                 </Typography>
               </Tooltip>
-              <FortIcon sx={{fontSize: 30}}/>
+              <FortIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.risk, 'left')}/>
             </Stack>
           </Grid>
           <Grid item xs={4}>
@@ -303,10 +315,9 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
           <Grid item xs={4}>
             <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <Icon path={mdiSwordCross}
-                title="Aggressive"
-                size={1.2}
-              />
+              <Box color={colorIcon(chessStyle.risk, 'right')+'.main'} >
+                <Sword/>
+              </Box>
               <Tooltip title={'You try to avoid draws and take more risks to go for the win.'} arrow>
                 <Typography gutterBottom variant={'h6'}>
                   Aggressive
@@ -327,7 +338,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
                   Side Lines
                 </Typography>
               </Tooltip>
-              <CallSplitIcon sx={{fontSize: 30}}/>
+              <CallSplitIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.popularity, 'left')}/>
             </Stack>
 
           </Grid>
@@ -348,7 +359,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
 
             <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <MergeIcon sx={{fontSize: 30}}/>
+              <MergeIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.popularity, 'right')}/>
               <Tooltip title={'You prefer lines that are played more frequently that others.'} arrow>
                 <Typography gutterBottom variant={'h6'}>
                   Main lines
@@ -370,7 +381,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
                   Classical
                 </Typography>
               </Tooltip>
-              <MenuBookIcon sx={{fontSize: 30}}/>
+              <MenuBookIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.fashion, 'left')}/>
 
             </Stack>
 
@@ -392,7 +403,7 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
 
             <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <ComputerIcon sx={{fontSize: 30}}/>
+              <ComputerIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.fashion, 'right')}/>
               <Tooltip title={'You prefer lines that became popular in the last years.'} arrow>
                 <Typography gutterBottom variant={'h6'}>
                   Modern

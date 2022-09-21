@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import getCurrentJwt from '../../auth/CognitoService';
 import Loading from '../public/Loading';
 import {Card, CardActionArea, CardMedia, Container, IconButton, Step, StepLabel, Stepper} from '@mui/material';
@@ -15,6 +15,8 @@ import {ChessProfileForm, ProfileForm} from './Profile';
 import {getCurrentUser, updateUser} from '../../api/user';
 import {createRepertoire, deleteRepertoire, getRepertoireInfo} from '../../api/repertoire';
 import DeleteIcon from '@mui/icons-material/Delete';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 export default function Repertoires() {
   const [loading, setLoading] = useState(true);
@@ -190,6 +192,7 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
   const steps = ['Complete profile', 'Complete chess profile', 'Create repertoire'];
   const [activeStep, setActiveStep] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
+  const fieldRef = useRef(null);
 
   const [userProfile, setUserProfile] = useState({
     first_name: 0,
@@ -256,6 +259,15 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
     });
   };
 
+  useEffect(() => {
+    if (fieldRef.current) {
+      fieldRef.current.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  }, [activeStep]);
+
+
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -265,9 +277,60 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
       case 2:
         return (
           <>
-            <Typography sx={{mt: 2, mb: 1}}>
-              Review
-            </Typography>
+            <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+              <FactCheckOutlinedIcon sx={{fontSize: 30}} color={'primary'}/>
+              <Typography variant="h5" gutterBottom my={3} ml={2}>
+                Review
+              </Typography>
+            </Box>
+            <Grid container spacing={3}>
+              <Grid
+                item
+                md={6}
+                xs={6}
+                sm={6}
+              >
+                <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                  <Typography sx={{mt: 2, mb: 1, mr: 2}}>
+                    Age : {userProfile.age} years old
+                  </Typography>
+                  <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
+                </Box>
+                <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                  <Typography sx={{mt: 2, mb: 1, mr: 2}}>
+                    Playing since : {userProfile.playing_since} years old
+                  </Typography>
+                  <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
+                </Box>
+
+              </Grid>
+              <Grid
+                item
+                md={6}
+                xs={6}
+                sm={6}
+              >
+                <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                  <Typography sx={{mt: 2, mb: 1, mr: 2}}>
+                    {chessStyle.risk < 0 ? 'Solid' : 'Aggressive' }
+                  </Typography>
+                  <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
+                </Box>
+                <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                  <Typography sx={{mt: 2, mb: 1, mr: 2}}>
+                    {chessStyle.popularity < 0 ? 'Side Lines' : 'Main Lines'}
+                  </Typography>
+                  <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
+                </Box>
+                <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                  <Typography sx={{mt: 2, mb: 1, mr: 2}}>
+                    {chessStyle.fashion < 0 ? 'Classical' : 'Modern'}
+                  </Typography>
+                  <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
+                </Box>
+
+              </Grid>
+            </Grid>
           </>);
       case 3:
         return (
@@ -288,7 +351,7 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
           <Typography component="h1" variant="h4" align="center" m={2}>
             Create {colorSelected} repertoire
           </Typography>
-          <Stepper activeStep={activeStep} alternativeLabel>
+          <Stepper activeStep={activeStep} alternativeLabel >
             {steps.map((label, index) => {
               return (
                 <Step key={index}>
@@ -311,7 +374,7 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
                 Back
               </Button>
               <Box sx={{flex: '1 1 auto'}}/>
-              <Button onClick={handleNext}>
+              <Button onClick={handleNext} >
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
@@ -325,6 +388,7 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
           {errorMessage}
         </Alert>
       </Snackbar>
+      <div ref={fieldRef}></div>
     </>
   );
 }
