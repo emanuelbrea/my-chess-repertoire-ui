@@ -99,7 +99,7 @@ export default function NavBar() {
   return (
     <>
       <AppBar position={'fixed'} color="primary" elevation={1} >
-        <Container sx={{mt: 1, px: {xs: 0, sm: 3, md: 3, lg: 3, xl: 3}}}>
+        <Container sx={{mt: 1, mb: 1, px: {xs: 0, sm: 3, md: 3, lg: 3, xl: 3}}}>
           <Toolbar sx={{justifyContent: 'space-between'}} disableGutters>
 
 

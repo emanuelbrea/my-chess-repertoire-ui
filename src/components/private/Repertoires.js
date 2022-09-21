@@ -86,10 +86,10 @@ export default function Repertoires() {
   return (
     <>
       <Container component="main">
-        <Typography variant="h3" mt={15}>
+        <Typography variant="h3" mt={15} color={'primary'}>
           My repertoires
         </Typography>
-        <Grid container spacing={2} mt={6} justifyContent={'space-around'}>
+        <Grid container spacing={2} mt={4} justifyContent={'space-around'}>
           <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
             <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} mb={3}>
               <Typography gutterBottom variant="h4" component="div">

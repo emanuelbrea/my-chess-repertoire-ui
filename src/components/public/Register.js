@@ -83,7 +83,7 @@ export default function Register() {
       <Container maxWidth={'xs'} component="main"
         sx={{
           minHeight: '100vh', display: 'flex', justifyContent: 'center',
-          flexDirection: 'column',
+          flexDirection: 'column', my: 5,
         }}>
         <Link to={'/'}>
           <Box height={100}>

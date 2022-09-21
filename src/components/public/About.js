@@ -23,10 +23,11 @@ export default function About() {
 
   return (
     <>
-      <Container maxWidth={'xl'} component={'main'} sx={{mt: 15}}>
+      <Container maxWidth={'lg'} component={'main'} sx={{mt: 15}}>
         <Typography
           variant="h3"
           fontWeight={500}
+          color={'primary'}
         >
             Features
         </Typography>

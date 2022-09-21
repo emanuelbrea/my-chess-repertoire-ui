@@ -23,7 +23,7 @@ export default function LandingPage() {
                                 Get a generated repertoire for your playing style.
         </Typography>
         <Box>
-          <Typography variant="h4" mt={20}>
+          <Typography variant="h4" mt={15}>
                                     Features
           </Typography>
         </Box>
