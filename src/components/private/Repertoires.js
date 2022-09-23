@@ -302,6 +302,12 @@ function RepertoireStepper({colorSelected, repertoireCreated, accessToken}) {
                   </Typography>
                   <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
                 </Box>
+                <Box display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                  <Typography sx={{mt: 2, mb: 1, mr: 2}}>
+                    Rating elo : {chessStyle.rating}
+                  </Typography>
+                  <DoneOutlineIcon sx={{fontSize: 24}} color={'primary'}/>
+                </Box>
 
               </Grid>
               <Grid

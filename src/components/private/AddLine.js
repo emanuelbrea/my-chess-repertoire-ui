@@ -23,7 +23,7 @@ export default function AddLine({addRepertoireMoves, endOfLine}) {
         block: 'end',
       });
     }
-  });
+  }, []);
 
 
   const toggleVisible = () => {

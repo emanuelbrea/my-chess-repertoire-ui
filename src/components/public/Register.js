@@ -178,7 +178,13 @@ export default function Register() {
               <ArrowForwardIcon sx={{fontSize: 20, ml: 1}}/>
             </Button>
             <Divider spacing={2} sx={{my: 3}}>or</Divider>
-            <GoogleLoginButton align={'center'} onClick={() => Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google})}>
+            <GoogleLoginButton align={'center'}
+              onClick={() => {
+                setLoading(true);
+                Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google}).then().catch().finally();
+              }
+              }
+            >
               <span>Continue with Google</span>
             </GoogleLoginButton>
           </Box>

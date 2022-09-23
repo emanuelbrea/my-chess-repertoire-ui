@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import {ReactComponent as ReactLogo} from '../../assets/logo.svg';
+import {ReactComponent as MenuLogo} from '../../assets/logoMenu.svg';
 
 export default function NavBar() {
   const [user, setUser] = useState(null);
@@ -143,15 +144,15 @@ export default function NavBar() {
                   </MenuItem>
                 ))}
               </Menu>
-              <Box sx={{display: {xs: 'flex', md: 'none'}, ml: 1}} >
-                <Link to="/" style={{textDecoration: 'none'}}>
-                  <img src="/logo.svg" height={70}/>
-                </Link>
-              </Box>
+              <Link to="/" style={{textDecoration: 'none'}}>
+                <Box sx={{display: {xs: 'flex', md: 'none'}, ml: 1, height: 70, width: 250}} >
+                  <MenuLogo/>
+                </Box>
+              </Link>
             </Box>
 
             <Link to="/" style={{textDecoration: 'none'}}>
-              <Box sx={{display: {xs: 'none', md: 'flex'}, height: 70}}>
+              <Box sx={{display: {xs: 'none', md: 'flex'}, height: 70, width: 250}}>
                 <ReactLogo/>
               </Box>
             </Link>
@@ -197,7 +198,7 @@ export default function NavBar() {
 
             </Stack>
             {user && <>
-              <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+              <Box sx={{mr: 1, display: {xs: 'none', sm: 'flex', md: 'flex'}}}>
                 <Link to="/repertoires" style={pathname === '/repertoires' ? linkHighlight : {textDecoration: 'none'}}>
                   <Button variant={'text'}
                     sx={{
@@ -239,7 +240,7 @@ export default function NavBar() {
             }
 
             {user && <Box sx={{flexGrow: 0}}>
-              <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{p: 0}}>
+              <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{p: 0, mr: 1}}>
                 <Avatar sx={{bgcolor: '#769656'}}>
                   {getNameInitials()}
                 </Avatar>

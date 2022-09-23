@@ -259,7 +259,12 @@ export default function About() {
             <Typography
               variant="h5"
             >
-              You can always customize your profile in the Profile section.
+              You can always customize your profile in the <Link
+                to="/profile"
+                style={{color: 'green'}}
+              >
+                <b> profile</b>
+              </Link> section.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={9} lg={8}>
@@ -286,14 +291,19 @@ export default function About() {
               variant="h5"
               mb={2}
             >
-              For questions or feedback, you can send me a message in the Contact section.
+              For questions or feedback, you can send me a message in the <Link
+                to="/contact"
+                style={{color: 'green'}}
+              >
+                <b> contact</b>
+              </Link> section.
             </Typography>
             <Typography
               variant="h5"
             >
               If you would like to contribute to the project and donate, you can do it{' '}
               <Link
-                to="/login"
+                to="/"
                 style={{color: 'green'}}
               >
                 <b>here</b>
