@@ -6,6 +6,8 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import {Link as LinkRouter} from 'react-router-dom';
+import {ReactComponent as LichessLogo} from '../../assets/lichesslogo.svg';
+import {ReactComponent as ChessComLogo} from '../../assets/chesscom.svg';
 
 function Copyright() {
   return (
@@ -47,6 +49,32 @@ export default function Footer() {
             target={'_blank'}
           >
             <GitHubIcon/>
+          </IconButton>
+          <IconButton
+            size="large"
+            edge="start"
+            color="primary"
+            aria-label="lichess"
+            sx={{mr: 2}}
+            href={'https://lichess.org/@/ema_brea'}
+            target={'_blank'}
+          >
+            <Box width={24} height={24} display={'flex'} color={'#769656'}>
+              <LichessLogo fill={'#769656'} stroke={'#769656'}/>
+            </Box>
+          </IconButton>
+          <IconButton
+            size="large"
+            edge="start"
+            color="primary"
+            aria-label="lichess"
+            sx={{mr: 2}}
+            href={'https://www.chess.com/member/emanuelbrea'}
+            target={'_blank'}
+          >
+            <Box width={24} height={24} display={'flex'} color={'#769656'}>
+              <ChessComLogo/>
+            </Box>
           </IconButton>
           <IconButton
             size="large"

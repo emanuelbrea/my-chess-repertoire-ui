@@ -7,12 +7,13 @@ import Box from '@mui/material/Box';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import EmbedVideo from './EmbedVideo';
 
 export default function LandingPage() {
   return (
     <>
       <Container component="main"
-        maxWidth={'lg'} sx={{mt: 25}}>
+        maxWidth={'lg'} sx={{mt: 20}}>
         <Typography variant="h2" >
                                 All your openings.
         </Typography>
@@ -23,7 +24,7 @@ export default function LandingPage() {
                                 Get a generated repertoire for your playing style.
         </Typography>
         <Box>
-          <Typography variant="h4" mt={15}>
+          <Typography variant="h4" mt={10}>
                                     Features
           </Typography>
         </Box>
@@ -98,6 +99,9 @@ export default function LandingPage() {
             </Card>
           </Grid>
         </Grid>
+        <Box mt={5} display={'flex'} justifyContent={'center'}>
+          <EmbedVideo url="https://www.youtube.com/watch?v=mMiZ0iTu2dU" />
+        </Box>
       </Container>
       <Footer/>
 
