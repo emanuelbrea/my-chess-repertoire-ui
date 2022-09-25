@@ -99,9 +99,7 @@ export default function LandingPage() {
             </Card>
           </Grid>
         </Grid>
-        <Box mt={5} display={'flex'} justifyContent={'center'}>
-          <YoutubeVideo/>
-        </Box>
+        <YoutubeVideo/>
       </Container>
       <Footer/>
 
