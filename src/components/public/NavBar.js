@@ -145,7 +145,7 @@ export default function NavBar() {
                 ))}
               </Menu>
               <Link to="/" style={{textDecoration: 'none'}}>
-                <Box sx={{display: {xs: 'flex', md: 'none'}, ml: 1, height: 70, width: 250}} >
+                <Box sx={{display: {xs: 'flex', md: 'none'}, ml: 1, height: 70, width: 200}} >
                   <MenuLogo/>
                 </Box>
               </Link>

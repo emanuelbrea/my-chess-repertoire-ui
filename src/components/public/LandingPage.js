@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import EmbedVideo from './EmbedVideo';
+import YoutubeVideo from './YoutubeVideo';
 
 export default function LandingPage() {
   return (
@@ -100,7 +100,7 @@ export default function LandingPage() {
           </Grid>
         </Grid>
         <Box mt={5} display={'flex'} justifyContent={'center'}>
-          <EmbedVideo url="https://www.youtube.com/watch?v=mMiZ0iTu2dU" />
+          <YoutubeVideo/>
         </Box>
       </Container>
       <Footer/>
