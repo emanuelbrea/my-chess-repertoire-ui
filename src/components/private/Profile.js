@@ -291,12 +291,14 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
           <Grid item xs={4}>
             <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <Tooltip title={'You are a positional player that wants to minimize losses.'} arrow>
+              <Tooltip title={'You try to avoid draws and take more risks to go for the win.'} arrow>
                 <Typography gutterBottom variant={'h6'}>
-                  Solid
+                  Aggressive
                 </Typography>
               </Tooltip>
-              <FortIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.risk, 'left')}/>
+              <Box color={colorIcon(chessStyle.risk, 'left')+'.main'} >
+                <Sword/>
+              </Box>
             </Stack>
           </Grid>
           <Grid item xs={4}>
@@ -315,12 +317,10 @@ export function ChessProfileForm({chessStyle, updateChessStyle}) {
           <Grid item xs={4}>
             <Stack spacing={2} direction="row" alignItems="center" justifyContent={'space-between'}
               display={'flex'}>
-              <Box color={colorIcon(chessStyle.risk, 'right')+'.main'} >
-                <Sword/>
-              </Box>
-              <Tooltip title={'You try to avoid draws and take more risks to go for the win.'} arrow>
+              <FortIcon sx={{fontSize: 30}} color={colorIcon(chessStyle.risk, 'right')}/>
+              <Tooltip title={'You are a positional player that wants to minimize losses.'} arrow>
                 <Typography gutterBottom variant={'h6'}>
-                  Aggressive
+                  Solid
                 </Typography>
               </Tooltip>
             </Stack>
