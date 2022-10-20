@@ -30,7 +30,7 @@ export default function Footer() {
           <LinkRouter to='/about' style={{textDecoration: 'none', color: 'white'}}>About</LinkRouter>
           <LinkRouter to="/contact" style={{textDecoration: 'none', color: 'white'}}>Contact</LinkRouter>
           <LinkRouter to="/faq" style={{textDecoration: 'none', color: 'white'}}>FAQ</LinkRouter>
-          <Link href="https://mychessrepertoire.com/" sx={{textDecoration: 'none', color: 'white'}}>Donate</Link>
+          <Link target="_blank" href="https://github.com/sponsors/emanuelbrea" sx={{textDecoration: 'none', color: 'white'}}>Sponsor</Link>
         </Stack>
         <Box sx={{
           display: 'flex',

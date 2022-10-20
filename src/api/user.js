@@ -6,7 +6,7 @@ const getCurrentUser = async (jwt) => {
       'Content-Type': 'application/json',
     },
   };
-  const user = await fetch('https://api.mychessrepertoire.com/api/user', requestOptions)
+  const user = await fetch(process.env.REACT_APP_HOST + '/user', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error fetching user data.');
@@ -34,7 +34,7 @@ const updateUser = async (jwt, user, style) => {
       rating: style.rating,
     }),
   };
-  await fetch('https://api.mychessrepertoire.com/api/user', requestOptions)
+  await fetch(process.env.REACT_APP_HOST + '/user', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error updating user data.');
@@ -55,7 +55,7 @@ const addFavoriteMove = async (jwt, fen, move) => {
       move: move,
     }),
   };
-  await fetch('https://api.mychessrepertoire.com/api/user/favorite', requestOptions)
+  await fetch(process.env.REACT_APP_HOST + '/user/favorite', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error updating user data.');
@@ -77,7 +77,7 @@ const addNewContact = async (email, name, message, rating) => {
       rating: rating,
     }),
   };
-  await fetch('https://api.mychessrepertoire.com/api/user/message', requestOptions)
+  await fetch(process.env.REACT_APP_HOST + '/user/message', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error storing the message.');

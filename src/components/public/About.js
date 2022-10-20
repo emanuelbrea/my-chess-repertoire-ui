@@ -6,6 +6,7 @@ import 'aos/dist/aos.css';
 import Footer from './Footer';
 import {Link} from 'react-router-dom';
 import ImageModal from './ImageModal';
+import {Link as LinkReact} from '@mui/material';
 
 export default function About() {
   useEffect(() => {
@@ -293,7 +294,7 @@ export default function About() {
             >
               For questions or feedback, you can send me a message in the <Link
                 to="/contact"
-                style={{color: 'green'}}
+                style={{textDecoration: 'none', color: 'green'}}
               >
                 <b> contact</b>
               </Link> section.
@@ -302,12 +303,7 @@ export default function About() {
               variant="h5"
             >
               If you would like to contribute to the project and donate, you can do it{' '}
-              <Link
-                to="/"
-                style={{color: 'green'}}
-              >
-                <b>here</b>
-              </Link>
+              <LinkReact target="_blank" href="https://github.com/sponsors/emanuelbrea" sx={{textDecoration: 'none', color: 'green'}}>here</LinkReact>
               {' '}
                .Thank you.
             </Typography>

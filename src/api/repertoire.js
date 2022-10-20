@@ -9,7 +9,7 @@ const createRepertoire = async (accessToken, color) => {
       color: color,
     }),
   };
-  await fetch('https://api.mychessrepertoire.com/api/repertoire', requestOptions)
+  await fetch(process.env.REACT_APP_HOST + '/repertoire', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error creating the repertoire.');
@@ -27,7 +27,7 @@ const getRepertoireInfo = async (jwt) => {
     },
   };
 
-  const info = await fetch('https://api.mychessrepertoire.com/api/repertoire/info', requestOptions)
+  const info = await fetch(process.env.REACT_APP_HOST + '/repertoire/info', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error fetching repertoire data.');
@@ -46,7 +46,7 @@ const getRepertoireMoves = async (jwt, fen, color) => {
       'Content-Type': 'application/json',
     },
   };
-  const moves = await fetch('https://api.mychessrepertoire.com/api/repertoire?' + new URLSearchParams({
+  const moves = await fetch(process.env.REACT_APP_HOST + '/repertoire?' + new URLSearchParams({
     fen: fen,
     color: color,
   }), requestOptions)
@@ -71,7 +71,7 @@ const updateMove = async (jwt, move, fen, color) => {
       'Content-Type': 'application/json',
     },
   };
-  const moves = await fetch('https://api.mychessrepertoire.com/api/repertoire?' + new URLSearchParams({
+  const moves = await fetch(process.env.REACT_APP_HOST + '/repertoire?' + new URLSearchParams({
     fen: fen,
     color: color,
     move: move,
@@ -88,7 +88,7 @@ const addMoves = async (jwt, fen, color) => {
       'Content-Type': 'application/json',
     },
   };
-  const moves = await fetch('https://api.mychessrepertoire.com/api/repertoire?' + new URLSearchParams({
+  const moves = await fetch(process.env.REACT_APP_HOST + '/repertoire?' + new URLSearchParams({
     fen: fen,
     color: color,
   }), requestOptions)
@@ -107,7 +107,7 @@ const deleteRepertoire = async (accessToken, color) => {
       color: color,
     }),
   };
-  await fetch('https://api.mychessrepertoire.com/api/repertoire', requestOptions)
+  await fetch(process.env.REACT_APP_HOST + '/repertoire', requestOptions)
       .then((res) => {
         if (!res.ok) {
           throw new Error('There was an error deleting the repertoire.');
